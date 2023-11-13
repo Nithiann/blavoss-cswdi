@@ -1,0 +1,33 @@
+{
+  "name": "cswdi-web-app-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/cswdi-web-app-e2e/src",
+  "targets": {
+    "e2e": {
+      "executor": "@nx/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/cswdi-web-app-e2e/cypress.config.ts",
+        "testingType": "e2e",
+        "devServerTarget": "cswdi-web-app:serve:development"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "cswdi-web-app:serve:production"
+        },
+        "ci": {
+          "devServerTarget": "cswdi-web-app:serve-static"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/cswdi-web-app-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["cswdi-web-app"]
+}

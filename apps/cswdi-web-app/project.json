@@ -1,0 +1,92 @@
+{
+  "name": "cswdi-web-app",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "blavoss-cswdi",
+  "sourceRoot": "apps/cswdi-web-app/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:application",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/cswdi-web-app",
+        "index": "apps/cswdi-web-app/src/index.html",
+        "browser": "apps/cswdi-web-app/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/cswdi-web-app/tsconfig.app.json",
+        "assets": [
+          "apps/cswdi-web-app/src/favicon.ico",
+          "apps/cswdi-web-app/src/assets"
+        ],
+        "styles": ["apps/cswdi-web-app/src/styles.css"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "buildTarget": "cswdi-web-app:build:production"
+        },
+        "development": {
+          "buildTarget": "cswdi-web-app:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "cswdi-web-app:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "apps/cswdi-web-app/**/*.ts",
+          "apps/cswdi-web-app/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/cswdi-web-app/jest.config.ts"
+      }
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "cswdi-web-app:build",
+        "staticFilePath": "dist/apps/cswdi-web-app/browser"
+      }
+    }
+  }
+}
