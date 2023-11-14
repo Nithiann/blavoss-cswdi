@@ -23,7 +23,10 @@
       "@blavoss-cswdi/common": ["libs/cswdi-web-app/common/src/index.ts"],
       "@blavoss-cswdi/features": ["libs/cswdi-web-app/features/src/index.ts"],
       "@blavoss-cswdi/shared/api": ["libs/shared/api/src/index.ts"],
-      "@blavoss-cswdi/ui": ["libs/cswdi-web-app/ui/src/index.ts"]
+      "@blavoss-cswdi/ui": ["libs/cswdi-web-app/ui/src/index.ts"],
+      "@blavoss-cswdi/web-app/features": [
+        "libs/cswdi-web-app/features/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]
