@@ -17,6 +17,9 @@
     "paths": {
       "@blavoss-cswdi/backend/dto": ["libs/backend/dto/src/index.ts"],
       "@blavoss-cswdi/backend/features": ["libs/backend/features/src/index.ts"],
+      "@blavoss-cswdi/backend/features/user": [
+        "libs/backend/features/user/src/index.ts"
+      ],
       "@blavoss-cswdi/common": ["libs/cswdi-web-app/common/src/index.ts"],
       "@blavoss-cswdi/features": ["libs/cswdi-web-app/features/src/index.ts"],
       "@blavoss-cswdi/shared/api": ["libs/shared/api/src/index.ts"],
