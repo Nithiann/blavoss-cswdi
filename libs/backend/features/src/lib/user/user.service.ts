@@ -46,6 +46,22 @@ export class UserService {
         }
     }
 
+    async update(id: string, updatedUser: Partial<IUser>): Promise<IUser> {
+        Logger.log('update', this.TAG);
+
+        try {
+            const user = await this.userModel.findByIdAndUpdate(id, updatedUser, { new: true, runValidators: true }).exec();
+
+            if (!user) {
+                throw new NotFoundException('User could not be found');
+            }
+
+            return user.toObject();
+        } catch (err) {
+            throw new NotFoundException(err);
+        }
+    }
+
     async create(user: Pick<IUser, 'email' | 'hash' | 'firstName' | 'lastName' | 'dob' | 'gender'>): Promise<IUser> {
         Logger.log('create', this.TAG);
         
