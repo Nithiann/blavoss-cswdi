@@ -15,9 +15,6 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@blavoss-cswdi/backend/data-access": [
-        "libs/backend/data-access/src/index.ts"
-      ],
       "@blavoss-cswdi/backend/dto": ["libs/backend/dto/src/index.ts"],
       "@blavoss-cswdi/backend/features": ["libs/backend/features/src/index.ts"],
       "@blavoss-cswdi/backend/features/user": [

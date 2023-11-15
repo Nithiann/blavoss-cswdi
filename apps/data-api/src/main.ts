@@ -5,14 +5,12 @@
 
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-import * as dotenv from 'dotenv';
 
 import { AppModule } from './app/app.module';
 import { CorsOptions } from '@nestjs/common/interfaces/external/cors-options.interface';
 import { ApiResponseInterceptor } from '@blavoss-cswdi/backend/dto';
 
 async function bootstrap() {
-  dotenv.config();
   const app = await NestFactory.create(AppModule);
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
