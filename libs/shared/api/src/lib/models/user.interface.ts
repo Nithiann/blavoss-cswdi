@@ -6,6 +6,11 @@ export enum Gender {
     None = "Prefer not to say"
 }
 
+export interface ILogin {
+    email: string;
+    password: string;
+}
+
 export interface IUser {
     id: string;
     email: string;

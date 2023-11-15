@@ -1,4 +1,4 @@
-import { Gender, IUser } from "@blavoss-cswdi/shared/api";
+import { Gender, ILogin, IUser } from "@blavoss-cswdi/shared/api";
 import { Injectable, Logger, NotFoundException } from "@nestjs/common";
 import { BehaviorSubject } from "rxjs";
 import { InjectModel } from "@nestjs/mongoose";
@@ -24,6 +24,27 @@ export class UserService {
             gender: Gender.Male,
         }
     ]);
+
+    async login(creds: ILogin): Promise<IUser> {
+        Logger.log('login', this.TAG);
+
+        try {
+            const user = await this.userModel.findOne({ email: creds.email }).exec();
+
+            if (!user) {
+                throw new NotFoundException('User could not be found');
+            }
+
+            const match = await bcrypt.compare(creds.password, user.hash);
+            if (!match) {
+                throw new NotFoundException('Email or password might be incorrect');
+            }
+
+            return user.toObject();
+        } catch (err) {
+            throw new NotFoundException(err);
+        }
+    }
 
     async getAll(): Promise<IUser[]> {
         Logger.log('getAll', this.TAG);

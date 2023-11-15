@@ -1,12 +1,17 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { UserService } from './user.service';
-import { IUser } from '@blavoss-cswdi/shared/api';
+import { ILogin, IUser } from '@blavoss-cswdi/shared/api';
 import { CreateUserDTO } from '@blavoss-cswdi/backend/dto';
 
 @Controller('user')
 export class UserController {
 
     constructor(private userService: UserService) {}
+
+    @Post('/login')
+    async login(@Body() creds: ILogin): Promise<IUser> {
+        return await this.userService.login(creds);
+    }
 
     @Get('')
     async getAll(): Promise<IUser[]> {
