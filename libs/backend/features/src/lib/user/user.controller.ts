@@ -14,8 +14,8 @@ export class UserController {
     }
 
     @Get(':id')
-    getOne(@Param('id') id: string): IUser {
-        return this.userService.getOne(id);
+    async getOne(@Param('id') id: string): Promise<IUser> {
+        return await this.userService.getOne(id);
     }
 
     @Post('')

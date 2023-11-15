@@ -33,13 +33,17 @@ export class UserService {
         return users.map(user => user.toObject());
     }
 
-    getOne(id: string): IUser {
+    async getOne(id: string): Promise<IUser> {
         Logger.log(`getOne(${id})`, this.TAG);
-        const user = this.users$.value.find((td) => td.id === id);
-        if (!user) {
-            throw new NotFoundException(`User could not be found!`);
+        try {
+            const user = await this.userModel.findById(id).exec();
+            if (!user) {
+                throw new NotFoundException('User could not be found');
+            }
+            return user.toObject();
+        } catch (err) {
+            throw new NotFoundException(err);
         }
-        return user;
     }
 
     async create(user: Pick<IUser, 'email' | 'hash' | 'firstName' | 'lastName' | 'dob' | 'gender'>): Promise<IUser> {
@@ -47,7 +51,6 @@ export class UserService {
         
         const newUser = new this.userModel({
             ...user,
-            id: `user-${Math.floor(Math.random() * 10000)}`,
         });
 
         newUser.hash = await bcrypt.hash(newUser.hash, this.salt);
