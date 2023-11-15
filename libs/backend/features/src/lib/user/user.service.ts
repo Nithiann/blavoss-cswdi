@@ -59,4 +59,17 @@ export class UserService {
 
         return newUser.toObject();
     }
+
+    async delete(id: string): Promise<IUser> {
+        Logger.log('delete', this.TAG);
+        try {
+            const user = await this.userModel.findByIdAndDelete(id).exec();
+            if (!user) {
+                throw new NotFoundException('User could not be found');
+            }
+            return user.toObject();
+        } catch (err) {
+            throw new NotFoundException(err);
+        }
+    }
 }

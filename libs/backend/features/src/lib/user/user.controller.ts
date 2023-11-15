@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { UserService } from './user.service';
 import { IUser } from '@blavoss-cswdi/shared/api';
 import { CreateUserDTO } from '@blavoss-cswdi/backend/dto';
@@ -21,5 +21,10 @@ export class UserController {
     @Post('')
     async create(@Body() data: CreateUserDTO): Promise<IUser> {
         return await this.userService.create(data);
+    }
+
+    @Delete(':id')
+    async delete(@Param('id') id: string): Promise<IUser> {
+        return await this.userService.delete(id);
     }
 }
