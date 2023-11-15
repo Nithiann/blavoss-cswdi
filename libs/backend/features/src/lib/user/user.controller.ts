@@ -9,8 +9,8 @@ export class UserController {
     constructor(private userService: UserService) {}
 
     @Get('')
-    getAll(): IUser[] {
-        return this.userService.getAll();
+    async getAll(): Promise<IUser[]> {
+        return await this.userService.getAll();
     }
 
     @Get(':id')
@@ -19,7 +19,7 @@ export class UserController {
     }
 
     @Post('')
-    create(@Body() data: CreateUserDTO): IUser {
-        return this.userService.create(data);
+    async create(@Body() data: CreateUserDTO): Promise<IUser> {
+        return await this.userService.create(data);
     }
 }

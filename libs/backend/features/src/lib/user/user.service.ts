@@ -1,10 +1,17 @@
 import { Gender, IUser } from "@blavoss-cswdi/shared/api";
 import { Injectable, Logger, NotFoundException } from "@nestjs/common";
 import { BehaviorSubject } from "rxjs";
+import { InjectModel } from "@nestjs/mongoose";
+import { Model } from 'mongoose';
+import { UserDocument } from "@blavoss-cswdi/backend/data-access";
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
+    constructor(@InjectModel('User') private readonly userModel: Model<UserDocument>) {}
+
     TAG = 'UserService';
+    salt = 10;
 
     private users$ = new BehaviorSubject<IUser[]>([
         {
@@ -18,9 +25,12 @@ export class UserService {
         }
     ]);
 
-    getAll(): IUser[] {
+    async getAll(): Promise<IUser[]> {
         Logger.log('getAll', this.TAG);
-        return this.users$.value;
+        
+        const users = await this.userModel.find().exec();
+
+        return users.map(user => user.toObject());
     }
 
     getOne(id: string): IUser {
@@ -32,15 +42,18 @@ export class UserService {
         return user;
     }
 
-    create(user: Pick<IUser, 'email' | 'hash' | 'firstName' | 'lastName' | 'dob' | 'gender'>): IUser {
+    async create(user: Pick<IUser, 'email' | 'hash' | 'firstName' | 'lastName' | 'dob' | 'gender'>): Promise<IUser> {
         Logger.log('create', this.TAG);
-        const current = this.users$.value;
-        // Use the incoming data, a randomized ID, and a default value of `false` to create the new to-do
-        const newUser: IUser = {
+        
+        const newUser = new this.userModel({
             ...user,
             id: `user-${Math.floor(Math.random() * 10000)}`,
-        };
-        this.users$.next([...current, newUser]);
-        return newUser;
+        });
+
+        newUser.hash = await bcrypt.hash(newUser.hash, this.salt);
+       
+        await newUser.save();
+
+        return newUser.toObject();
     }
 }
