@@ -65,7 +65,7 @@ export class UserService {
      * Handle errors.
      */
     public handleError(error: HttpErrorResponse): Observable<any> {
-        console.log('handleError in MealService', error);
+        console.log('handleError in UserService', error);
 
         return throwError(() => new Error(error.message));
     }
