@@ -23,4 +23,12 @@ export class UserListComponent implements OnInit, OnDestroy {
     ngOnDestroy(): void {
       if (this.subscription) this.subscription.unsubscribe();
     }
+
+    delete(id: string): void {
+      this.subscription = this.userService.remove(id).subscribe((resp)=> {
+        console.log(`resp: ${resp}`);
+        if (this.users)
+          this.users = this.users?.filter(user => user._id !== id);
+      })
+    }
 }

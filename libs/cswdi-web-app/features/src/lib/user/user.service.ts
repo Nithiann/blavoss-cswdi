@@ -51,7 +51,21 @@ export class UserService {
     public read(id: string | null, options?: any): Observable<IUser> {
         console.log(`read ${this.endpoint}`);
         return this.http
-            .get<ApiResponse<IUser>>(this.endpoint, {
+            .get<ApiResponse<IUser>>(this.endpoint + '/' + id, {
+                ...options,
+                ...httpOptions,
+            })
+            .pipe(
+                tap(console.log),
+                map((response: any) => response.results as IUser),
+                catchError(this.handleError)
+            );
+    }
+
+    public remove(id: string | null, options?: any): Observable<IUser> {
+        console.log(`remove ${this.endpoint}`);
+        return this.http
+            .delete<ApiResponse<IUser>>(this.endpoint + '/' + id, {
                 ...options,
                 ...httpOptions,
             })

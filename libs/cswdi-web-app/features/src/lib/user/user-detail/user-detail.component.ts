@@ -23,7 +23,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
 
         this.subscription = this.userService.read(userId).subscribe((results: any) => {
           console.log(`results: ${results}`);
-          this.user = results[0];
+          this.user = results;
         })
       })
     }

@@ -26,7 +26,7 @@
                     <td class="border-t px-3 py-2">{{user.gender}}</td>
                     <td class="border-t px-3 py-2">
                         <button class="btn btn-sm btn-secondary mr-2 bg-orange-500 rounded-sm p-1 hover:bg-orange-600 ease-in-out duration-300 text-white">Update</button>
-                        <button class="btn btn-sm btn-danger bg-red-600 rounded-sm p-1 hover:bg-red-700 ease-in-out duration-300 text-white">Delete</button>
+                        <button class="btn btn-sm btn-danger bg-red-600 rounded-sm p-1 hover:bg-red-700 ease-in-out duration-300 text-white" (click)="delete(user._id)">Delete</button>
                     </td>
                 </tr>                
                 <!-- Add more rows for additional users -->
