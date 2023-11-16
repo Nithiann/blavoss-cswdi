@@ -4,8 +4,8 @@
     "production": {
       "fileReplacements": [
         {
-          "replace": "libs/cswdi-web-app/features/src/lib/environments/environment.ts",
-          "with": "libs/cswdi-web-app/features/src/lib/environments/environment.prod.ts"
+          "replace": "libs/cswdi-web-app/features/src/lib/environments/environments.ts",
+          "with": "libs/cswdi-web-app/features/src/lib/environments/environments.prod.ts"
         }
       ]
     }
