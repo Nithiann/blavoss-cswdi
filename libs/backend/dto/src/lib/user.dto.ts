@@ -40,7 +40,7 @@ export class CreateUserDTO implements ICreateUser {
 export class UpsertUserDTO implements IUpsertUser {
     @IsString()
     @IsNotEmpty()
-    id!: string;
+    _id!: string;
 
     @IsString()
     @IsNotEmpty()

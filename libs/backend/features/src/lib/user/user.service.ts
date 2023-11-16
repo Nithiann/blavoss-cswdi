@@ -15,7 +15,7 @@ export class UserService {
 
     private users$ = new BehaviorSubject<IUser[]>([
         {
-            id: `user-${Math.floor(Math.random() * 10000)}`,
+            _id: `user-${Math.floor(Math.random() * 10000)}`,
             email: 'HkXU3@example.com',
             hash: '123',
             firstName: 'Voss',

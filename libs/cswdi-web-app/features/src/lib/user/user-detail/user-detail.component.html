@@ -1,1 +1,14 @@
-<p>user-detail works!</p>
+<div *ngIf="user" class="card">
+    <div class="card-header">
+      <h2>User Details</h2>
+    </div>
+    <div class="card-body">
+      <p><strong>User ID:</strong> {{ user._id }}</p>
+      <p><strong>Email:</strong> {{ user.email }}</p>
+      <p><strong>First Name:</strong> {{ user.firstName }}</p>
+      <p><strong>Last Name:</strong> {{ user.lastName }}</p>
+      <p><strong>Date of Birth:</strong> {{ user.dob | date: 'yyyy-MM-dd' }}</p>
+      <p><strong>Gender:</strong> {{ user.gender }}</p>
+      <!-- Add other user details... -->
+    </div>
+  </div>
