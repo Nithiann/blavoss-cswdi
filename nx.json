@@ -1,5 +1,15 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "configurations": {
+    "production": {
+      "fileReplacements": [
+        {
+          "replace": "libs/cswdi-web-app/features/src/lib/environments/environment.ts",
+          "with": "libs/cswdi-web-app/features/src/lib/environments/environment.prod.ts"
+        }
+      ]
+    }
+  },
   "targetDefaults": {
     "build": {
       "cache": true,

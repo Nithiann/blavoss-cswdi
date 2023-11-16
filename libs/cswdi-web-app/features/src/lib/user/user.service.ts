@@ -4,6 +4,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { map, catchError, tap } from 'rxjs/operators';
 import { ApiResponse, IUser } from '@blavoss-cswdi/shared/api';
 import { Injectable } from '@angular/core';
+import { environment } from '../environments/environments';
 
 /**
  * See https://angular.io/guide/http#requesting-data-from-a-server
@@ -19,7 +20,7 @@ export const httpOptions = {
  */
 @Injectable()
 export class UserService {
-    endpoint = `${process.env['API_URL']}/user`;
+    endpoint = `${environment.apiUrl}/user`;
 
     constructor(private readonly http: HttpClient) {}
 
