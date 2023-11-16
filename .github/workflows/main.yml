@@ -87,7 +87,9 @@ jobs:
           name: data-api
 
       - name: Unzip artifact for deployment
-        run: unzip data-api-release.zip
+        run: |
+            unzip data-api-release.zip
+            npm install --production=false
        
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
