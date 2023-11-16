@@ -4,7 +4,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { map, catchError, tap } from 'rxjs/operators';
 import { ApiResponse, IUser } from '@blavoss-cswdi/shared/api';
 import { Injectable } from '@angular/core';
-import { environment } from '../environments/environments';
+import { environment } from '../../environments/environments';
 
 /**
  * See https://angular.io/guide/http#requesting-data-from-a-server
