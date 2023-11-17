@@ -28,8 +28,7 @@ export class UserCreateComponent implements OnInit, OnDestroy {
       gender: ['', Validators.required],
     })
 
-    this.createForm.setValidators([this.passwordMatchValidator]);
-    this.createForm.get('dateOfBirth')?.setValidators(this.ageValidator(12));
+    this.createForm.setValidators([this.passwordMatchValidator, this.ageValidator]);
   }
 
   passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
@@ -39,18 +38,14 @@ export class UserCreateComponent implements OnInit, OnDestroy {
     return password === confirmPassword ? null : { passwordMismatch: true };
   }
   
-  ageValidator(minimumAge: number) {
-    return (control: AbstractControl): ValidationErrors | null => {
-      if (!control.value) {
-        return null;
-      }
+  ageValidator(control: AbstractControl): ValidationErrors | null {
+      const minimumAge = 12;
 
-      const birthDate = new Date(control.value);
+      const birthDate = new Date(control.get('dateOfBirth')?.value);
       const currentDate = new Date();
       const age = currentDate.getFullYear() - birthDate.getFullYear();
 
       return age >= minimumAge ? null : { tooYoung: true };
-    };
   }
   
   onSubmit(): void {
