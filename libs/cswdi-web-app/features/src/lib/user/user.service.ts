@@ -90,6 +90,20 @@ export class UserService {
             );
     }
 
+    public create(user: IUser, options?: any): Observable<IUser> {
+        console.log(`create ${this.endpoint}`);
+        return this.http
+            .post<ApiResponse<IUser>>(this.endpoint, user, {
+                ...options,
+                ...httpOptions,
+            })
+            .pipe(
+                tap(console.log),
+                map((response: any) => response.results as IUser),
+                catchError(this.handleError)
+            );
+    }
+
     /**
      * Handle errors.
      */

@@ -12,7 +12,7 @@ export interface ILogin {
 }
 
 export interface IUser {
-    _id: string;
+    _id?: string;
     email: string;
     hash: string;
     firstName: string;
