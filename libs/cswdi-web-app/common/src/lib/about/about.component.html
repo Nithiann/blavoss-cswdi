@@ -1,1 +1,81 @@
-<p>about works!</p>
+<div class="container mx-auto mt-10 text-center">
+    <h2 class="text-2xl">Casus beschrijving - Festival tickets</h2>
+    <div class="container mx-auto mt-4 text-left">
+        <p>
+            In deze casus wordt de ticket verkoop van festivals gepland. Voor de casus wordt er een festival gepland. 
+            Een gebruiker kan hier de tickets voor kopen. Een gebruiker moet ingelogd zijn om tickets te kunnen kopen. 
+            Voor het doeleinde van deze casus zal er een toegewezen account zijn dat festivals kan aanmaken. 
+            De andere gebruikers zijn normale users. Voor tussenbeoordeling 1 is alleen de user entiteit met zijn crud-functionaliteiten gemaakt. 
+            Er hoeft voor nu dus nog niet ingelogd worden om bij deze functionaliteiten te komen. 
+            Om bij de user te komen kan voor nu op de navigatiebalk op users geklikt worden of <a class="text-blue-500 underline cursor-pointer" routerLink="/user">hier geklikt</a> worden.
+        </p>
+        <p>
+            In deze casus wordt gebruik gemaakt van een monorepo. De backend wordt gemaakt in nextjs met een frontend in angular. 
+            de angular applicatie wordt met behulp van tailwindcss en flowbite in elkaar gezet.
+            De database is gemaakt in mongoDB. er zal later ook een neo4j database gemaakt worden, zodat er festivals aan gebruikers voorgesteld kunnen worden op basis van hun vorige festivals. 
+        </p>
+
+    </div>
+    <div class="container mx-auto mt-4 text-left">
+        <div class="text-center">
+            <h3 class="text-xl">Entiteiten</h3>
+        </div>
+        <div class="flex justify-center">
+            <img [src]="imagepath" />
+        </div>
+        <p class="mt-4 mb-8">
+            er worden 4 entiteiten gemaakt voor deze casus. 
+            de user-entiteit, deze bevat de gegevens van de gebruiker. 
+            De artist-entitiet, deze bevat informatie over een artiest.
+            De Festival-entiteit, deze bevat de gegevens van een festival.
+            De TicketSales-entiteit, deze bevat de gegevens van een ticketSales.
+        </p>
+        <div class="flex justify-around">
+            <div class="mb-8">
+                <h2 class="text-lg mb-4">User entiteit</h2>
+                <li><strong>Id: ObjectId</strong></li>
+                <li><strong>Email: string</strong></li>
+                <li><strong>hash: string</strong></li>
+                <li><strong>firstName: string</strong></li>
+                <li><strong>lastName: string</strong></li>
+                <li><strong>DateOfBirth: Date</strong></li>
+                <li><strong>Gender: enum(string)</strong></li>
+                <li><strong>tickets: [...Ticketsales]</strong></li>
+            </div>
+            <div class="mb-8">
+                <h2 class="text-lg mb-4">Artist entiteit</h2>
+                <li><strong>Id: ObjectId</strong></li>
+                <li><strong>name: string</strong></li>
+                <li><strong>genre: enum(string)</strong></li>
+                <li><strong>Description: string</strong></li>
+                <li><strong>Festivals: [...Festivals]</strong></li>
+            </div>
+            <div class="mb-8">
+                <h2 class="text-lg mb-4">Festival entiteit</h2>
+                <li><strong>Id: ObjectId</strong></li>
+                <li><strong>name: string</strong></li>
+                <li><strong>Location: string</strong></li>
+                <li><strong>startDate: datetime</strong></li>
+                <li><strong>EndDate: datetime</strong></li>
+                <li><strong>Description: string</strong></li>
+                <li><strong>ticketPrice: number</strong></li>
+                <li><strong>genre: enum(string)</strong></li>
+                <li><strong>Artists: [...Artists]</strong></li>
+                <li><strong>Tickets: [...Tickets]</strong></li>
+            </div>
+            <div class="mb-8">
+                <h2 class="text-lg mb-4">TicketSales entiteit</h2>
+                <li><strong>Id: ObjectId</strong></li>
+                <li><strong>UserId: ObjectId</strong></li>
+                <li><strong>FestivalId: ObjectId</strong></li>
+                <li><strong>TicketAmount: number</strong></li>
+                <li><strong>PurchaseDate: datetime</strong></li>
+                <li><strong>PaymentStatus: enum(string)</strong></li>
+                <li><strong>PersonalizationStatus: enum(string)</strong></li>
+            </div>
+        </div>
+        <p class="mt-4 mb-8">
+            Er is een many-to-many relatie aanwezig tussen artiest en festival. Meerdere artiesten kunnen voor meerdere festivals ingepland worden. De ticketsales entiteit werkt ook als koppeltabel tussen user en festivals.
+        </p>
+    </div>
+</div>
