@@ -6,11 +6,13 @@ import { UserService } from "./user/user.service";
 import { UserListComponent } from "./user/user-list/user-list.component";
 import { RouterModule } from "@angular/router";
 import { routes } from './user/user-routing.module';
+import { UserUpdateComponent } from "./user/user-update/user-update.component";
+import { UserCreateComponent } from "./user/user-create/user-create.component";
 
 @NgModule({
     imports: [CommonModule, HttpClientModule, RouterModule.forChild(routes)],
-    declarations: [UserDetailComponent, UserListComponent],
+    declarations: [UserDetailComponent, UserListComponent, UserUpdateComponent, UserCreateComponent],
     providers: [UserService],
-    exports: [UserDetailComponent, UserListComponent, RouterModule],
+    exports: [UserDetailComponent, UserListComponent, RouterModule, UserUpdateComponent, UserCreateComponent],
 })
 export class UserModule {}
