@@ -76,6 +76,20 @@ export class UserService {
             );
     }
 
+    public update(id: string | null, user: Partial<IUser>, options?: any): Observable<IUser> {
+        console.log(`update ${this.endpoint}`);
+        return this.http
+            .put<ApiResponse<IUser>>(this.endpoint + '/' + id, user, {
+                ...options,
+                ...httpOptions,
+            })
+            .pipe(
+                tap(console.log),
+                map((response: any) => response.results as IUser),
+                catchError(this.handleError)
+            );
+    }
+
     /**
      * Handle errors.
      */
