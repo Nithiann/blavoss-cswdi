@@ -1,4 +1,4 @@
-<div class="container mx-auto mt-10">
+<div class="container mx-auto mt-10 text-left">
     <div class="flex justify-between items-center mb-6">
         <h2 class="text-2xl font-semibold text-gray-800">User Management</h2>
         <button class="btn btn-primary bg-blue-500 rounded-sm p-1 hover:bg-blue-600 ease-in-out duration-300 text-white" routerLink="/user/new">Create New User</button>
@@ -17,19 +17,17 @@
                 </tr>
             </thead>
             <tbody *ngFor="let user of users">
-                <!-- Sample Data -->
                 <tr>
                     <td class="border-t px-3 py-2 cursor-pointer underline text-blue-500"><a [routerLink]="['/user', user._id]">{{user.email}}</a></td>
                     <td class="border-t px-3 py-2">{{user.firstName}}</td>
                     <td class="border-t px-3 py-2">{{user.lastName}}</td>
-                    <td class="border-t px-3 py-2">{{user.dob | date: 'yyyy-MM-dd'}}</td>
+                    <td class="border-t px-3 py-2">{{user.dob | date: 'dd-MM-yyyy'}}</td>
                     <td class="border-t px-3 py-2">{{user.gender}}</td>
                     <td class="border-t px-3 py-2">
                         <button class="btn btn-sm btn-secondary mr-2 bg-orange-500 rounded-sm p-1 hover:bg-orange-600 ease-in-out duration-300 text-white" [routerLink]="['/user/update', user._id]">Update</button>
                         <button class="btn btn-sm btn-danger bg-red-600 rounded-sm p-1 hover:bg-red-700 ease-in-out duration-300 text-white" (click)="delete(user._id)">Delete</button>
                     </td>
                 </tr>                
-                <!-- Add more rows for additional users -->
             </tbody>
         </table>
     </div>
