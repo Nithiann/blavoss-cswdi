@@ -8,12 +8,13 @@ import { ArtistListComponent } from "./artist/artist-list/artist-list.component"
 import { ArtistDetailComponent } from "./artist/artist-detail/artist-detail.component";
 import { RouterModule } from "@angular/router";
 import { routes } from "./user/user-routing.module";
+import { ArtistUpdateComponent } from "./artist/artist-update/artist-update.component";
 
 @NgModule({
     imports: [CommonModule, HttpClientModule, ReactiveFormsModule, RouterModule.forChild(routes)],
-    declarations: [ArtistCreateComponent, ArtistListComponent, ArtistDetailComponent],
+    declarations: [ArtistCreateComponent, ArtistListComponent, ArtistDetailComponent, ArtistUpdateComponent],
     providers: [ArtistService],
-    exports: [ArtistCreateComponent, ArtistListComponent, ArtistDetailComponent],
+    exports: [ArtistCreateComponent, ArtistListComponent, ArtistDetailComponent, ArtistUpdateComponent],
 })
 
 export class ArtistModule {}
