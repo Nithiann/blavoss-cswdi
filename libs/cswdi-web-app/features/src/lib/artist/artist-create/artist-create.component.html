@@ -1,1 +1,32 @@
-<p>artist-create works!</p>
+<div class="flex items-center justify-center">
+    <div class="bg-white p-8 rounded shadow-md max-w-md w-full text-left">
+        <form [formGroup]="createForm" (ngSubmit)="onSubmit()">
+            <div class="mb-4">
+                <label for="name" class="block text-gray-600 text-sm font-medium mb-2">Name</label>
+                <input type="text" id="name" name="name" formControlName="name" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500" required>
+                <div *ngIf="createForm.get('name')?.hasError('required') && createForm.get('name')?.touched"
+                    class="text-red-500 text-sm mt-1">Name is required</div>
+            </div>
+            <div class="mb-4">
+                <label for="description" class="block text-gray-600 text-sm font-medium mb-2">Description</label>
+                <input type="text" id="description" name="description" formControlName="description" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500" required>
+                <div *ngIf="createForm.get('description')?.hasError('required') && createForm.get('name')?.touched"
+                    class="text-red-500 text-sm mt-1">Bio is required</div>
+            </div>
+            <div class="mb-4">
+                <label for="image" class="block text-gray-600 text-sm font-medium mb-2">Description</label>
+                <input type="file" id="image" name="image" formControlName="image" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500" required>
+                <div *ngIf="createForm.get('image')?.hasError('required') && createForm.get('image')?.touched"
+                    class="text-red-500 text-sm mt-1">Image is required</div>
+            </div>
+            <div class="mb-4">
+                <label for="genre" class="block text-gray-600 text-sm font-medium mb-2">Genre</label>
+                <select id="genre" name="genre" formControlName="genre" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500">
+                    <option *ngFor="let value of genreEnum" [value]="value">{{ value }}</option>
+                </select>
+                <div *ngIf="createForm.get('genre')?.hasError('required') && createForm.get('genre')?.touched"
+                    class="text-red-500 text-sm mt-1">Genre is required</div>
+            </div>
+        </form>
+    </div>
+</div>
