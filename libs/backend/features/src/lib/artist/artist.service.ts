@@ -4,6 +4,7 @@ import { InjectModel } from "@nestjs/mongoose";
 import { ArtistDocument } from "@blavoss-cswdi/backend/data-access";
 import { BehaviorSubject } from "rxjs";
 import { IArtist } from "@blavoss-cswdi/shared/api";
+import * as fs from 'fs';
 
 @Injectable()
 export class ArtistService {
@@ -53,8 +54,13 @@ export class ArtistService {
         }
     }
 
-    async create(artist: Pick<IArtist, 'name' | 'description' | 'genre' | 'Festivals'>): Promise<IArtist> {
+    async create(artist: Pick<IArtist, 'name' | 'description' | 'genre' | 'image' | 'Festivals'>): Promise<IArtist> {
         Logger.log(`create(${JSON.stringify(artist)})`, this.TAG);
+
+        if (artist.image) {
+            const baseImage = this.convertImageToBase64(artist.image);
+            artist.image = baseImage;
+        }
 
         const newArtist = new this.artistModel({...artist});
 
@@ -75,5 +81,13 @@ export class ArtistService {
         } catch (err) {
             throw new NotFoundException(err);
         }
+    }
+
+    private convertImageToBase64(imagePath: string): string {
+        const fileBuffer = fs.readFileSync(imagePath);
+         
+        const base64Image = fileBuffer.toString('base64');
+
+        return base64Image;
     }
 }

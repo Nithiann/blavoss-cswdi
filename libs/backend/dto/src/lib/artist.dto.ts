@@ -17,6 +17,10 @@ export class CreateArtistDTO implements ICreateArtist {
 
     @IsString()
     @IsNotEmpty()
+    image!: string;
+
+    @IsString()
+    @IsNotEmpty()
     description!: string;
     
     @IsString()
@@ -39,6 +43,10 @@ export class UpsertArtistDTO implements IUpsertArtist {
 
     @IsString()
     @IsNotEmpty()
+    image!: string;
+
+    @IsString()
+    @IsNotEmpty()
     description!: string;
 
     @IsString()
@@ -54,6 +62,10 @@ export class UpdateArtistDTO implements IUpdateArtist {
     @IsString()
     @IsNotEmpty()
     name!: string;
+
+    @IsString()
+    @IsNotEmpty()
+    image!: string;
 
     @IsString()
     @IsNotEmpty()
