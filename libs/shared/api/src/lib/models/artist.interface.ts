@@ -1,24 +1,4 @@
-export enum Genre {
-    Metal = 'metal',
-    Pop = 'pop',
-    Rock = 'rock',
-    EDM = 'edm',
-    Techno = 'techno',
-    House = 'house',
-    Dubstep = 'dubstep',
-    Electro = 'electro',
-    ElectroHouse = 'electro-house',
-    ElectroFolk = 'electro-folk',
-    ElectroPop = 'electro-pop',
-    ElectroRock = 'electro-rock',
-    Trap = 'trap',
-    Reggaeton = 'reggaeton',
-    Jazz = 'jazz',
-    Hardstyle = 'hardstyle',
-    Hardcore = 'hardcore',
-    Rawstyle = 'rawstyle',
-    Uptempo = 'uptempo',
-}
+import { Genre } from "./genre.enum";
 
 export interface IArtist {
     _id: string;

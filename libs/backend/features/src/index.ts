@@ -1,2 +1,2 @@
-export * from './lib/game.module';
+export * from './lib/artist.module';
 export * from './lib/user.module';

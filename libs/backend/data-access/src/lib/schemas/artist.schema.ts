@@ -9,7 +9,7 @@ export class Artist {
     @Prop()
     name!: string;
 
-    @Prop()
+    @Prop({ type: String, enum: Object.values(Genre), default: Genre.EDM})
     genre!: Genre;
 
     @Prop()
