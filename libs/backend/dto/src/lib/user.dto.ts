@@ -2,6 +2,7 @@ import {
     IsNotEmpty,
     IsString,
     IsOptional,
+    IsEmail,
     IsDate
 } from 'class-validator';
 import {
@@ -14,6 +15,7 @@ import {
 export class CreateUserDTO implements ICreateUser {
     @IsString()
     @IsNotEmpty()
+    @IsEmail()
     email!: string;
 
     @IsString()
