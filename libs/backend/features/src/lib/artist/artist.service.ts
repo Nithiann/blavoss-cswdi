@@ -11,7 +11,7 @@ export class ArtistService {
 
     constructor(@InjectModel('Artist') private readonly artistModel: Model<ArtistDocument>) {}
 
-    TAG = 'ArtistService';
+    TAG = 'Backend ArtistService';
 
     private artists$ = new BehaviorSubject<IArtist[]>([ 
     ]);
@@ -54,15 +54,12 @@ export class ArtistService {
         }
     }
 
-    async create(artist: Pick<IArtist, 'name' | 'description' | 'genre' | 'image' | 'Festivals'>): Promise<IArtist> {
+    async create(artist: Pick<IArtist, 'name' | 'description' | 'genre' | 'image' | 'festivals'>): Promise<IArtist> {
         Logger.log(`create(${JSON.stringify(artist)})`, this.TAG);
 
-        if (artist.image) {
-            const baseImage = this.convertImageToBase64(artist.image);
-            artist.image = baseImage;
-        }
-
-        const newArtist = new this.artistModel({...artist});
+        const newArtist = new this.artistModel({
+            ...artist
+        });
 
         const result = await newArtist.save();
 

@@ -47,7 +47,9 @@ export class ArtistService {
     }
 
     public create(artist: IArtist, options?: any): Observable<IArtist> {
+        console.log(`Artist ${artist}`)
         console.log(`create ${this.endpoint}`);
+
         return this.http
             .post<ApiResponse<IArtist>>(this.endpoint, artist, {
                 ...options,
@@ -92,5 +94,14 @@ export class ArtistService {
         console.log('handleError in UserService', error);
 
         return throwError(() => new Error(error.message));
+    }
+
+    private convertImageToBase64(image: any): any {
+        new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(image);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = (error) => reject(error);
+          });
     }
 }

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Genre, IArtist } from '@blavoss-cswdi/shared/api';
@@ -25,18 +26,38 @@ export class ArtistCreateComponent implements OnInit, OnDestroy {
     })
   }
 
+  onFileSelected(event: any): void {
+    const fileInput = event.target.files[0];
+  
+    if (fileInput) {
+      this.createForm.patchValue({ image: fileInput });
+      this.createForm.get('image')?.updateValueAndValidity();
+    }
+  }
+
   onSubmit(): void {
     if (!this.createForm.valid) return;
 
-    const artist: IArtist = {
-      name: this.createForm.value.name,
-      genre: this.createForm.value.genre,
-      description: this.createForm.value.description,
-      image: this.createForm.value.image
+    const file = this.createForm.get('image')!.value as File;
+
+    if (!(file instanceof File)) {
+      console.log('File Input Type:', typeof file);
+      return; 
     }
 
-    this.subscription = this.artistService.create(artist).subscribe((resp: any) => {
-      if (resp) this.router.navigate(['/artist', resp._id])
+    this.convertImageToBase64(file).then((base64) => {
+      const artist: IArtist = {
+        name: this.createForm.value.name,
+        genre: this.createForm.value.genre,
+        description: this.createForm.value.description,
+        image: base64,
+      };
+      this.subscription = this.artistService.create(artist).subscribe((resp: any) => {
+        if (resp) console.log(resp);
+      })
+    })
+    .catch((err) => {
+      console.log(err.message);
     })
   }
 
@@ -45,5 +66,24 @@ export class ArtistCreateComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy(): void {
     if (this.subscription) this.subscription.unsubscribe();
+  }
+
+  private convertImageToBase64(file: File): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+  
+      reader.onloadend = () => {
+        // `result` is the base64-encoded string
+        const base64String = reader.result as string;
+        resolve(base64String);
+      };
+  
+      reader.onerror = (error) => {
+        reject(error);
+      };
+  
+      // Read the file as a data URL, which results in a base64-encoded string
+      reader.readAsDataURL(file);
+    });
   }
 }

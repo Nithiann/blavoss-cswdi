@@ -14,6 +14,14 @@ export class ArtistListComponent implements OnInit, OnDestroy {
 
   constructor(private artistService: ArtistService) {}
 
+
+  delete(id: string | undefined) {
+    this.subscription = this.artistService.remove(id!).subscribe((resp)=> {
+      console.log(`resp: ${resp}`);
+        if (this.artists)
+          this.artists = this.artists?.filter(artist => artist._id !== id);
+    })
+  }
   ngOnInit(): void {
       this.subscription = this.artistService.list().subscribe((result) => {
         this.artists = result;

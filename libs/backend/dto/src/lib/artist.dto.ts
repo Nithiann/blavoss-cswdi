@@ -29,7 +29,7 @@ export class CreateArtistDTO implements ICreateArtist {
 
     @IsString({each: true})
     @IsEmpty()
-    Festivals!: string[];
+    festivals!: string[];
 }
 
 export class UpsertArtistDTO implements IUpsertArtist {
@@ -55,7 +55,7 @@ export class UpsertArtistDTO implements IUpsertArtist {
 
     @IsString({each: true})
     @IsNotEmpty()
-    Festivals!: string[];
+    festivals!: string[];
 }
 
 export class UpdateArtistDTO implements IUpdateArtist {  

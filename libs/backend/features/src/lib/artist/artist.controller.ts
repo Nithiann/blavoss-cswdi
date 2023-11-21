@@ -1,6 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { ArtistService } from './artist.service';
 import { IArtist } from '@blavoss-cswdi/shared/api';
+import { CreateArtistDTO } from '@blavoss-cswdi/backend/dto';
 
 @Controller('artist')
 export class ArtistController {
@@ -23,7 +24,7 @@ export class ArtistController {
     }
 
     @Post('')
-    async create(@Body() data: IArtist): Promise<IArtist> {
+    async create(@Body() data: CreateArtistDTO): Promise<IArtist> {
         return await this.artistService.create(data);
     }
 
