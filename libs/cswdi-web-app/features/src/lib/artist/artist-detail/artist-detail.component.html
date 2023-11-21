@@ -1,11 +1,18 @@
 <div *ngIf="artist" class="card">
     <div class="card-header">
-      <h2>User Details</h2>
     </div>
     <div class="card-body">
-      <p><strong>User ID:</strong> {{ artist._id }}</p>
-      <p><strong>Name:</strong> {{ artist.name }}</p>
-      <p><strong>Description:</strong> {{ artist.description }}</p>
-      <p><strong>Genre:</strong> {{ artist.genre }}</p>
+      <div class="flex">
+        <div class="w-1/3">
+          <img [src]="artist.image" alt="Artist image" class="max-w-full h-auto">
+        </div>
+        <div class="w-2/3 ml-4">
+          
+            <p><strong>User ID:</strong> {{ artist._id }}</p>
+            <p><strong>Name:</strong> {{ artist.name }}</p>
+            <p><strong></strong> {{ artist.description }}</p>
+            <p><strong>Genre:</strong> {{ artist.genre }}</p>
+        </div>
+      </div>
     </div>
   </div>
