@@ -10,6 +10,7 @@ import * as dotenv from 'dotenv';
 import { AppModule } from './app/app.module';
 import { CorsOptions } from '@nestjs/common/interfaces/external/cors-options.interface';
 import { ApiResponseInterceptor } from '@blavoss-cswdi/backend/dto';
+import * as bodyParser from 'body-parser';
 
 async function bootstrap() {
   dotenv.config();
@@ -19,6 +20,9 @@ async function bootstrap() {
 
   const corsOptions: CorsOptions = {};
   app.enableCors(corsOptions);
+
+  app.use(bodyParser.json({ limit: '5mb' }));
+  app.use(bodyParser.urlencoded({ extended: true, limit: '5mb' }));
 
   app.useGlobalInterceptors(new ApiResponseInterceptor());
 

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Genre } from '@blavoss-cswdi/shared/api';
+import { Genre, IFestival } from '@blavoss-cswdi/shared/api';
 import { Subscription } from 'rxjs';
 import { FestivalService } from '../festival.service';
 import { Router } from '@angular/router';
@@ -23,7 +23,7 @@ export class FestivalCreateComponent implements OnInit, OnDestroy {
       startDate: [null, Validators.required],
       endDate: [null, Validators.required],
       description: ['', Validators.required],
-      ticketPrice: [0, Validators.required],
+      ticketPrice: [null, [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)]],
       image: [null, Validators.required],
       genre: ['', Validators.required],
     });
@@ -39,7 +39,11 @@ export class FestivalCreateComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
-    if (!this.createForm.valid) return;
+    if (!this.createForm.valid) {
+      console.log(this.createForm.value);
+      console.log('form invalid')
+      return;
+    }
 
     const file = this.createForm.get('image')!.value as File;
 
@@ -49,7 +53,7 @@ export class FestivalCreateComponent implements OnInit, OnDestroy {
     }
 
     this.festivalService.convertImageToBase64(file).then((base64) => {
-      const festival: any = {
+      const festival: IFestival = {
         name: this.createForm.value.name,
         location: this.createForm.value.location,
         startDate: this.createForm.value.startDate,

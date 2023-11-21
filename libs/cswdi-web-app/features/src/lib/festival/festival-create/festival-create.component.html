@@ -21,7 +21,7 @@
             </div>
             <div class="mb-4">
                 <label for="endDate" class="block text-gray-600 text-sm font-medium mb-2">End date</label>
-                <input type="dateTime-local" id="endDate" name="endDate" formControlName="startDate" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500" required>
+                <input type="dateTime-local" id="endDate" name="endDate" formControlName="endDate" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500" required>
                 <div *ngIf="createForm.get('endDate')?.hasError('required') && createForm.get('endDate')?.touched"
                     class="date-red-500 text-sm mt-1">Ending date is required</div>
             </div>
@@ -33,7 +33,7 @@
             </div>
             <div class="mb-4">
                 <label for="ticketPrice" class="block text-gray-600 text-sm font-medium mb-2">Ticket price</label>
-                <input type="text" id="ticketPrice" name="ticketPrice" formControlName="ticketPrice" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500" required>
+                <input type="number" id="ticketPrice" name="ticketPrice" formControlName="ticketPrice" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500" required>
                 <div *ngIf="createForm.get('ticketPrice')?.hasError('required') && createForm.get('ticketPrice')?.touched"
                     class="text-red-500 text-sm mt-1">Ticket price is required</div>
             </div>
