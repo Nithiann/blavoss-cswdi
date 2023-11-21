@@ -62,6 +62,20 @@ export class FestivalService {
             )
     }
 
+    public addArtistToFestival(festivalId: string, artistId: string, options?: any): Observable<IFestival> {
+        console.log(`addArtistToFestival ${this.endpoint}`);
+        return this.http
+            .post<ApiResponse<IFestival>>(this.endpoint + '/' + festivalId + '/artist/' + artistId, {
+                ...options,
+                ...httpOptions,
+            })
+            .pipe(
+                tap(console.log),
+                map((response: any) => response.results as IFestival),
+                catchError(this.handleError)
+            )
+    }
+
     public remove(id: string | null, options?: any) : Observable<IFestival> {
         console.log(`remove ${this.endpoint}`);
         return this.http
