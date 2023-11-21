@@ -27,7 +27,7 @@ export class FestivalService {
     async getOne(id: string): Promise<IFestival> {
         Logger.log(`getOne(${id})`, this.TAG);
         try {
-            const festival = await this.festivalModel.findById(id).exec();
+            const festival = await this.festivalModel.findById(id).populate('artists').exec();
 
             if (!festival) {
                 throw new NotFoundException('Festival could not be found');

@@ -15,18 +15,22 @@ export class FestivalAddArtistComponent implements OnInit, OnDestroy{
   artists: IArtist[] | null = null;
   festival: IFestival | null = null;
   subscription: Subscription | undefined = undefined;
+  festivalId: string = '';
 
   constructor(private artistService: ArtistService, private festivalService: FestivalService, private route: ActivatedRoute) {}
 
   selectArtist(artist: IArtist) {
-    console.log(artist);
+    console.log(this.festivalId);
+    this.subscription = this.festivalService.addArtistToFestival(this.festivalId, artist._id!).subscribe((resp) => {
+      console.log(`resp: ${resp}`);
+    })
   }
 
   ngOnInit(): void {
       this.subscription = this.route.params.subscribe(params => {
-        const festivalId = params['id'];
+        this.festivalId = params['id'];
 
-        this.subscription = this.festivalService.read(festivalId).subscribe((results: any) => {
+        this.subscription = this.festivalService.read(this.festivalId).subscribe((results: any) => {
           console.log(`results: ${results}`);
           this.festival = results;
         });

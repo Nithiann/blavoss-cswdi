@@ -1,10 +1,14 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { Body, Controller, Delete, Get, Logger, Param, Post, Put } from '@nestjs/common';
 import { FestivalService } from './festival.service';
 import { IFestival } from '@blavoss-cswdi/shared/api';
 import { CreateFestivalDTO } from '@blavoss-cswdi/backend/dto';
 
 @Controller('festival')
 export class FestivalController {
+
+    TAG = 'FestivalController'
 
     constructor(private festivalService: FestivalService) {}
 
@@ -33,8 +37,9 @@ export class FestivalController {
         return await this.festivalService.delete(id);
     }
 
-    @Put(':id/artist/:artistId')
-    async addArtistToFestival(@Param(':id') festivalId: string, @Param(':artistId') artistId: string): Promise<IFestival> {
-        return await this.festivalService.addArtistToFestival(festivalId, artistId);
+    @Post('addArtistToFestival')
+    async addArtistToFestival(@Body() data: any): Promise<IFestival> {
+        Logger.log(`addArtistToFestival(${data.festivalId}, ${data.artistId})`, this.TAG);
+        return await this.festivalService.addArtistToFestival(data.festivalId, data.artistId);
     }
 }

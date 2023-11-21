@@ -63,9 +63,9 @@ export class FestivalService {
     }
 
     public addArtistToFestival(festivalId: string, artistId: string, options?: any): Observable<IFestival> {
-        console.log(`addArtistToFestival ${this.endpoint}`);
+        console.log(`addArtistToFestival ${this.endpoint}/${festivalId}/artist`);
         return this.http
-            .post<ApiResponse<IFestival>>(this.endpoint + '/' + festivalId + '/artist/' + artistId, {
+            .post<ApiResponse<IFestival>>(this.endpoint + '/addArtistToFestival' , {festivalId, artistId},{
                 ...options,
                 ...httpOptions,
             })
