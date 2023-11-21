@@ -45,7 +45,7 @@ export class ArtistCreateComponent implements OnInit, OnDestroy {
       return; 
     }
 
-    this.convertImageToBase64(file).then((base64) => {
+    this.artistService.convertImageToBase64(file).then((base64) => {
       const artist: IArtist = {
         name: this.createForm.value.name,
         genre: this.createForm.value.genre,
@@ -66,24 +66,5 @@ export class ArtistCreateComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy(): void {
     if (this.subscription) this.subscription.unsubscribe();
-  }
-
-  private convertImageToBase64(file: File): Promise<string> {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-  
-      reader.onloadend = () => {
-        // `result` is the base64-encoded string
-        const base64String = reader.result as string;
-        resolve(base64String);
-      };
-  
-      reader.onerror = (error) => {
-        reject(error);
-      };
-  
-      // Read the file as a data URL, which results in a base64-encoded string
-      reader.readAsDataURL(file);
-    });
   }
 }
