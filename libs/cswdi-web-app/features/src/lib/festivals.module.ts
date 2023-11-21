@@ -8,12 +8,14 @@ import { FestivalListComponent } from "./festival/festival-list/festival-list.co
 import { FestivalCreateComponent } from "./festival/festival-create/festival-create.component";
 import { FestivalDetailComponent } from "./festival/festival-detail/festival-detail.component";
 import { FestivalService } from "./festival/festival.service";
+import { FestivalAddArtistComponent } from "./festival/festival-add-artist/festival-add-artist.component";
+import { ArtistService } from "./artist/artist.service";
 
 @NgModule({
     imports: [CommonModule, HttpClientModule, ReactiveFormsModule, RouterModule.forChild(routes)],
-    declarations: [FestivalListComponent, FestivalCreateComponent, FestivalDetailComponent],
-    providers: [FestivalService],
-    exports: [FestivalCreateComponent, FestivalDetailComponent, FestivalListComponent, RouterModule]
+    declarations: [FestivalListComponent, FestivalCreateComponent, FestivalDetailComponent, FestivalAddArtistComponent],
+    providers: [FestivalService, ArtistService],
+    exports: [FestivalCreateComponent, FestivalDetailComponent, FestivalListComponent, FestivalAddArtistComponent, RouterModule]
 })
 
 export class FestivalsModule {}
