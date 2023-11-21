@@ -14,5 +14,9 @@ export const appRoutes: Route[] = [
     {
         path: 'artist',
         loadChildren: () => import('@blavoss-cswdi/web-app/features').then((m) => m.ArtistModule),
+    },
+    {
+        path: 'festival',
+        loadChildren: () => import('@blavoss-cswdi/web-app/features').then((m) => m.FestivalsModule),
     }
 ];
