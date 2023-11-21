@@ -16,4 +16,4 @@ export interface IFestival {
 
 export type ICreateFestival = Pick<IFestival, 'name' | 'location' | 'startDate' | 'endDate' | 'description' | 'ticketPrice' | 'image' | 'genre'>;
 export type IUpdateFestival = Partial<IFestival>;
-export type IUpsertFestivl = IFestival;
+export type IUpsertFestival = IFestival;
