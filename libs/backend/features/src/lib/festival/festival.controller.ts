@@ -32,4 +32,9 @@ export class FestivalController {
     async delete(@Param('id') id: string): Promise<IFestival> {
         return await this.festivalService.delete(id);
     }
+
+    @Put(':id/artist/:artistId')
+    async addArtistToFestival(@Param(':id') festivalId: string, @Param(':artistId') artistId: string): Promise<IFestival> {
+        return await this.festivalService.addArtistToFestival(festivalId, artistId);
+    }
 }

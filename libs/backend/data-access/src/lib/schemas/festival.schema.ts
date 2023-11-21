@@ -1,7 +1,6 @@
 import { Genre } from '@blavoss-cswdi/shared/api';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, Types } from 'mongoose';
-import { Artist } from './artist.schema';
 
 export type FestivalDocument = HydratedDocument<Festival>;
 
@@ -32,7 +31,7 @@ export class Festival {
     genre!: Genre;
 
     @Prop({ type: [Types.ObjectId], ref: 'Artist', default: [] })
-    artists!: Artist[]; //change to festials once object is created
+    artists!: Types.ObjectId[]; //change to festials once object is created
 }
 
 export const FestivalSchema = SchemaFactory.createForClass(Festival);

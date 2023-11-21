@@ -1,5 +1,5 @@
 import { Injectable, Logger, NotFoundException } from "@nestjs/common";
-import { Model } from "mongoose";
+import { Model, Types } from "mongoose";
 import { InjectModel } from "@nestjs/mongoose";
 import { FestivalDocument } from "@blavoss-cswdi/backend/data-access";
 import { BehaviorSubject } from "rxjs";
@@ -73,6 +73,30 @@ export class FestivalService {
                 throw new NotFoundException('Festival could not be found');
             }
             return updateFestival.toObject();
+        } catch (err) {
+            throw new NotFoundException(err);
+        }
+    }
+
+    async addArtistToFestival(festivalId: string, artistId: string): Promise<IFestival> {
+        Logger.log(`addArtistToEvent(${festivalId}, ${artistId})`, this.TAG);
+
+        try {
+            const festival = await this.festivalModel.findById(festivalId).exec();
+
+            if (!festival) {
+                throw new NotFoundException('Festival could not be found');
+            }
+
+            const artistObjectId = new Types.ObjectId(artistId);
+
+            if (!festival.artists.includes(artistObjectId)) {
+                festival.artists.push(artistObjectId);
+                await festival.save();
+            }
+
+            return festival.toObject();
+
         } catch (err) {
             throw new NotFoundException(err);
         }
