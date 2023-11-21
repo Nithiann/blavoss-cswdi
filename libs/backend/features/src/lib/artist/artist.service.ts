@@ -27,7 +27,7 @@ export class ArtistService {
     async getOne(id: string): Promise<IArtist> {
         Logger.log(`getOne(${id})`, this.TAG);
         try {
-            const artist = await this.artistModel.findById(id).exec();
+            const artist = await this.artistModel.findById(id).populate('festivals').exec();
     
             if (!artist) {
                 throw new NotFoundException('Artist could not be found');
