@@ -1,1 +1,34 @@
-<p>artist-update works!</p>
+<div class="flex items-center justify-center">
+    <div class="bg-white p-8 rounded shadow-md max-w-md w-full text-left">
+        <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+            <div class="mb-4">
+                <label for="name" class="block text-gray-600 text-sm font-medium mb-2">Name</label>
+                <input type="name" id="name" name="name" formControlName="name" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500" required>
+                <div *ngIf="updateForm.get('name')?.hasError('required') && updateForm.get('name')?.touched"
+                    class="text-red-500 text-sm mt-1">Name is required</div>
+            </div>
+            
+            <div class="mb-4">
+                <label for="description" class="block text-gray-600 text-sm font-medium mb-2">Bio</label>
+                <input type="text" id="description" name="description" formControlName="description" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500" required>
+                <div *ngIf="updateForm.get('description')?.hasError('required') && updateForm.get('description')?.touched"
+                    class="text-red-500 text-sm mt-1">Bio is required</div>
+            </div>
+            <div class="mb-4">
+                <label for="genre" class="block text-gray-600 text-sm font-medium mb-2">Genre</label>
+                <select id="genre" name="genre" formControlName="genre" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500">
+                    <option *ngFor="let value of genreEnum" [value]="value">{{ value }}</option>
+                </select>
+                <div *ngIf="updateForm.get('genre')?.hasError('required') && updateForm.get('genre')?.touched"
+                    class="text-red-500 text-sm mt-1">Genre is required</div>
+            </div>
+            <div class="mb-4">
+                <label for="image" class="block text-gray-600 text-sm font-medium mb-2">Image</label>
+                <input type="file" id="image" name="image" (change)="onFileSelected($event)" formControlName="image" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500">
+            </div>
+            <div class="mt-6">
+                <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none">Update Information</button>
+            </div>
+        </form>
+    </div>
+</div>

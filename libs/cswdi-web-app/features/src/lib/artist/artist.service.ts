@@ -96,12 +96,22 @@ export class ArtistService {
         return throwError(() => new Error(error.message));
     }
 
-    private convertImageToBase64(image: any): any {
-        new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(image);
-            reader.onload = () => resolve(reader.result);
-            reader.onerror = (error) => reject(error);
-          });
-    }
+    public convertImageToBase64(file: File): Promise<string> {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+      
+          reader.onloadend = () => {
+            // `result` is the base64-encoded string
+            const base64String = reader.result as string;
+            resolve(base64String);
+          };
+      
+          reader.onerror = (error) => {
+            reject(error);
+          };
+      
+          // Read the file as a data URL, which results in a base64-encoded string
+          reader.readAsDataURL(file);
+        });
+      }
 }
