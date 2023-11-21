@@ -19,7 +19,7 @@ export class Artist {
     image!: string;
 
     @Prop({ type: [Types.ObjectId], ref: 'Festival', default: [] })
-    festivals!: string[]; //change to festials once object is created
+    festivals!: Types.ObjectId[]; //change to festials once object is created
 }
 
 export const ArtistSchema = SchemaFactory.createForClass(Artist);

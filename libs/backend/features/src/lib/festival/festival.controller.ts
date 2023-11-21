@@ -4,13 +4,14 @@ import { Body, Controller, Delete, Get, Logger, Param, Post, Put } from '@nestjs
 import { FestivalService } from './festival.service';
 import { IFestival } from '@blavoss-cswdi/shared/api';
 import { CreateFestivalDTO } from '@blavoss-cswdi/backend/dto';
+import { ArtistService } from '../artist/artist.service';
 
 @Controller('festival')
 export class FestivalController {
 
     TAG = 'FestivalController'
 
-    constructor(private festivalService: FestivalService) {}
+    constructor(private festivalService: FestivalService, private artistService: ArtistService) {}
 
     @Get('')
     async getAll(): Promise<IFestival[]> {
@@ -40,6 +41,7 @@ export class FestivalController {
     @Post('addArtistToFestival')
     async addArtistToFestival(@Body() data: any): Promise<IFestival> {
         Logger.log(`addArtistToFestival(${data.festivalId}, ${data.artistId})`, this.TAG);
+        await this.artistService.addFestivalToArtist(data.artistId, data.festivalId);
         return await this.festivalService.addArtistToFestival(data.festivalId, data.artistId);
     }
 }
