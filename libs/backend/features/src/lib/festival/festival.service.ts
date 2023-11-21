@@ -1,0 +1,80 @@
+import { Injectable, Logger, NotFoundException } from "@nestjs/common";
+import { Model } from "mongoose";
+import { InjectModel } from "@nestjs/mongoose";
+import { FestivalDocument } from "@blavoss-cswdi/backend/data-access";
+import { BehaviorSubject } from "rxjs";
+import { IFestival } from "@blavoss-cswdi/shared/api";
+
+@Injectable()
+export class FestivalService {
+
+    constructor(@InjectModel('Festival') private readonly festivalModel: Model<FestivalDocument>) {}
+
+    TAG = 'Backend FestivalService';
+
+    private festivals$ = new BehaviorSubject<IFestival[]>([
+        
+    ]);
+
+    async getAll(): Promise<IFestival[]> {
+        Logger.log('getAll', this.TAG);
+
+        const festivals = await this.festivalModel.find().exec();
+
+        return festivals.map(festival => festival.toObject());
+    }
+
+    async getOne(id: string): Promise<IFestival> {
+        Logger.log(`getOne(${id})`, this.TAG);
+        try {
+            const festival = await this.festivalModel.findById(id).exec();
+
+            if (!festival) {
+                throw new NotFoundException('Festival could not be found');
+            }
+
+            return festival.toObject();
+        } catch (err) {
+            throw new NotFoundException(err);
+        }
+    }
+
+    async delete(id: string): Promise<IFestival> {
+        Logger.log(`delete(${id})`, this.TAG);
+        try {
+            const festival = await this.festivalModel.findByIdAndDelete(id).exec();
+        
+            if (!festival) {
+                throw new NotFoundException('Festival could not be found');
+            }
+
+            return festival.toObject();
+        } catch (err) {
+            throw new NotFoundException(err);
+        }
+    }
+
+    async create(festival: Pick<IFestival, 'name' | 'location' | 'startDate' | 'endDate' | 'description' | 'ticketPrice' | 'image' | 'genre' | 'artists'>): Promise<IFestival> {
+        Logger.log(`create(${JSON.stringify(festival)})`, this.TAG);
+
+        const newFestival = new this.festivalModel({...festival});
+
+        const result = await newFestival.save();
+
+        return result.toObject();
+    }
+
+    async update(id: string, festival: Partial<IFestival>): Promise<IFestival> {
+        Logger.log(`update(${id}, ${JSON.stringify(festival)})`, this.TAG);
+
+        try {
+            const updateFestival = await this.festivalModel.findByIdAndUpdate(id, festival, { new: true, runValidators: true }).exec();
+            if (!updateFestival) {
+                throw new NotFoundException('Festival could not be found');
+            }
+            return updateFestival.toObject();
+        } catch (err) {
+            throw new NotFoundException(err);
+        }
+    }
+}
