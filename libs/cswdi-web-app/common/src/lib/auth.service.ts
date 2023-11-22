@@ -37,7 +37,7 @@ export class AuthService {
         return localStorage.getItem('Authorization')
     }
 
-    getDecodedToken(): any | null {
+    public getDecodedToken(): any | null {
         const token = this.getToken();
 
         if (token) {
@@ -49,10 +49,14 @@ export class AuthService {
         }
     }
 
-    isAuthenticatedUser(): boolean {
+    public isAuthenticatedUser(): boolean {
         // Check if the token exists and is not expired
         const token = this.getToken();
         return !!token && !this.isTokenExpired(token);
+    }
+
+    public signOut() {
+        localStorage.removeItem('Authorization');
     }
     
     private isTokenExpired(token: string): boolean {

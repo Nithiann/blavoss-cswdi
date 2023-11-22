@@ -4,6 +4,7 @@ import { UserDetailComponent } from './user-detail/user-detail.component';
 import { UserUpdateComponent } from './user-update/user-update.component';
 import { UserCreateComponent } from './user-create/user-create.component';
 import { UserLoginComponent } from './user-login/user-login.component';
+import { adminGuard } from '@blavoss-cswdi/common';
 
 export const routes: Routes = [
     {
@@ -18,6 +19,7 @@ export const routes: Routes = [
     },
     {
         path: 'update/:id',
+        canActivate: [adminGuard],
         component: UserUpdateComponent
     },
     {
@@ -27,6 +29,7 @@ export const routes: Routes = [
     {
         path: '',
         pathMatch: 'full',
+        canActivate: [adminGuard],
         component: UserListComponent
     }
 ];

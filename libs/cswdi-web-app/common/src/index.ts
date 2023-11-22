@@ -3,4 +3,5 @@ export * from './lib/about/about.component';
 export * from './lib/token.interceptor';
 export * from './lib/auth.service';
 export * from './lib/auth.guard';
+export * from './lib/admin.guard';
 export * from './environments/environments';

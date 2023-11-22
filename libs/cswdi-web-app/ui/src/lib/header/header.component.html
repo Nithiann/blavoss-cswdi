@@ -7,11 +7,23 @@
         </div>
 
         <!-- Navigation Links in the middle -->
-        <ul class="flex space-x-4 text-white">
-            <li><a routerLink="/" class="hover:text-gray-300 cursor-pointer">Home</a></li>
-            <li><a [routerLink]="['/about']" class="hover:text-gray-300 cursor-pointer">About</a></li>
-            <li><a [routerLink]="['/user']" class="hover:text-gray-300">Users</a></li>
-        </ul>
+        <div *ngIf="currentUser; else loginBlock">
+            <ul class="flex space-x-4 text-white">
+                <li><a routerLink="/" class="hover:text-gray-300 cursor-pointer">Home</a></li>
+                <li><a [routerLink]="['/about']" class="hover:text-gray-300 cursor-pointer">About</a></li>
+                <li><a [routerLink]="['/user']" class="hover:text-gray-300">Users</a></li>
+                <li><a [routerLink]="['/artist']" class="hover:text-gray-300">Artists</a></li>
+                <li><a [routerLink]="['/festival']" class="hover:text-gray-300">Festivals</a></li>
+                <li><a (click)="signOut()" class="hover:text-gray-300">Sign Out</a></li>
+            </ul>
+        </div>
+
+        <ng-template #loginBlock>
+            <ul class="flex space-x-4 text-white">
+                <li><a routerLink="/user/new" class="hover:text-gray-300 cursor-pointer">Register</a></li>
+                <li><a [routerLink]="['/user/login']" class="hover:text-gray-300 cursor-pointer">Login</a></li>
+            </ul>
+        </ng-template>
 
         
     </div>
