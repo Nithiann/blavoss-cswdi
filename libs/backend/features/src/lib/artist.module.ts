@@ -6,6 +6,7 @@ import { ArtistController } from './artist/artist.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ArtistService } from './artist/artist.service';
 import { Module } from '@nestjs/common';
+import { JwtStrategy } from './jwt.strategy';
 
 @Module({
   imports: [
@@ -13,7 +14,7 @@ import { Module } from '@nestjs/common';
     MongooseModule.forFeature([{ name: 'Artist', schema: ArtistSchema }]),
   ],
   controllers: [ArtistController],
-  providers: [ArtistService],
+  providers: [ArtistService, JwtStrategy],
   exports: [],
 })
 export class BackendFeaturesArtistModule {}
