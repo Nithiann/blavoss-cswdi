@@ -5,6 +5,7 @@ import { InjectModel } from "@nestjs/mongoose";
 import { Model } from 'mongoose';
 import { UserDocument } from "@blavoss-cswdi/backend/data-access";
 import * as bcrypt from 'bcrypt';
+import * as jwt from 'jsonwebtoken';
 
 @Injectable()
 export class UserService {
@@ -25,7 +26,7 @@ export class UserService {
         }
     ]);
 
-    async login(creds: ILogin): Promise<IUser> {
+    async login(creds: ILogin): Promise<{user: IUser; token: string}> {
         Logger.log('login', this.TAG);
 
         try {
@@ -40,7 +41,10 @@ export class UserService {
                 throw new NotFoundException('Email or password might be incorrect');
             }
 
-            return user.toObject();
+            const accessToken = this.generateAccessToken(user.toObject());
+
+            return { ...user.toObject(), token: accessToken }
+            
         } catch (err) {
             throw new NotFoundException(err);
         }
@@ -108,5 +112,17 @@ export class UserService {
         } catch (err) {
             throw new NotFoundException(err);
         }
+    }
+
+    private generateAccessToken(user: IUser) : string {
+        const payload = {
+            sub: user._id,
+            email: user.email
+        };
+
+        const secret = process.env['JWT_SECRET'];
+        const options = { expiresIn: '1h' };
+
+        return jwt.sign(payload, secret!, options);
     }
 }
