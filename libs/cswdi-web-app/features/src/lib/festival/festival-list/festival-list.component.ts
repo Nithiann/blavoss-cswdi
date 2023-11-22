@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { IFestival } from '@blavoss-cswdi/shared/api';
 import { Subscription } from 'rxjs';
 import { FestivalService } from '../festival.service';
+import { AuthService } from '@blavoss-cswdi/common';
 
 @Component({
   selector: 'blavoss-cswdi-festival-list',

@@ -10,12 +10,12 @@ import { routes } from './user/user-routing.module';
 import { UserUpdateComponent } from "./user/user-update/user-update.component";
 import { UserCreateComponent } from "./user/user-create/user-create.component";
 import { UserLoginComponent } from "./user/user-login/user-login.component";
-import { TokenInterceptor } from "@blavoss-cswdi/common";
+import { AuthService, TokenInterceptor } from "@blavoss-cswdi/common";
 
 @NgModule({
     imports: [CommonModule, HttpClientModule, RouterModule.forChild(routes), ReactiveFormsModule],
     declarations: [UserDetailComponent, UserListComponent, UserUpdateComponent, UserCreateComponent, UserLoginComponent],
-    providers: [UserService, {
+    providers: [UserService, AuthService, {
         provide: HTTP_INTERCEPTORS,
         useClass: TokenInterceptor,
         multi: true

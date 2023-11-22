@@ -2,8 +2,8 @@
 import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { UserService } from '../user.service';
 import { ILogin } from '@blavoss-cswdi/shared/api';
+import { AuthService } from '@blavoss-cswdi/common';
 
 @Component({
   selector: 'blavoss-cswdi-user-login',
@@ -14,7 +14,7 @@ export class UserLoginComponent implements OnDestroy {
   loginForm: FormGroup;
   subscription: Subscription | undefined = undefined;
 
-  constructor(private fb: FormBuilder, private userService: UserService) {
+  constructor(private fb: FormBuilder, private authService: AuthService) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
@@ -27,7 +27,7 @@ export class UserLoginComponent implements OnDestroy {
       password: this.loginForm.value.password,
     }
 
-    this.subscription = this.userService.login(login).subscribe((results: any) => {
+    this.subscription = this.authService.login(login).subscribe((results: any) => {
       const token = results.token;
 
       localStorage.setItem('Authorization', `Bearer ${token}`);

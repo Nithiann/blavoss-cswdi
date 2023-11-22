@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { HttpClientModule } from "@angular/common/http";
+import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { NgModule } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
@@ -10,11 +10,16 @@ import { FestivalDetailComponent } from "./festival/festival-detail/festival-det
 import { FestivalService } from "./festival/festival.service";
 import { FestivalAddArtistComponent } from "./festival/festival-add-artist/festival-add-artist.component";
 import { ArtistService } from "./artist/artist.service";
+import { AuthService, TokenInterceptor } from "@blavoss-cswdi/common";
 
 @NgModule({
     imports: [CommonModule, HttpClientModule, ReactiveFormsModule, RouterModule.forChild(routes)],
     declarations: [FestivalListComponent, FestivalCreateComponent, FestivalDetailComponent, FestivalAddArtistComponent],
-    providers: [FestivalService, ArtistService],
+    providers: [FestivalService, ArtistService, AuthService,{
+        provide: HTTP_INTERCEPTORS,
+        useClass: TokenInterceptor,
+        multi: true
+      }],
     exports: [FestivalCreateComponent, FestivalDetailComponent, FestivalListComponent, FestivalAddArtistComponent, RouterModule]
 })
 

@@ -2,9 +2,9 @@
 import { Observable, throwError } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { map, catchError, tap } from 'rxjs/operators';
-import { ApiResponse, ILogin, IUser } from '@blavoss-cswdi/shared/api';
+import { ApiResponse, IUser } from '@blavoss-cswdi/shared/api';
 import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environments';
+import { environment } from '@blavoss-cswdi/common';
 
 /**
  * See https://angular.io/guide/http#requesting-data-from-a-server
@@ -21,7 +21,6 @@ export const httpOptions = {
 @Injectable()
 export class UserService {
     endpoint = `${environment.apiUrl}/user`;
-    token = localStorage.getItem('Authorization');
     constructor(private readonly http: HttpClient) {}
 
     /**
@@ -40,19 +39,6 @@ export class UserService {
             .pipe(
                 map((response: any) => response.results as IUser[]),
                 tap(console.log),
-                catchError(this.handleError)
-            );
-    }
-
-    public login(creds: ILogin, options?: any): Observable<any> {
-        console.log(`login ${this.endpoint}`);
-        return this.http
-            .post<ApiResponse<IUser>>(this.endpoint + '/login', creds, {
-                ...options,
-                ...httpOptions,
-            })
-            .pipe(
-                map((response: any) => response.results),
                 catchError(this.handleError)
             );
     }
