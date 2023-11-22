@@ -7,7 +7,7 @@
         </div>
 
         <!-- Navigation Links in the middle -->
-        <div *ngIf="currentUser; else loginBlock">
+        <div *ngIf="isAuthenticated; else loginBlock">
             <ul class="flex space-x-4 text-white">
                 <li><a routerLink="/" class="hover:text-gray-300 cursor-pointer">Home</a></li>
                 <li><a [routerLink]="['/about']" class="hover:text-gray-300 cursor-pointer">About</a></li>

@@ -25,7 +25,7 @@ export const routes: Routes = [
     {
         path: '',
         pathMatch: 'full',
-        canActivate: [adminGuard],
+        canActivate: [authGuard],
         component: FestivalListComponent
     }
 ]

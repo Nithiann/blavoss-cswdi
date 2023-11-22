@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 import { AuthService } from '@blavoss-cswdi/common';
 import { Subscription } from 'rxjs';
 
@@ -11,19 +11,37 @@ import { Subscription } from 'rxjs';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   currentUser: any;
+  isAuthenticated: boolean = false;
   subscription: Subscription | undefined = undefined;
-  constructor(private AuthService: AuthService, private route: Router) {
-    
+  constructor(private authService: AuthService, private route: Router) {
+    this.route.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.isAuthenticated = this.authService.isAuthenticatedUser();
+        if (this.isAuthenticated) {
+          this.currentUser = this.authService.getDecodedToken();
+        }
+      }
+    });
+  
+    // Subscribe to changes in authentication status
+    this.authService.getAuthenticationChanged().subscribe((isAuthenticated) => {
+      this.isAuthenticated = isAuthenticated;
+      if (isAuthenticated) {
+        this.currentUser = this.authService.getDecodedToken();
+      } else {
+        this.currentUser = null;
+      }
+    });
   }
 
   signOut(): void {
-    this.AuthService.signOut();
+    this.authService.signOut();
     this.currentUser = null;
     this.route.navigate(['/user/login']);
   }
 
   ngOnInit(): void {
-    this.currentUser = this.AuthService.getDecodedToken();
+    console.log('hello');
   }
 
   ngOnDestroy(): void {
