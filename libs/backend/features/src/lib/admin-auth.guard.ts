@@ -11,7 +11,7 @@ export class AdminAuthGuard extends AuthGuard('jwt') implements CanActivate {
 
     override async canActivate(context: ExecutionContext) : Promise<boolean> {
         const isAuthorized = await super.canActivate(context);
-
+        Logger.log(`AdminAuthGuard canActivate: ${isAuthorized}`, AdminAuthGuard.name);
         if (!isAuthorized) {
             return false;
         }

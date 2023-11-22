@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { ArtistService } from "./artist/artist.service";
-import { HttpClientModule } from "@angular/common/http";
+import { TokenInterceptor } from "@blavoss-cswdi/common";
+import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { CommonModule } from "@angular/common";
 import { ReactiveFormsModule } from "@angular/forms";
 import { ArtistCreateComponent } from "./artist/artist-create/artist-create.component";
@@ -13,7 +14,11 @@ import { ArtistUpdateComponent } from "./artist/artist-update/artist-update.comp
 @NgModule({
     imports: [CommonModule, HttpClientModule, ReactiveFormsModule, RouterModule.forChild(routes)],
     declarations: [ArtistCreateComponent, ArtistListComponent, ArtistDetailComponent, ArtistUpdateComponent],
-    providers: [ArtistService],
+    providers: [ArtistService, {
+        provide: HTTP_INTERCEPTORS,
+        useClass: TokenInterceptor,
+        multi: true
+      }],
     exports: [ArtistCreateComponent, ArtistListComponent, ArtistDetailComponent, ArtistUpdateComponent, RouterModule],
 })
 

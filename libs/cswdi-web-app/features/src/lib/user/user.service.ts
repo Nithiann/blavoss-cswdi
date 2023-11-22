@@ -2,7 +2,7 @@
 import { Observable, throwError } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { map, catchError, tap } from 'rxjs/operators';
-import { ApiResponse, IUser } from '@blavoss-cswdi/shared/api';
+import { ApiResponse, ILogin, IUser } from '@blavoss-cswdi/shared/api';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environments';
 
@@ -21,7 +21,7 @@ export const httpOptions = {
 @Injectable()
 export class UserService {
     endpoint = `${environment.apiUrl}/user`;
-
+    token = localStorage.getItem('Authorization');
     constructor(private readonly http: HttpClient) {}
 
     /**
@@ -44,6 +44,19 @@ export class UserService {
             );
     }
 
+    public login(creds: ILogin, options?: any): Observable<any> {
+        console.log(`login ${this.endpoint}`);
+        return this.http
+            .post<ApiResponse<IUser>>(this.endpoint + '/login', creds, {
+                ...options,
+                ...httpOptions,
+            })
+            .pipe(
+                map((response: any) => response.results),
+                catchError(this.handleError)
+            );
+    }
+
     /**
      * Get a single item from the service.
      *
@@ -53,6 +66,7 @@ export class UserService {
         return this.http
             .get<ApiResponse<IUser>>(this.endpoint + '/' + id, {
                 ...options,
+
                 ...httpOptions,
             })
             .pipe(
@@ -78,9 +92,11 @@ export class UserService {
 
     public update(id: string | null, user: Partial<IUser>, options?: any): Observable<IUser> {
         console.log(`update ${this.endpoint}`);
+
         return this.http
             .put<ApiResponse<IUser>>(this.endpoint + '/' + id, user, {
                 ...options,
+
                 ...httpOptions,
             })
             .pipe(
