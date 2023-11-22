@@ -1,26 +1,24 @@
 import { CanActivate, ExecutionContext, Injectable } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
-import { Reflector } from "@nestjs/core";
-import { Observable } from "rxjs";
+import { JwtStrategy } from "./jwt.strategy";
 
 @Injectable()
 export class AdminAuthGuard extends AuthGuard('jwt') implements CanActivate {
-    constructor(private reflector: Reflector) {
+    constructor(private readonly jwtStrategy: JwtStrategy) {
         super();
     }
 
-    override canActivate(context: ExecutionContext) : boolean | Promise<boolean> | Observable<boolean> {
+    override async canActivate(context: ExecutionContext) : Promise<boolean> {
         const isAuthorized = super.canActivate(context);
 
         if (!isAuthorized) {
             return false;
         }
 
-        const request = context.switchToHttp().getRequest();
-        const user = request.user;
+        const user = await this.jwtStrategy.validate(context.switchToHttp().getRequest())
 
         const isAdmin = user.email === 'info@cswdi-web-app.com';
 
-        return isAdmin;
+        return super.canActivate(context) && isAdmin;
     }
 }
