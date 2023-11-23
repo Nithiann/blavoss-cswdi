@@ -82,7 +82,6 @@ export class UserService {
         return this.http
             .put<ApiResponse<IUser>>(this.endpoint + '/' + id, user, {
                 ...options,
-
                 ...httpOptions,
             })
             .pipe(
