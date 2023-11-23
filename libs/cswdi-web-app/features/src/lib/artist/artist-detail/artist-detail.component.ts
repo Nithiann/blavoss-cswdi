@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { IArtist } from '@blavoss-cswdi/shared/api';
+import { IArtist, IFestival } from '@blavoss-cswdi/shared/api';
 import { Subscription } from 'rxjs';
 import { ArtistService } from '../artist.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'blavoss-cswdi-artist-detail',
@@ -15,7 +15,7 @@ export class ArtistDetailComponent implements OnInit, OnDestroy {
   artist: IArtist | null = null;
   subscription: Subscription | undefined = undefined;
 
-  constructor(private artistService: ArtistService, private route: ActivatedRoute) {}
+  constructor(private artistService: ArtistService, private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
     this.subscription = this.route.params.subscribe(params => {
@@ -26,6 +26,14 @@ export class ArtistDetailComponent implements OnInit, OnDestroy {
         this.artist = results;
       })
     });
+  }
+
+  selectFestival(festival: IFestival | null) {
+    this.router.navigate(['/festival', festival!._id]);
+  }
+
+  assertAsFestival(festival: any): IFestival | null {
+    return festival as IFestival;
   }
 
   ngOnDestroy(): void {

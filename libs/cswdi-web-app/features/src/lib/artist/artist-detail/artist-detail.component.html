@@ -15,4 +15,17 @@
         </div>
       </div>
     </div>
+
+    <h3 class="text-xl mt-4">Festivals</h3>
+    <div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8">
+        <div class="card overflow-hidden shadow-lg bg-white rounded-lg relative transition-transform transform hover:scale-105 cursor-pointer" *ngFor="let festival of artist.festivals" (click)="selectFestival(assertAsFestival(festival))">
+          <img [src]="assertAsFestival(festival)!.image" alt="{{ assertAsFestival(festival)!.name }} Image" class="w-full h-64 object-cover">
+          <div class="card-content p-4">
+            <h3 class="text-lg font-semibold mb-2">{{ assertAsFestival(festival)!.name }}</h3>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+
