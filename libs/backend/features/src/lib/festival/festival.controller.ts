@@ -52,4 +52,12 @@ export class FestivalController {
         await this.artistService.addFestivalToArtist(data.artistId, data.festivalId);
         return await this.festivalService.addArtistToFestival(data.festivalId, data.artistId);
     }
+
+    @Post('removeArtistFromFestival')
+    @UseGuards(AdminAuthGuard)
+    async removeArtistFromFestival(@Body() data: any): Promise<IFestival> {
+        Logger.log(`addArtistToFestival(${data.festivalId}, ${data.artistId})`, this.TAG);
+        await this.artistService.removeFestivalFromArtist(data.artistId, data.festivalId);
+        return await this.festivalService.removeArtistFromFestival(data.festivalId, data.artistId);
+    }
 }

@@ -31,7 +31,7 @@ export class ArtistService {
                 catchError(this.handleError)
             );
     }
-
+ 
     public read(id: string | null, options?: any): Observable<IArtist> {
         console.log(`read ${this.endpoint}`);
         return this.http
@@ -86,6 +86,20 @@ export class ArtistService {
             .pipe(
                 tap(console.log),
                 map((response: any) => response.results as IArtist),
+                catchError(this.handleError)
+            );
+    }
+
+    public ListNotInFestival(festivalId: string, options?: any): Observable<IArtist[]> {
+        console.log(`ListNotInFestival ${this.endpoint}`);
+        return this.http
+            .get<ApiResponse<IArtist[]>>(this.endpoint + '/planned/' + festivalId, {
+                ...httpOptions,
+                ...options
+            })
+            .pipe(
+                map((response: any) => response.results as IArtist[]),
+                tap(console.log),
                 catchError(this.handleError)
             );
     }

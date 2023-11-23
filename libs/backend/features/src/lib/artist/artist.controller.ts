@@ -39,4 +39,10 @@ export class ArtistController {
     async delete(@Param('id') id: string): Promise<IArtist> {
         return await this.artistService.delete(id);
     }
+
+    @Get('planned/:id')
+    @UseGuards(GenericAuthGuard)
+    async ListNotInFestival(@Param('id') id: string): Promise<IArtist[]> {
+        return await this.artistService.ListNotInFestival(id);
+    }
 }

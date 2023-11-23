@@ -101,6 +101,38 @@ export class ArtistService {
         }
     }
 
+    async removeFestivalFromArtist(id: string, festivalId: string): Promise<IArtist> {
+        Logger.log(`removeFestivalFromArtist(${id}, ${festivalId})`, this.TAG);
+        try {
+            const artist = await this.artistModel.findById(id).exec();
+            if (!artist) {
+                throw new NotFoundException('Artist could not be found');
+            }
+            const festivalObjectId = new Types.ObjectId(festivalId);
+            artist.festivals = artist.festivals.filter(festival => !festival.equals(festivalObjectId));
+
+            await artist.save();
+
+            return artist.toObject();
+
+        } catch (err) {
+            throw new NotFoundException(err);
+        }
+    }
+
+    async ListNotInFestival(festivalId: string): Promise<IArtist[]> {
+        Logger.log(`ListNotInFestival(${festivalId})`, this.TAG);
+        try {
+            const artistsInFestival = await this.artistModel.find({ festivals: new Types.ObjectId(festivalId) }).exec();
+            const allArtists = await this.artistModel.find().exec();
+            const artistsNotInFestival = allArtists.filter(artist => !artistsInFestival.some(a => a._id.equals(artist._id)));
+
+            return artistsNotInFestival.map(artist => artist.toObject());
+        } catch (err) {
+            throw new NotFoundException(err);
+        }
+    }
+
     private convertImageToBase64(imagePath: string): string {
         const fileBuffer = fs.readFileSync(imagePath);
          

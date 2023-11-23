@@ -23,7 +23,19 @@ export class FestivalAddArtistComponent implements OnInit, OnDestroy{
     console.log(this.festivalId);
     this.subscription = this.festivalService.addArtistToFestival(this.festivalId, artist._id!).subscribe((resp) => {
       console.log(`resp: ${resp}`);
+
+      this.festival!.artists!.push(artist)
+      this.artists = this.artists!.filter((a) => a._id !== artist._id);
     })
+  }
+
+  deSelectArtist(artist: IArtist) {
+    console.log(this.festivalId);
+    this.subscription = this.festivalService.removeArtistFromFestival(this.festivalId, artist._id!).subscribe((resp) => {
+      console.log(`resp: ${resp}`);
+      this.artists!.push(artist);
+      this.festival!.artists! = this.festival!.artists!.filter((a) => a._id !== artist._id);
+    });
   }
 
   ngOnInit(): void {
@@ -36,12 +48,15 @@ export class FestivalAddArtistComponent implements OnInit, OnDestroy{
         });
       })
 
-      this.subscription = this.artistService.list().subscribe((result) => {
-        this.artists = result;
+      this.subscription = this.artistService.ListNotInFestival(this.festivalId).subscribe((results: any) => {
+        console.log(`results: ${results}`);
+        this.artists = results;
       })
   }
 
   ngOnDestroy(): void {
     if (this.subscription) this.subscription.unsubscribe();
   }
+
+  
 }

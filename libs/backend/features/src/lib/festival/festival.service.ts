@@ -101,4 +101,23 @@ export class FestivalService {
             throw new NotFoundException(err);
         }
     }
+
+    async removeArtistFromFestival(festivalId: string, artistId: string): Promise<IFestival> {
+        Logger.log(`removeArtistFromEvent(${festivalId}, ${artistId})`, this.TAG);
+        try {
+            const festival = await this.festivalModel.findById(festivalId).exec();
+
+            if (!festival) {
+                throw new NotFoundException('Festival could not be found');
+            }
+            const artistObjectId = new Types.ObjectId(artistId);
+            festival.artists = festival.artists.filter(artist => !artist.equals(artistObjectId));
+
+            await festival.save();
+
+            return festival.toObject();
+        } catch (err) {
+            throw new NotFoundException(err);
+        }
+    }
 }
