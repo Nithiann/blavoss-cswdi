@@ -12,7 +12,7 @@ export const authGuard: CanActivateFn = (route: ActivatedRouteSnapshot, state: R
 
     console.log(currentUser);
     const isAnon = !currentUser;
-    if (isAnon) return inject(Router).createUrlTree(["/login", "user"]);
+    if (isAnon) return inject(Router).navigate(["/user/login"]);
 
     return true;
 }

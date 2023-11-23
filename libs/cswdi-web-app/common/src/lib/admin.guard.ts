@@ -11,7 +11,7 @@ export const adminGuard: CanActivateFn = (route: ActivatedRouteSnapshot, state: 
     const currentUser = inject(AuthService).getDecodedToken();
 
     const isAnon = !currentUser;
-    if (isAnon) return inject(Router).createUrlTree(["/login", "user"]);
+    if (isAnon) return inject(Router).navigate(["/user/login"]);
 
     return currentUser.email === 'info@cswdi-web-app.com' ? true : inject(Router).createUrlTree(["/"]);
 }
