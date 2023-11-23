@@ -2,8 +2,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { FestivalService } from '../festival.service';
-import { ActivatedRoute } from '@angular/router';
-import { IFestival } from '@blavoss-cswdi/shared/api';
+import { ActivatedRoute, Router } from '@angular/router';
+import { IArtist, IFestival } from '@blavoss-cswdi/shared/api';
 
 @Component({
   selector: 'blavoss-cswdi-festival-detail',
@@ -15,7 +15,7 @@ export class FestivalDetailComponent implements OnInit, OnDestroy {
   festival: IFestival | null = null;
   subscription: Subscription | undefined  = undefined;
 
-  constructor(private festivalService: FestivalService, private route: ActivatedRoute) {}
+  constructor(private festivalService: FestivalService, private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
     this.subscription = this.route.params.subscribe(params => {
@@ -26,6 +26,14 @@ export class FestivalDetailComponent implements OnInit, OnDestroy {
         this.festival = results;
       })
     });
+  }
+
+  selectFestival(artist: IArtist | null) {
+    this.router.navigate( ['/artist', artist!._id]);	
+  }
+
+  assertAsArtist(artist: any): IArtist | null {
+    return artist as IArtist;
   }
 
   ngOnDestroy(): void {
