@@ -17,13 +17,12 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
-
-  const allowedOrigin = 'https://kind-ground-02d6e2810.4.azurestaticapps.net';
   
   const corsOptions: CorsOptions = {
-    origin: allowedOrigin,
+    origin: '*',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
+    exposedHeaders: ['Content-Length', 'X-Foo', 'X-Bar'],
   };
   app.enableCors(corsOptions);
 
