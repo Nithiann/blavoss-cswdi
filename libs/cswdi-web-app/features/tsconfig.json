@@ -7,10 +7,15 @@
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "noFallthroughCasesInSwitch": true,
+    "types": ["jasmine", "node"]
   },
   "files": [],
-  "include": [],
+  "include": [
+    "node_modules/@types"
+  ],
   "references": [
     {
       "path": "./tsconfig.lib.json"

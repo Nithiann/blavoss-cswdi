@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { UserService } from '../user.service';
 import { Gender, IUser } from '@blavoss-cswdi/shared/api';
 import { Subscription } from 'rxjs';
@@ -31,11 +31,13 @@ export class UserCreateComponent implements OnInit, OnDestroy {
     this.createForm.setValidators([this.passwordMatchValidator, this.ageValidator]);
   }
 
-  passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
-    const password = control.get('password')?.value;
-    const confirmPassword = control.get('confirmPassword')?.value;
-
-    return password === confirmPassword ? null : { passwordMismatch: true };
+  passwordMatchValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const password = control.get('password')?.value;
+      const confirmPassword = control.get('confirmPassword')?.value;
+  
+      return password === confirmPassword ? null : { passwordMismatch: true };
+    };
   }
   
   ageValidator(control: AbstractControl): ValidationErrors | null {
