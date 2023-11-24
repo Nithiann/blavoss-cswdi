@@ -64,7 +64,7 @@ describe('UserService', () => {
 
   it('should handle errors when retrieving users', async(() => {
     //arrange
-    const errorMessage = 'Http failure response for https://blavoss-cswdi-api.azurewebsites.net/api/user: 500 Server Error';
+    const errorMessage = 'Http failure response for https://cswdi-blavoss-api.azurewebsites.net/api/user: 500 Server Error';
 
     //act
     userService.list().subscribe(
@@ -83,7 +83,7 @@ describe('UserService', () => {
   it('should handle errors when retrieving a user by ID', async(() => {
     //arrange
     const userId = '1';
-    const errorMessage = 'Http failure response for https://blavoss-cswdi-api.azurewebsites.net/api/user/1: 404 Not Found';
+    const errorMessage = 'Http failure response for https://cswdi-blavoss-api.azurewebsites.net/api/user/1: 404 Not Found';
 
     //act
     userService.read(userId).subscribe(
@@ -119,7 +119,7 @@ describe('UserService', () => {
   it('should handle errors when removing a user by ID', async(() => {
     //arrange
     const userId = '1';
-    const errorMessage = 'Http failure response for https://blavoss-cswdi-api.azurewebsites.net/api/user/1: 404 Not Found';
+    const errorMessage = 'Http failure response for https://cswdi-blavoss-api.azurewebsites.net/api/user/1: 404 Not Found';
 
     //act
     userService.remove(userId).subscribe(
@@ -158,7 +158,7 @@ describe('UserService', () => {
     //arrange
     const userId = '1';
     const updatedUserData: Partial<IUser> = { email: 'john.doe@gmail.com' };
-    const errorMessage = 'Http failure response for https://blavoss-cswdi-api.azurewebsites.net/api/user/1: 404 Not Found';
+    const errorMessage = 'Http failure response for https://cswdi-blavoss-api.azurewebsites.net/api/user/1: 404 Not Found';
 
     //act
     userService.update(userId, updatedUserData).subscribe(
@@ -196,7 +196,7 @@ describe('UserService', () => {
   it('Should handle errors when creating a new user', async(() => {
     //arrange
     const newUser: IUser = { _id: '1', email: 'voss.bas@gmail.com', hash: '123', firstName: 'Bas', lastName: 'Voss', dob: new Date(12, 8, 1999), gender: Gender.Male };
-    const errorMessage = 'Http failure response for https://blavoss-cswdi-api.azurewebsites.net/api/user: 500 Server Error';
+    const errorMessage = 'Http failure response for https://cswdi-blavoss-api.azurewebsites.net/api/user: 500 Server Error';
 
     //act
     userService.create(newUser).subscribe(

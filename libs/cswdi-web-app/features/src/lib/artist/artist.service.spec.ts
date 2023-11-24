@@ -64,7 +64,7 @@ describe('ArtistService', () => {
 
     it('should handle errors when retrieving artists', async(() => {
         //arrange
-        const errorMessage = 'Http failure response for https://blavoss-cswdi-api.azurewebsites.net/api/artist: 404 Not Found';
+        const errorMessage = 'Http failure response for https://cswdi-blavoss-api.azurewebsites.net/api/artist: 404 Not Found';
 
         //act
         artistService.list().subscribe(
@@ -83,7 +83,7 @@ describe('ArtistService', () => {
     it('should handle errors when retrieving an artist by ID', async(() => {
         //arrange
         const artistId = '1';
-        const errorMessage = 'Http failure response for https://blavoss-cswdi-api.azurewebsites.net/api/artist/1: 404 Not Found';
+        const errorMessage = 'Http failure response for https://cswdi-blavoss-api.azurewebsites.net/api/artist/1: 404 Not Found';
 
         //act
         artistService.read(artistId).subscribe(
@@ -119,7 +119,7 @@ describe('ArtistService', () => {
     it('should handle error when removing an artist by ID', async(() => {
         //arrange
         const artistId = '1';
-        const errorMessage = 'Http failure response for https://blavoss-cswdi-api.azurewebsites.net/api/artist/1: 404 Not Found';
+        const errorMessage = 'Http failure response for https://cswdi-blavoss-api.azurewebsites.net/api/artist/1: 404 Not Found';
 
         //act
         artistService.remove(artistId).subscribe(
@@ -156,7 +156,7 @@ describe('ArtistService', () => {
         //arrange
         const artistId = '1';
         const mockArtist: IArtist = { _id: '1', name: 'Artist 1', image: 'image 1', description: 'description 1', genre: Genre.ElectroFolk };
-        const errorMessage = 'Http failure response for https://blavoss-cswdi-api.azurewebsites.net/api/artist/1: 404 Not Found';
+        const errorMessage = 'Http failure response for https://cswdi-blavoss-api.azurewebsites.net/api/artist/1: 404 Not Found';
 
         //act
         artistService.update(artistId, mockArtist).subscribe(
@@ -191,7 +191,7 @@ describe('ArtistService', () => {
     it('should handle error when creating an artist', async(() => {
         //arrange
         const mockArtist: IArtist = { _id: '1', name: 'Artist 1', image: 'image 1', description: 'description 1', genre: Genre.ElectroFolk };
-        const errorMessage = 'Http failure response for https://blavoss-cswdi-api.azurewebsites.net/api/artist: 404 Not Found';
+        const errorMessage = 'Http failure response for https://cswdi-blavoss-api.azurewebsites.net/api/artist: 404 Not Found';
 
         //act
         artistService.create(mockArtist).subscribe(
