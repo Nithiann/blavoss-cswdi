@@ -18,12 +18,7 @@ async function bootstrap() {
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
   
-  const corsOptions: CorsOptions = {
-    origin: '*',
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true,
-    exposedHeaders: ['Content-Length', 'X-Foo', 'X-Bar'],
-  };
+  const corsOptions: CorsOptions = {};
   app.enableCors(corsOptions);
 
   app.use(bodyParser.json({ limit: '5mb' }));
