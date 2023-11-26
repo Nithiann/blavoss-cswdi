@@ -20,6 +20,7 @@
 
         <ng-template #loginBlock>
             <ul class="flex space-x-4 text-white">
+                <li><a [routerLink]="['/about']" class="hover:text-gray-300 cursor-pointer">About</a></li>
                 <li><a routerLink="/user/new" class="hover:text-gray-300 cursor-pointer">Register</a></li>
                 <li><a [routerLink]="['/user/login']" class="hover:text-gray-300 cursor-pointer">Login</a></li>
             </ul>
