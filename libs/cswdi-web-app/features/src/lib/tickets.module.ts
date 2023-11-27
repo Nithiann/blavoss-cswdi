@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { FestivalService } from "./festival/festival.service";
 import { AuthService, TokenInterceptor } from "@blavoss-cswdi/common";
+import { TicketService } from "./ticket/ticket.service";
 
 
 @NgModule({
