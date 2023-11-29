@@ -55,7 +55,7 @@ export class AuthService {
     }
 
     public setToken(token: string): void {
-        localStorage.setItem('Authorization', token);
+        localStorage.setItem('Authorization', `bearer ${token}`);
     }
 
     public getToken(): string | null {

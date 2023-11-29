@@ -64,7 +64,7 @@ export class UserCreateComponent implements OnInit, OnDestroy {
 
     this.subscription = this.userService.create(user).subscribe((resp: any)=> {
       if (resp) 
-        this.router.navigate(['/user', resp._id])
+        this.router.navigate(['/user/login']);
     })
   }
 

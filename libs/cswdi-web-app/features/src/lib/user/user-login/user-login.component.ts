@@ -31,9 +31,9 @@ export class UserLoginComponent implements OnDestroy {
     this.subscription = this.authService.login(login).subscribe((results: any) => {
       const token = results.token;
 
-      localStorage.setItem('Authorization', `Bearer ${token}`);
+      this.authService.setToken(token);
 
-      this.route.navigate(['/festival'])
+      this.route.navigate(['/ticket'])
     })
   }
   
