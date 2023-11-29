@@ -4,11 +4,15 @@ import { NgModule } from "@angular/core";
 import { RouterModule } from '@angular/router';
 import { HeaderComponent } from "./header/header.component";
 import { FooterComponent } from "./footer/footer.component";
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
+
+
 
 
  
 @NgModule({
-    imports: [CommonModule, HttpClientModule, RouterModule],
+    imports: [CommonModule, HttpClientModule, RouterModule, MatMenuModule, MatButtonModule],
     declarations: [HeaderComponent, FooterComponent],
     providers: [],
     exports: [HeaderComponent, FooterComponent],

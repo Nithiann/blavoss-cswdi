@@ -1,28 +1,36 @@
 <nav class="bg-gray-800 p-4">
     <div class="container mx-auto flex items-center justify-between">
 
-        <!-- Logo or Brand on the left -->
         <div class="text-white font-bold">
             <img src="your-logo.png" alt="Your Logo" class="h-8">
         </div>
 
-        <!-- Navigation Links in the middle -->
-        <div *ngIf="isAuthenticated; else loginBlock">
-            <ul class="flex space-x-4 text-white">
-                <li><a routerLink="/" class="hover:text-gray-300 cursor-pointer">Home</a></li>
-                <li><a [routerLink]="['/about']" class="hover:text-gray-300 cursor-pointer">About</a></li>
-                <li><a [routerLink]="['/user']" class="hover:text-gray-300">Users</a></li>
-                <li><a [routerLink]="['/artist']" class="hover:text-gray-300">Artists</a></li>
-                <li><a [routerLink]="['/festival']" class="hover:text-gray-300">Festivals</a></li>
-                <li><a (click)="signOut()" class="hover:text-gray-300">Sign Out</a></li>
-            </ul>
-        </div>
-
-        <ng-template #loginBlock>
+        <div *ngIf="!isAuthenticated; else userBlock">
             <ul class="flex space-x-4 text-white">
                 <li><a [routerLink]="['/about']" class="hover:text-gray-300 cursor-pointer">About</a></li>
                 <li><a routerLink="/user/new" class="hover:text-gray-300 cursor-pointer">Register</a></li>
                 <li><a [routerLink]="['/user/login']" class="hover:text-gray-300 cursor-pointer">Login</a></li>
+            </ul>
+        </div>
+        
+        <!-- Content for all other users -->
+        <ng-template #userBlock>
+            <ul class="flex space-x-4 text-white">
+                <li><a routerLink="/" class="hover:text-gray-300 cursor-pointer">Home</a></li>
+                <li><a [routerLink]="['/about']" class="hover:text-gray-300 cursor-pointer">About</a></li>
+                <li><a [routerLink]="['/ticket']" class="hover:text-gray-300">Festivals</a></li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle hover:text-gray-300 cursor-pointer" (click)="toggleDropdown()">{{currentUser!.email}} ↓ </a>
+                    <ul *ngIf="isDropdownVisible" class="dropdown-menu">
+                        <li><a [routerLink]="['/user', currentUser.sub]" class="hover:text-gray-300">Profile</a></li>
+                        <div *ngIf="isAuthenticated && (currentUser.email === 'info@cswdi-web-app.com')">
+                            <li><a [routerLink]="['/user']" class="hover:text-gray-300">User management</a></li>
+                            <li><a [routerLink]="['/artist']" class="hover:text-gray-300">Artists management</a></li>
+                            <li><a [routerLink]="['/festival']" class="hover:text-gray-300">Festivals management</a></li>
+                        </div>
+                        <li><a (click)="signOut()" class="hover:text-gray-300">Sign out</a></li>
+                    </ul>
+                </li>
             </ul>
         </ng-template>
 

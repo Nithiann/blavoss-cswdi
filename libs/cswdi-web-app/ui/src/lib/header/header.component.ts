@@ -13,6 +13,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   currentUser: any;
   isAuthenticated: boolean = false;
   subscription: Subscription | undefined = undefined;
+  isDropdownVisible : boolean = false;
   constructor(private authService: AuthService, private route: Router) {
     this.route.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -34,9 +35,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
   }
 
+  
+
+  toggleDropdown() {
+    this.isDropdownVisible = !this.isDropdownVisible;
+  }
+
   signOut(): void {
     this.authService.signOut();
+    this.isAuthenticated = false;
     this.currentUser = null;
+    this.isDropdownVisible = false;
     this.route.navigate(['/user/login']);
   }
 
