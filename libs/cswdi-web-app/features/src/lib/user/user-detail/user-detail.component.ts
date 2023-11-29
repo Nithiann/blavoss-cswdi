@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { IUser } from '@blavoss-cswdi/shared/api';
+import { ITicket, IUser } from '@blavoss-cswdi/shared/api';
 import { Subscription } from 'rxjs';
 import { UserService } from '../user.service';
 import { ActivatedRoute } from '@angular/router';
@@ -26,6 +26,10 @@ export class UserDetailComponent implements OnInit, OnDestroy {
           this.user = results;
         })
       })
+    }
+
+    personalize(ticket: ITicket) {
+      console.log(ticket);
     }
 
     ngOnDestroy(): void {

@@ -4,17 +4,17 @@ import {
     IsDate,
     IsNumber,
 } from 'class-validator';
-import { ICreateTicket, IUpdateTicket, IUpsertTicket, TicketStatus, PersonalizationStatus } from '@blavoss-cswdi/shared/api';
-import { Types } from 'mongoose';
+import { ICreateTicket, IUpdateTicket, IUpsertTicket, TicketStatus, PersonalizationStatus, IUser, IFestival } from '@blavoss-cswdi/shared/api';
+
 
 export class CreateTicketDTO implements ICreateTicket{
     @IsString()
     @IsNotEmpty()
-    userId!: Types.ObjectId;
+    userId!: IUser;
 
     @IsString()
     @IsNotEmpty()
-    festivalId!: Types.ObjectId;
+    festivalId!: IFestival;
 
     @IsNumber()
     @IsNotEmpty()
@@ -30,7 +30,7 @@ export class CreateTicketDTO implements ICreateTicket{
 
     @IsString()
     @IsNotEmpty()
-    personalizationStatus!: PersonalizationStatus;
+    PersonalizationStatus!: PersonalizationStatus;
 }
 
 export class UpsertTicketDTO implements IUpsertTicket{
@@ -40,11 +40,11 @@ export class UpsertTicketDTO implements IUpsertTicket{
 
     @IsString()
     @IsNotEmpty()
-    userId!: Types.ObjectId;
+    userId!: IUser;
 
     @IsString()
     @IsNotEmpty()
-    festivalId!: Types.ObjectId;
+    festivalId!: IFestival;
 
     @IsNumber()
     @IsNotEmpty()
@@ -60,7 +60,7 @@ export class UpsertTicketDTO implements IUpsertTicket{
 
     @IsString()
     @IsNotEmpty()
-    personalizationStatus!: PersonalizationStatus;
+    PersonalizationStatus!: PersonalizationStatus;
 }
 
 export class UpdateTicketDTO implements IUpdateTicket{
@@ -70,11 +70,11 @@ export class UpdateTicketDTO implements IUpdateTicket{
 
     @IsString()
     @IsNotEmpty()
-    userId!: Types.ObjectId;
+    userId!: IUser;
 
     @IsString()
     @IsNotEmpty()
-    festivalId!: Types.ObjectId;
+    festivalId!: IFestival;
 
     @IsNumber()
     @IsNotEmpty()
@@ -90,5 +90,5 @@ export class UpdateTicketDTO implements IUpdateTicket{
 
     @IsString()
     @IsNotEmpty()
-    personalizationStatus!: PersonalizationStatus;
+    PersonalizationStatus!: PersonalizationStatus;
 }

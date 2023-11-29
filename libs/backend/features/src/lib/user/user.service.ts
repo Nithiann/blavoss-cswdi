@@ -62,7 +62,16 @@ export class UserService {
     async getOne(id: string): Promise<IUser> {
         Logger.log(`getOne(${id})`, this.TAG);
         try {
-            const user = await this.userModel.findById(id).exec();
+            const user = await this.userModel.findById(id)
+            .populate('tickets')
+            .populate({
+                path: 'tickets',
+                populate: {
+                  path: 'festivalId',
+                  model: 'Festival',
+                  select: 'name'
+                },
+              }).exec();
             if (!user) {
                 throw new NotFoundException('User could not be found');
             }

@@ -25,8 +25,8 @@
                         <li><a [routerLink]="['/user', currentUser.sub]" class="hover:text-gray-300">Profile</a></li>
                         <div *ngIf="isAuthenticated && (currentUser.email === 'info@cswdi-web-app.com')">
                             <li><a [routerLink]="['/user']" class="hover:text-gray-300">User management</a></li>
-                            <li><a [routerLink]="['/artist']" class="hover:text-gray-300">Artists management</a></li>
-                            <li><a [routerLink]="['/festival']" class="hover:text-gray-300">Festivals management</a></li>
+                            <li><a [routerLink]="['/artist']" class="hover:text-gray-300">Artist management</a></li>
+                            <li><a [routerLink]="['/festival']" class="hover:text-gray-300">Festival management</a></li>
                         </div>
                         <li><a (click)="signOut()" class="hover:text-gray-300">Sign out</a></li>
                     </ul>

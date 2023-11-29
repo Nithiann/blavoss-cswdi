@@ -1,6 +1,7 @@
 /* eslint-disable @nx/enforce-module-boundaries */
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { initFlowbite } from 'flowbite';
 import { ArtistModule, FestivalsModule, TicketsModule, UserModule } from '@blavoss-cswdi/web-app/features';
 import { UiModule } from '@blavoss-cswdi/ui';
 
@@ -11,6 +12,10 @@ import { UiModule } from '@blavoss-cswdi/ui';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'cswdi-web-app';
+
+  ngOnInit(): void {
+      initFlowbite();
+  }
 }

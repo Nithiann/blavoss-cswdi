@@ -12,3 +12,28 @@
       <!-- Add other user details... -->
     </div>
   </div>
+  <h2 class="text-xl mb-4 mt-4">Tickets</h2>
+  <div class="overflow-x-auto bg-white rounded-lg shadow overflow-y-auto relative">
+    <table class="border-collapse table-auto w-full whitespace-no-wrap bg-white table-striped relative">
+        <thead>
+            <tr class="text-center">
+                <th class="py-2 px-3 sticky top-0 border-b border-gray-300 bg-gray-100">Festival</th>
+                <th class="py-2 px-3 sticky top-0 border-b border-gray-300 bg-gray-100">Purchase date</th>
+                <th class="py-2 px-3 sticky top-0 border-b border-gray-300 bg-gray-100">Tickets</th>
+                <th class="py-2 px-3 sticky top-0 border-b border-gray-300 bg-gray-100">Status</th>
+                <th class="py-2 px-3 sticky top-0 border-b border-gray-300 bg-gray-100">Actions</th>
+            </tr>
+        </thead>
+        <tbody *ngFor="let ticket of user?.tickets">
+            <tr>
+                <td class="border-t px-3 py-2 cursor-pointer underline text-blue-500"><a [routerLink]="['/festival', ticket.festivalId._id]">{{ticket.festivalId.name}}</a></td>
+                <td class="border-t px-3 py-2 "><a>{{ticket.purchaseDate | date: 'dd-mm-YYYY'}}</a></td>
+                <td class="border-t px-3 py-2 "><a>{{ticket.ticketAmount}}</a></td>
+                <td class="border-t px-3 py-2 "><a>{{ticket.PersonalizationStatus}}</a></td>
+                <td class="border-t px-3 py-2">
+                  <button class="btn btn-sm btn-primary mr-2 rounded-sm p-1 bg-green-400 hover:bg-green-500 ease-in-out duration-300 text-white" (click)="personalize(ticket)">Personalize</button>
+                </td>
+            </tr>                
+        </tbody>
+    </table>
+</div>
