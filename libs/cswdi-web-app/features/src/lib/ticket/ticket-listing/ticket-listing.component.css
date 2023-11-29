@@ -1,0 +1,12 @@
+input.full-width {
+    width: 100%;
+}
+
+input.full-width::placeholder {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    width: 100%;
+    text-align: center;
+   }

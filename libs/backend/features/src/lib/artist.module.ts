@@ -7,16 +7,14 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ArtistService } from './artist/artist.service';
 import { Module } from '@nestjs/common';
 import { JwtStrategy } from './jwt.strategy';
-import { TicketController } from './ticket/ticket.controller';
-import { TicketService } from './ticket/ticket.service';
 
 @Module({
   imports: [
     DataAccessModule,
     MongooseModule.forFeature([{ name: 'Artist', schema: ArtistSchema }]),
   ],
-  controllers: [ArtistController, TicketController],
-  providers: [ArtistService, JwtStrategy, TicketService],
+  controllers: [ArtistController],
+  providers: [ArtistService, JwtStrategy],
   exports: [],
 })
 export class BackendFeaturesArtistModule {}

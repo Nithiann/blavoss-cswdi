@@ -11,17 +11,9 @@ export const routes: Routes = [
         component: TicketPayComponent
     },
     {
-        path: 'list',
-        pathMatch: 'full',	
-    },
-    {
-        path: ':id',
-        pathMatch: 'full',
-    }, 
-    {
         path: '',
         pathMatch: 'full',
-        canActivate: [adminGuard],
+        canActivate: [authGuard],
         component: TicketListingComponent
     }
 ]

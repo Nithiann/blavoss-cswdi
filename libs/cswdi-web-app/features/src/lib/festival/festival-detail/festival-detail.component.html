@@ -2,35 +2,34 @@
     <div class="card-header">
     </div>
     <div class="card-body">
-      <div class="flex">
+      <div class="flex justify-between items-center">
         <div class="w-1/3">
           <img [src]="festival.image" alt="Artist image" class="max-w-full h-auto">
         </div>
         <div class="w-2/3 ml-4">
           
-            <p><strong>User ID:</strong> {{ festival._id }}</p>
             <p><strong>Name:</strong> {{ festival.name }}</p>
             <p><strong></strong> {{ festival.description }}</p>
             <p><strong>Genre:</strong> {{ festival.genre }}</p>
         </div>
       </div>
+      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" (click)="navigateToPay(festival)">
+        Buy ticket(s)
+      </button>
     </div>
   </div>
 
   <h2 class="text-xl mb-6 mt-4">Line-up</h2>
   <div class="flowbite p-4" *ngIf="festival!.artists">
     <div *ngFor="let artist of festival?.artists" class="border border-gray-400 rounded-md hover:shadow-md transition-transform transform hover:scale-105 cursor-pointer mb-4 flex items-center" (click)="selectFestival(artist)">
-      <!-- Left (Image) -->
       <div class="mr-4">
         <img [src]="assertAsArtist(artist)!.image" alt="Artist Image" class="w-24 h-24 object-cover rounded-md">
       </div>
   
-      <!-- Middle (Name) -->
       <div class="flex-grow p-2">
         <h2 class="text-lg font-semibold">{{ assertAsArtist(artist)!.name }}</h2>
       </div>
   
-      <!-- Right (Genre) -->
       <div class="p-2 flex items-center">
         <p class="text-gray-500">{{ assertAsArtist(artist)!.genre }}</p>
       </div>

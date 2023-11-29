@@ -5,6 +5,7 @@ import { BehaviorSubject, Observable, Subject, catchError, map, tap, throwError 
 import * as jwtDecode from "jwt-decode";	
 import { environment } from "../environments/environments";
 import { Injectable } from "@angular/core";
+import { authModel } from "./auth.model";
 
  
 export const httpOptions = {
@@ -15,7 +16,7 @@ export const httpOptions = {
 @Injectable()
 export class AuthService {
     endpoint = `${environment.apiUrl}/user`;
-    private currentUser = new BehaviorSubject<any>(null);
+    private currentUser = new BehaviorSubject<authModel | null>(null);
     private isLoggedIn = new BehaviorSubject<boolean>(false);
     private authenticationChanged = new Subject<boolean>();
 
@@ -44,7 +45,7 @@ export class AuthService {
                 map((response: any) => response.results),
                 tap((data) => {
                     this.setToken(data.token);
-                    const decodedToken = jwtDecode.jwtDecode(data.token);
+                    const decodedToken = jwtDecode.jwtDecode(data.token) as authModel;
                     this.currentUser.next(decodedToken);
                     this.isLoggedIn.next(true);
                     this.authenticationChanged.next(true);
@@ -61,19 +62,21 @@ export class AuthService {
         return localStorage.getItem('Authorization')
     }
 
-    public getDecodedToken(): any | null {
+    public getDecodedToken(): authModel | null {
         const token = this.getToken();
 
         if (token) {
             try {
-                const decoded = jwtDecode.jwtDecode(token)
+                const decoded = jwtDecode.jwtDecode(token) as authModel;
                 this.currentUser.next(decoded);
                 this.isLoggedIn.next(true);
-                return jwtDecode.jwtDecode(token);
+                return jwtDecode.jwtDecode(token) as authModel;
             } catch (error) {
                 console.log(error);
             }
         }
+
+        return null;
     }
 
     public isAuthenticatedUser(): boolean {
