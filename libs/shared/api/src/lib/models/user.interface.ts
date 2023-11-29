@@ -1,3 +1,4 @@
+import { ITicket } from "./ticket.interface";
 
 export enum Gender {
     Male = "Male",
@@ -19,6 +20,7 @@ export interface IUser {
     lastName: string;
     dob: Date;
     gender: Gender;
+    tickets?: ITicket[];
 }
 
 export type ICreateUser = Pick<

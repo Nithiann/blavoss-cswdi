@@ -32,6 +32,9 @@ export class Festival {
 
     @Prop({ type: [Types.ObjectId], ref: 'Artist', default: [] })
     artists!: Types.ObjectId[]; //change to festials once object is created
+
+    @Prop({ type: [Types.ObjectId], ref: 'Ticket', default: [] })
+    tickets!: Types.ObjectId[];
 }
 
 export const FestivalSchema = SchemaFactory.createForClass(Festival);

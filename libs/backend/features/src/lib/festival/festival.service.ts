@@ -3,7 +3,7 @@ import { Model, Types } from "mongoose";
 import { InjectModel } from "@nestjs/mongoose";
 import { FestivalDocument } from "@blavoss-cswdi/backend/data-access";
 import { BehaviorSubject } from "rxjs";
-import { IFestival } from "@blavoss-cswdi/shared/api";
+import { IFestival, ITicket } from "@blavoss-cswdi/shared/api";
 
 @Injectable()
 export class FestivalService {
@@ -92,6 +92,29 @@ export class FestivalService {
 
             if (!festival.artists.includes(artistObjectId)) {
                 festival.artists.push(artistObjectId);
+                await festival.save();
+            }
+
+            return festival.toObject();
+
+        } catch (err) {
+            throw new NotFoundException(err);
+        }
+    }
+
+    async addTicketToFestival(ticket: ITicket): Promise<IFestival> {
+        Logger.log(`addTicketToEvent(${ticket.festivalId}, ${ticket._id})`, this.TAG);
+        try {
+            const festival = await this.festivalModel.findById(ticket.festivalId).exec();
+
+            if (!festival) {
+                throw new NotFoundException('Festival could not be found');
+            }
+
+            const ticketObjectId = new Types.ObjectId(ticket._id);
+
+            if (!festival.tickets.includes(ticketObjectId)) {
+                festival.tickets.push(ticketObjectId);
                 await festival.save();
             }
 

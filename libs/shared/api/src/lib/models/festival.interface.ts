@@ -1,5 +1,6 @@
 import { IArtist } from './artist.interface';
 import { Genre } from './genre.enum';
+import { ITicket } from './ticket.interface';
 
 export interface IFestival {
     _id?: string;
@@ -12,6 +13,7 @@ export interface IFestival {
     image: string;
     genre: Genre;
     artists?: IArtist[];
+    tickets?: ITicket[];
 }
 
 export type ICreateFestival = Pick<IFestival, 'name' | 'location' | 'startDate' | 'endDate' | 'description' | 'ticketPrice' | 'image' | 'genre'>;

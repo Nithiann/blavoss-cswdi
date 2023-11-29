@@ -1,8 +1,8 @@
-import { Gender, ILogin, IUser } from "@blavoss-cswdi/shared/api";
+import { Gender, ILogin, ITicket, IUser } from "@blavoss-cswdi/shared/api";
 import { Injectable, Logger, NotFoundException } from "@nestjs/common";
 import { BehaviorSubject } from "rxjs";
 import { InjectModel } from "@nestjs/mongoose";
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { UserDocument } from "@blavoss-cswdi/backend/data-access";
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
@@ -23,6 +23,7 @@ export class UserService {
             lastName: 'Bos',
             dob: new Date(),
             gender: Gender.Male,
+            tickets: [],
         }
     ]);
 
@@ -110,6 +111,28 @@ export class UserService {
             }
             return user.toObject();
         } catch (err) {
+            throw new NotFoundException(err);
+        }
+    }
+
+    async addTicketToUser(ticket: ITicket): Promise<IUser> {
+        Logger.log('addTicketToUser', this.TAG);
+        try {
+            const user = await this.userModel.findById(ticket.userId).exec();
+
+            if (!user) {
+                throw new NotFoundException('User could not be found');
+            }
+
+            const ticketObjectId = new Types.ObjectId(ticket._id);
+
+            if (!user.tickets.includes(ticketObjectId)) {
+                user.tickets.push(ticketObjectId);
+                await user.save();
+            }
+
+            return user.toObject();
+        } catch(err) {
             throw new NotFoundException(err);
         }
     }

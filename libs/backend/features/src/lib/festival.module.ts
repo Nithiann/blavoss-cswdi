@@ -11,7 +11,6 @@ import { JwtStrategy } from './jwt.strategy';
         DataAccessModule, 
         MongooseModule.forFeature([{name: 'Festival', schema: FestivalSchema}]), 
         MongooseModule.forFeature([{ name: 'Artist', schema: ArtistSchema }]),
-        
     ],
     controllers: [FestivalController],
     providers: [FestivalService, ArtistService, JwtStrategy],

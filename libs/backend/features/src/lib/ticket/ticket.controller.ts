@@ -4,13 +4,15 @@ import { GenericAuthGuard } from '../generic-auth.guard';
 import { TicketService } from './ticket.service';
 import { ITicket } from '@blavoss-cswdi/shared/api';
 import { CreateTicketDTO } from '@blavoss-cswdi/backend/dto';
+import { UserService } from '../user/user.service';
+import { FestivalService } from '../festival/festival.service';
 
 @Controller('ticket')
 export class TicketController {
 
     TAG = 'TicketController';
 
-    constructor(private ticketService: TicketService) {}
+    constructor(private ticketService: TicketService, private userService: UserService, private festivalService: FestivalService) {}
 
     @Get('')
     @UseGuards(GenericAuthGuard)
@@ -33,7 +35,10 @@ export class TicketController {
     @Post('')
     @UseGuards(GenericAuthGuard)
     async create(@Body() data: CreateTicketDTO): Promise<ITicket> {
-        return await this.ticketService.create(data);
+        const ticket = await this.ticketService.create(data);
+        await this.userService.addTicketToUser(ticket);
+        await this.festivalService.addTicketToFestival(ticket);
+        return ticket;
     }
 
     @Delete(':id')

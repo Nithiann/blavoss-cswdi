@@ -1,1 +1,40 @@
-<p>ticket-pay works!</p>
+<div class="container">
+
+    <h2 class="text-xl">Buying tickets for {{festival?.name}}</h2>
+    <div class="mt-6 flex justify-center">
+        <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()" class="w-1/3">
+            <div class="mb-4">
+                <label for="name" class="block text-gray-600 text-sm font-medium mb-2">Festival</label>
+                <input type="text" id="name" name="name" formControlName="name" class="w-full px-4 py-2 text-center border rounded-md focus:outline-none focus:border-blue-500" [readonly]="true" required>
+                <div *ngIf="paymentForm.get('name')?.hasError('required') && paymentForm.get('name')?.touched"
+                    class="text-red-500 text-sm mt-1">Festival is required</div>
+            </div>
+            <div class="mb-4">
+                <input type="text" id="festivalId" name="festivalId" formControlName="festivalId" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500" [hidden]="true" required>
+                <div *ngIf="paymentForm.get('festivalId')?.hasError('required') && paymentForm.get('festivalId')?.touched"
+                    class="text-red-500 text-sm mt-1">FestivalId is required</div>
+            </div>
+            <div class="mb-4">
+                <input type="text" id="userId" name="userId" formControlName="userId" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500" [hidden]="true" required>
+                <div *ngIf="paymentForm.get('userId')?.hasError('required') && paymentForm.get('userId')?.touched"
+                    class="text-red-500 text-sm mt-1">userId is required</div>
+            </div>
+            <div class="mb-4">
+                <label for="ticketAmount" class="block text-gray-600 text-sm font-medium mb-2">Tickets</label>
+                <input type="number" id="ticketAmount" name="ticketAmount" formControlName="ticketAmount" class="w-full px-4 py-2 text-center border rounded-md focus:outline-none focus:border-blue-500" required>
+                <div *ngIf="paymentForm.get('ticketAmount')?.hasError('required') && paymentForm.get('ticketAmount')?.touched"
+                    class="text-red-500 text-sm mt-1">Ticket amount is required</div>
+            </div>
+
+            <div class="mb-4 text-right">
+                <b>Price:</b> € {{festival.price * paymentForm.get('ticketAmount')?.value  | number:'1.2-2'}}
+            </div>
+
+            <div class="mb-4">
+                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Buy ticket(s)
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

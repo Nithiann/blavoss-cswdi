@@ -3,13 +3,15 @@ import {
     IsString,
     IsOptional,
     IsEmail,
-    IsDate
+    IsDate,
+    IsEmpty
 } from 'class-validator';
 import {
     ICreateUser,
     IUpdateUser,
     IUpsertUser,
     Gender,
+    ITicket,
 } from '@blavoss-cswdi/shared/api'
 
 export class CreateUserDTO implements ICreateUser {
@@ -67,6 +69,10 @@ export class UpsertUserDTO implements IUpsertUser {
     @IsString()
     @IsNotEmpty()
     gender!: Gender;
+
+    @IsString({each: true})
+    @IsEmpty()
+    tickets!: ITicket[]
 }
 
 export class UpdateUserDTO implements IUpdateUser {
