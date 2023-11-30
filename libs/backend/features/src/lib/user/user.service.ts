@@ -3,16 +3,17 @@ import { Injectable, Logger, NotFoundException } from "@nestjs/common";
 import { BehaviorSubject } from "rxjs";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model, Types } from 'mongoose';
-import { UserDocument } from "@blavoss-cswdi/backend/data-access";
+import { Neo4jService, UserDocument } from "@blavoss-cswdi/backend/data-access";
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 
 @Injectable()
 export class UserService {
-    constructor(@InjectModel('User') private readonly userModel: Model<UserDocument>) {}
+    constructor(@InjectModel('User') private readonly userModel: Model<UserDocument>, private neo4jService: Neo4jService) {}
 
     TAG = 'UserService';
     salt = 10;
+    neo = this.neo4jService.getSession();
 
     private users$ = new BehaviorSubject<IUser[]>([
         {
@@ -135,9 +136,13 @@ export class UserService {
 
             const ticketObjectId = new Types.ObjectId(ticket._id);
 
+            // check if ticket already exists on user
             if (!user.tickets.includes(ticketObjectId)) {
                 user.tickets.push(ticketObjectId);
                 await user.save();
+
+                // store in neo
+                await this.neo4jService.purchaseTicket(user._id.toHexString(), ticket.festivalId?.toString() as string);
             }
 
             return user.toObject();

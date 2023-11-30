@@ -1,4 +1,4 @@
-import { DataAccessModule, FestivalSchema, TicketSchema, UserSchema } from "@blavoss-cswdi/backend/data-access";
+import { DataAccessModule, FestivalSchema, Neo4jService, TicketSchema, UserSchema } from "@blavoss-cswdi/backend/data-access";
 import { Module } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
 import { TicketController } from "./ticket/ticket.controller";
@@ -13,7 +13,7 @@ import { FestivalService } from "./festival/festival.service";
       MongooseModule.forFeature([{ name: 'Ticket', schema: TicketSchema }, {name: 'Festival', schema: FestivalSchema}, {name: 'User', schema: UserSchema}]),
     ],
     controllers: [TicketController],
-    providers: [JwtStrategy, TicketService, UserService, FestivalService],
+    providers: [JwtStrategy, TicketService, UserService, FestivalService, Neo4jService],
     exports: [],
   })
   export class BackendFeaturesTicketModule {}
