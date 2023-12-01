@@ -1,5 +1,5 @@
 <div class="border border-gray-400 rounded-md hover:shadow-md transition-transform transform hover:scale-105 cursor-pointer mb-4">
-    <div class="flex items-center justify-between">
+    <div *ngIf="festival" class="flex items-center justify-between">
         <div class="mr-4">
             <img [src]="festival!.image" alt="Artist Image" class="w-24 h-24 object-cover rounded-md">
         </div>
@@ -10,6 +10,20 @@
 
         <div class="p-2">
             <p class="text-gray-500">{{ festival!.startDate | date }}</p>
+        </div>
+    </div>
+
+    <div *ngIf="artist" class="flex items-center justify-between">
+        <div class="mr-4">
+            <img [src]="artist!.image" alt="Artist Image" class="w-24 h-24 object-cover rounded-md">
+        </div>
+
+        <div class="flex-grow p-2">
+            <h2 class="text-lg font-semibold">{{ artist!.name }}</h2>
+        </div>
+
+        <div class="p-2">
+            <p class="text-gray-500">{{ artist!.genre }}</p>
         </div>
     </div>
 </div>

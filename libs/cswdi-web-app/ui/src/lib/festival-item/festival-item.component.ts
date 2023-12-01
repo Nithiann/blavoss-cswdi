@@ -1,16 +1,15 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { IFestival } from '@blavoss-cswdi/shared/api';
+import { Component, Input } from '@angular/core';
+import { IArtist, IFestival } from '@blavoss-cswdi/shared/api';
 
 @Component({
   selector: 'blavoss-cswdi-festival-item',
   templateUrl: './festival-item.component.html',
   styleUrls: ['./festival-item.component.css'],
 })
-export class FestivalItemComponent implements OnInit {
+export class FestivalItemComponent {
   @Input()
-  festival!: IFestival;
+  festival?: IFestival | null;
 
-  ngOnInit(): void {
-    console.log(this.festival);
-  }
+  @Input()
+  artist?: IArtist | null;
 }
