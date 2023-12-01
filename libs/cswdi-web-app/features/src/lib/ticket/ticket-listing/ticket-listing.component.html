@@ -3,19 +3,9 @@
     <input type="text" class="full-width border border-gray-400 rounded-full py-2 px-4 w-64 text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-300" placeholder="Search..." [(ngModel)]="searchTerm" id="search" name="search">
 
     <div class="flowbite p-4" *ngIf="festivals">
-        <div *ngFor="let festival of festivals | searchFilter: searchTerm" class="border border-gray-400 rounded-md hover:shadow-md transition-transform transform hover:scale-105 cursor-pointer mb-4 flex items-center" (click)="selectFestival(festival)">
-            <div class="mr-4">
-                <img [src]="festival.image" alt="Artist Image" class="w-24 h-24 object-cover rounded-md">
-            </div>
-        
-            <div class="flex-grow p-2">
-                <h2 class="text-lg font-semibold">{{ festival.name }}</h2>
-            </div>
-        
-            <div class="p-2 flex items-center">
-                <p class="text-gray-500">{{ festival.startDate | date }}</p>
-            </div>
+        <div *ngFor="let festival of festivals | searchFilter: searchTerm" (click)="selectFestival(festival)">
+            <blavoss-cswdi-festival-item [festival]="festival" class="w-full"></blavoss-cswdi-festival-item>
         </div>
-  </div>
+    </div>
 
 </div>
