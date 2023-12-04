@@ -20,20 +20,8 @@
                 <li><a [routerLink]="['/about']" class="hover:text-gray-300 cursor-pointer" cNavLink>About</a></li>
                 <li><a [routerLink]="['/ticket']" class="hover:text-gray-300" cNavLink>Festivals</a></li>
                 <li>
-                    <p-menu [model]="items" [popup]="true" class="z-1" #menu styleClass="bg-slate-800 p-4 rounded"></p-menu>
-                    <button pButton type="button" (click)="menu.toggle($event)" icon="pi pi-bars" label="Show">{{currentUser!.email}}</button>
-                </li>
-                <li class="dropdown">
-                    <a class="dropdown-toggle hover:text-gray-300 cursor-pointer" (click)="toggleDropdown()">{{currentUser!.email}} ↓ </a>
-                    <ul *ngIf="isDropdownVisible" class="dropdown-menu">
-                        <li><a [routerLink]="['/user', currentUser.sub]" class="hover:text-gray-300">Profile</a></li>
-                        <div *ngIf="isAuthenticated && (currentUser.email === 'info@cswdi-web-app.com')">
-                            <li><a [routerLink]="['/user']" class="hover:text-gray-300">User management</a></li>
-                            <li><a [routerLink]="['/artist']" class="hover:text-gray-300">Artist management</a></li>
-                            <li><a [routerLink]="['/festival']" class="hover:text-gray-300">Festival management</a></li>
-                        </div>
-                        <li><a (click)="signOut()" class="hover:text-gray-300">Sign out</a></li>
-                    </ul>
+                    <p-menu [model]="items" [popup]="true" class="z-1" #menu styleClass="p-4 rounded"></p-menu>
+                    <button pButton type="button" (click)="menu.toggle($event)" icon="pi pi-bars" label="Show">{{currentUser!.email}}<span class="ml-1 pi pi-angle-down"></span></button>
                 </li>
             </ul>
         </ng-template>

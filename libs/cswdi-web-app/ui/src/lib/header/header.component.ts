@@ -2,7 +2,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { AuthService } from '@blavoss-cswdi/common';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, PrimeIcons } from 'primeng/api';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -17,24 +17,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   isDropdownVisible : boolean = false;
   items: MenuItem[] | undefined;
   constructor(private authService: AuthService, private route: Router) {
-    this.route.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.isAuthenticated = this.authService.isAuthenticatedUser();
-        if (this.isAuthenticated) {
-          this.currentUser = this.authService.getDecodedToken();
-        }
-      }
-    });
-  
-    // Subscribe to changes in authentication status
-    this.authService.getAuthenticationChanged().subscribe((isAuthenticated) => {
-      this.isAuthenticated = isAuthenticated;
-      if (isAuthenticated) {
-        this.currentUser = this.authService.getDecodedToken();
-      } else {
-        this.currentUser = null;
-      }
-    });
+    
   }
 
   
@@ -52,10 +35,89 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    console.log('hello');
+    this.route.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.isAuthenticated = this.authService.isAuthenticatedUser();
+        if (this.isAuthenticated) {
+          this.currentUser = this.authService.getDecodedToken();
+          this.items = this.createMenu();
+        }
+      }
+    });
+  
+    // Subscribe to changes in authentication status
+    this.authService.getAuthenticationChanged().subscribe((isAuthenticated) => {
+      this.isAuthenticated = isAuthenticated;
+      if (isAuthenticated) {
+        this.currentUser = this.authService.getDecodedToken();
+        this.items = this.createMenu();
+      } else {
+        this.currentUser = null;
+      }
+    });
+    
   }
 
   ngOnDestroy(): void {
     if (this.subscription) this.subscription.unsubscribe();
+  }
+
+  private createMenu() {
+    if (this.currentUser?.email === 'info@cswdi-web-app.com') {
+      return [
+        {
+          label: 'Profile',
+          styleClass: 'mb-4 hover:text-gray-300',
+          icon: PrimeIcons.USER,
+          routerLink: ['/user', this.currentUser?.sub],
+        },
+        ...this.createAdminMenu(),
+        {
+          label: 'Sign out',
+          styleClass: 'hover:text-gray-300',
+          icon: PrimeIcons.SIGN_OUT,
+          command: () => {
+            this.signOut();
+          },
+        },
+      ];
+    } else {
+      return [
+        {
+          label: 'Profile',
+          styleClass: 'mb-4 hover:text-gray-300',
+          icon: PrimeIcons.USER,
+          routerLink: ['/user', this.currentUser?.sub],
+        },
+        {
+          label: 'Sign out',
+          styleClass: 'hover:text-gray-300',
+          command: () => {
+            this.signOut();
+          },
+        },
+      ];
+    }
+    
+  }
+
+  private createAdminMenu() {
+    return [
+      {
+        label: 'User management',
+        styleClass: 'mb-2 hover:text-gray-300',
+        routerLink: ['/user'],
+      },
+      {
+        label: 'Artist management',
+        styleClass: 'mb-2 hover:text-gray-300',
+        routerLink: ['/artist'],
+      },
+      {
+        label: 'Festival management',
+        styleClass: 'mb-4 hover:text-gray-300',
+        routerLink: ['/festival'],
+      }
+    ]
   }
 }
