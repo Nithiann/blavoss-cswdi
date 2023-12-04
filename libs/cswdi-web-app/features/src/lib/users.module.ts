@@ -12,11 +12,13 @@ import { UserCreateComponent } from "./user/user-create/user-create.component";
 import { UserLoginComponent } from "./user/user-login/user-login.component";
 import { AuthService, TokenInterceptor } from "@blavoss-cswdi/common";
 import { TicketService } from "./ticket/ticket.service";
+import { ToastModule } from "primeng/toast";
+import { MessageService } from "primeng/api";
 
 @NgModule({
-    imports: [CommonModule, HttpClientModule, RouterModule.forChild(routes), ReactiveFormsModule],
+    imports: [CommonModule, HttpClientModule, RouterModule.forChild(routes), ReactiveFormsModule, ToastModule],
     declarations: [UserDetailComponent, UserListComponent, UserUpdateComponent, UserCreateComponent, UserLoginComponent],
-    providers: [UserService, AuthService, TicketService, {
+    providers: [UserService, AuthService, TicketService, MessageService, {
         provide: HTTP_INTERCEPTORS,
         useClass: TokenInterceptor,
         multi: true

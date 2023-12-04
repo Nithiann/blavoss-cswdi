@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MessageService } from 'primeng/api';
 import { ITicket, IUser, PersonalizationStatus } from '@blavoss-cswdi/shared/api';
 import { Subscription } from 'rxjs';
 import { UserService } from '../user.service';
@@ -16,7 +18,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     user: IUser | null = null;
     subscription: Subscription | undefined = undefined;
 
-    constructor(private userService: UserService, private route: ActivatedRoute, private ticketService: TicketService) {}
+    constructor(private userService: UserService, private route: ActivatedRoute, private ticketService: TicketService, private messageService: MessageService) {}
     
     ngOnInit(): void {
       this.route.params.subscribe(params => {
@@ -33,10 +35,14 @@ export class UserDetailComponent implements OnInit, OnDestroy {
       ticket.PersonalizationStatus = PersonalizationStatus.Personalized;
       
       this.subscription = this.ticketService.personalize(ticket)
-      .subscribe((res) => console.log(res));
+      .subscribe((res) => this.showToast(res));
     }
 
     ngOnDestroy(): void {
      if (this.subscription) this.subscription.unsubscribe();
+    }
+
+    private showToast(res: any) {
+      this.messageService.add({severity: 'success', summary: 'Success', detail: 'Personalization Successful'});
     }
 }
