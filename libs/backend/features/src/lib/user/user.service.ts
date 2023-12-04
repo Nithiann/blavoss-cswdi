@@ -142,7 +142,7 @@ export class UserService {
                 await user.save();
 
                 // store in neo
-                await this.neo4jService.purchaseTicket(user._id.toHexString(), ticket.festivalId?.toString() as string);
+                await this.neo4jService.purchaseTicket(user._id.toHexString(), ticket.festivalId);
             }
 
             return user.toObject();

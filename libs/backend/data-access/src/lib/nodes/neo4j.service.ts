@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import { IFestival } from '@blavoss-cswdi/shared/api';
 import { Injectable, Logger } from '@nestjs/common';
 import * as neo4j from 'neo4j-driver';
 
@@ -46,7 +47,7 @@ export class Neo4jService {
         }
     }
 
-    async purchaseTicket(userId: string, festivalId: string) {
+    async purchaseTicket(userId: string, festivalId: IFestival) {
         Logger.log('purchaseTicket', `${userId} ${festivalId}`);
         const session = this.driver.session();
         try {
@@ -64,6 +65,23 @@ export class Neo4jService {
         } finally {
             await session.close();
         }
+    }
 
+    async getRecommendedFestivalForUser(userId: string) {
+      Logger.log('getRecommendedFestivalForUser', `${userId}`);
+      const session = this.driver.session();
+      try {
+        // get recommended festivals
+        const result = await session.run(`MATCH (user:User)-[:PURCHASED]->(festival)<-[:PURCHASED]-(otherUser:User)-[:PURCHASED]->(recommendedFestival:Festival) 
+          WHERE user.userId = $userId AND NOT (user)-[:PURCHASED]->(recommendedFestival) 
+          RETURN recommendedFestival;
+        `);
+
+        return result.records.map(record => record.get('recommendedFestival').properties);
+      } catch (err: any) {
+        throw new Error(err.message)
+      } finally {
+        await session.close();
+      }
     }
 }

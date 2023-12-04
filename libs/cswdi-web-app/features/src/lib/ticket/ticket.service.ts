@@ -76,6 +76,20 @@ export class TicketService {
             )
     }
 
+    public personalize(ticket: ITicket, options?: any) : Observable<ITicket> {
+        console.log(`personalize ${this.endpoint}`);
+        return this.http.put<ApiResponse<ITicket>>(this.endpoint + '/' + ticket._id, ticket,
+        {
+            ...options,
+            ...httpOptions,
+        })
+        .pipe(
+            tap(console.log),
+            map((response: any) => response.results as ITicket),
+            catchError(this.handleError)
+        )
+    }
+
     public handleError(error: HttpErrorResponse): Observable<any> {
         console.log('handleError in UserService', error);
 

@@ -11,11 +11,12 @@ import { UserUpdateComponent } from "./user/user-update/user-update.component";
 import { UserCreateComponent } from "./user/user-create/user-create.component";
 import { UserLoginComponent } from "./user/user-login/user-login.component";
 import { AuthService, TokenInterceptor } from "@blavoss-cswdi/common";
+import { TicketService } from "./ticket/ticket.service";
 
 @NgModule({
     imports: [CommonModule, HttpClientModule, RouterModule.forChild(routes), ReactiveFormsModule],
     declarations: [UserDetailComponent, UserListComponent, UserUpdateComponent, UserCreateComponent, UserLoginComponent],
-    providers: [UserService, AuthService, {
+    providers: [UserService, AuthService, TicketService, {
         provide: HTTP_INTERCEPTORS,
         useClass: TokenInterceptor,
         multi: true
