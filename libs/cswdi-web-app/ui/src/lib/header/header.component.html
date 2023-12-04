@@ -1,4 +1,4 @@
-<nav class="bg-gray-800 p-4">
+<nav class="bg-gray-800 p-4 p-component">
     <div class="container mx-auto flex items-center justify-between">
 
         <div class="text-white font-bold">
@@ -7,18 +7,22 @@
 
         <div *ngIf="!isAuthenticated; else userBlock">
             <ul class="flex space-x-4 text-white">
-                <li><a [routerLink]="['/about']" class="hover:text-gray-300 cursor-pointer">About</a></li>
-                <li><a routerLink="/user/new" class="hover:text-gray-300 cursor-pointer">Register</a></li>
-                <li><a [routerLink]="['/user/login']" class="hover:text-gray-300 cursor-pointer">Login</a></li>
+                <li><a [routerLink]="['/about']" class="hover:text-gray-300 cursor-pointer" cNavLink>About</a></li>
+                <li><a routerLink="/user/new" class="hover:text-gray-300 cursor-pointer" cNavLink>Register</a></li>
+                <li><a [routerLink]="['/user/login']" class="hover:text-gray-300 cursor-pointer" cNavLink>Login</a></li>
             </ul>
         </div>
         
         <!-- Content for all other users -->
         <ng-template #userBlock>
             <ul class="flex space-x-4 text-white">
-                <li><a routerLink="/" class="hover:text-gray-300 cursor-pointer">Home</a></li>
-                <li><a [routerLink]="['/about']" class="hover:text-gray-300 cursor-pointer">About</a></li>
-                <li><a [routerLink]="['/ticket']" class="hover:text-gray-300">Festivals</a></li>
+                <li><a routerLink="/" class="hover:text-gray-300 cursor-pointer" cNavLink>Home</a></li>
+                <li><a [routerLink]="['/about']" class="hover:text-gray-300 cursor-pointer" cNavLink>About</a></li>
+                <li><a [routerLink]="['/ticket']" class="hover:text-gray-300" cNavLink>Festivals</a></li>
+                <li>
+                    <p-menu [model]="items" [popup]="true" class="z-1" #menu styleClass="bg-slate-800 p-4 rounded"></p-menu>
+                    <button pButton type="button" (click)="menu.toggle($event)" icon="pi pi-bars" label="Show">{{currentUser!.email}}</button>
+                </li>
                 <li class="dropdown">
                     <a class="dropdown-toggle hover:text-gray-300 cursor-pointer" (click)="toggleDropdown()">{{currentUser!.email}} ↓ </a>
                     <ul *ngIf="isDropdownVisible" class="dropdown-menu">

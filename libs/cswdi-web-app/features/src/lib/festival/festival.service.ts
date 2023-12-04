@@ -104,6 +104,20 @@ export class FestivalService {
             )
     }
 
+    public getRecommendations(userId: string, options?: any): Observable<IFestival[]> {
+        console.log(`getRecommendations ${this.endpoint}`);
+        return this.http.get<ApiResponse<IFestival[]>>(this.endpoint + '/' + userId + '/recommendations',
+        {
+            ...options,
+            ...httpOptions,
+        })
+        .pipe(
+            tap(console.log),
+            map((response: any) => response.results as IFestival[]),
+            catchError(this.handleError)
+        );
+    }
+
     public handleError(error: HttpErrorResponse): Observable<any> {
         console.log('handleError in UserService', error);
 

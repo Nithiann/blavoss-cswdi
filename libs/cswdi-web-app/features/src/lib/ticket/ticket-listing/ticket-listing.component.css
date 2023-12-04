@@ -10,3 +10,48 @@ input.full-width::placeholder {
     width: 100%;
     text-align: center;
    }
+
+   .carousel-container {
+    /* Add your Flowbite or custom carousel styles here */
+  }
+  
+  .carousel-item {
+    /* Add your Flowbite or custom carousel item styles here */
+  }
+  
+  .carousel-content {
+    display: flex;
+    align-items: center;
+  }
+  
+  .carousel-image-container {
+    flex: 1;
+  }
+  
+  .carousel-image {
+    width: 100%;
+    height: auto;
+  }
+  
+  .carousel-text-container {
+    flex: 1;
+    padding: 0 20px; /* Adjust padding as needed */
+  }
+  
+  .carousel-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .carousel-description {
+    margin-bottom: 15px;
+  }
+  
+  .carousel-button {
+    padding: 10px 20px;
+    background-color: #3490dc;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+  }

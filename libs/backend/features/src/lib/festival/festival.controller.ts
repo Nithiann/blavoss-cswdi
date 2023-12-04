@@ -7,13 +7,14 @@ import { CreateFestivalDTO } from '@blavoss-cswdi/backend/dto';
 import { ArtistService } from '../artist/artist.service';
 import { AdminAuthGuard } from '../admin-auth.guard';
 import { GenericAuthGuard } from '../generic-auth.guard';
+import { Neo4jService } from '@blavoss-cswdi/backend/data-access';
 
 @Controller('festival')
 export class FestivalController {
 
     TAG = 'FestivalController'
 
-    constructor(private festivalService: FestivalService, private artistService: ArtistService) {}
+    constructor(private festivalService: FestivalService, private artistService: ArtistService, private neo4Jservice: Neo4jService) {}
 
     @Get('')
     @UseGuards(GenericAuthGuard)
@@ -60,4 +61,20 @@ export class FestivalController {
         await this.artistService.removeFestivalFromArtist(data.artistId, data.festivalId);
         return await this.festivalService.removeArtistFromFestival(data.festivalId, data.artistId);
     }
+
+    @Get(':userId/recommendations')
+    @UseGuards(GenericAuthGuard)
+    async getFestivalRecommendations(@Param('userId') userId: string): Promise<IFestival[]> {
+        Logger.log('getFestivalRecommendations', `${userId}`);
+        const festivals = await this.neo4Jservice.getRecommendedFestivalForUser(userId);
+
+        const recommendations: IFestival[] = [];
+
+        for (const festivalNode of festivals) {
+            const festival = await this.festivalService.getOne(festivalNode.festivalId);
+            recommendations.push(festival);
+        }
+
+        return recommendations;
+    } 
 }

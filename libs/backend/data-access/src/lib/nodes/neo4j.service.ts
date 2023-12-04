@@ -73,7 +73,7 @@ export class Neo4jService {
       try {
         // get recommended festivals
         const result = await session.run(`MATCH (user:User)-[:PURCHASED]->(festival)<-[:PURCHASED]-(otherUser:User)-[:PURCHASED]->(recommendedFestival:Festival) 
-          WHERE user.userId = $userId AND NOT (user)-[:PURCHASED]->(recommendedFestival) 
+          WHERE user.userId = "${userId}" AND NOT (user)-[:PURCHASED]->(recommendedFestival) 
           RETURN recommendedFestival;
         `);
 

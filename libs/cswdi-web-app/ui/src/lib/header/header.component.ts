@@ -2,6 +2,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { AuthService } from '@blavoss-cswdi/common';
+import { MenuItem } from 'primeng/api';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -14,6 +15,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   isAuthenticated: boolean = false;
   subscription: Subscription | undefined = undefined;
   isDropdownVisible : boolean = false;
+  items: MenuItem[] | undefined;
   constructor(private authService: AuthService, private route: Router) {
     this.route.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {

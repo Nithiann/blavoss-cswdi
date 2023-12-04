@@ -4,18 +4,17 @@ import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, NgModule } from "@angular/cor
 import { RouterModule } from '@angular/router';
 import { HeaderComponent } from "./header/header.component";
 import { FooterComponent } from "./footer/footer.component";
-import { MatMenuModule } from '@angular/material/menu';
-import { MatButtonModule } from '@angular/material/button';
 import { FestivalItemComponent } from "./festival-item/festival-item.component";
-
-
+import { MenuModule } from 'primeng/menu';
+import { CarouselComponent } from "./carousel/carousel.component";
+import { CarouselModule } from 'primeng/carousel';
 
  
 @NgModule({
-    imports: [CommonModule, HttpClientModule, RouterModule, MatMenuModule, MatButtonModule],
-    declarations: [HeaderComponent, FooterComponent, FestivalItemComponent],
+    imports: [CommonModule, HttpClientModule, RouterModule, MenuModule, CarouselModule],
+    declarations: [HeaderComponent, FooterComponent, FestivalItemComponent, CarouselComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     providers: [],
-    exports: [HeaderComponent, FooterComponent, FestivalItemComponent],
+    exports: [HeaderComponent, FooterComponent, FestivalItemComponent, CarouselComponent],
 })
 export class UiModule {}
