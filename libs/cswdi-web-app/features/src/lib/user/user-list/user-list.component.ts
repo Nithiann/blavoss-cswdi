@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { IUser } from '@blavoss-cswdi/shared/api';
 import { Subscription } from 'rxjs';
 import { UserService } from '../user.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'blavoss-cswdi-user-list',
@@ -12,7 +13,7 @@ export class UserListComponent implements OnInit, OnDestroy {
     users: IUser[] | null = null;
     subscription: Subscription | undefined = undefined;
 
-    constructor(private userService: UserService) {}
+    constructor(private userService: UserService, private messageService: MessageService) {}
 
     ngOnInit(): void {
       this.subscription = this.userService.list().subscribe((results) => {
@@ -29,6 +30,12 @@ export class UserListComponent implements OnInit, OnDestroy {
         console.log(`resp: ${resp}`);
         if (this.users)
           this.users = this.users?.filter(user => user._id !== id);
+
+        this.showToast();
       })
+    }
+
+    private showToast() {
+      this.messageService.add({severity: 'success', summary: 'Success', detail: 'User Deleted'});
     }
 }

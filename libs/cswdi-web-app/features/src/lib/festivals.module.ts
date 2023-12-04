@@ -12,11 +12,13 @@ import { FestivalAddArtistComponent } from "./festival/festival-add-artist/festi
 import { ArtistService } from "./artist/artist.service";
 import { AuthService, TokenInterceptor } from "@blavoss-cswdi/common";
 import { UiModule } from "@blavoss-cswdi/ui";
+import { MessageService } from "primeng/api";
+import { ToastModule } from "primeng/toast";
 
 @NgModule({
-    imports: [CommonModule, HttpClientModule, ReactiveFormsModule, RouterModule.forChild(routes), UiModule],
+    imports: [CommonModule, HttpClientModule, ReactiveFormsModule, RouterModule.forChild(routes), UiModule, ToastModule],
     declarations: [FestivalListComponent, FestivalCreateComponent, FestivalDetailComponent, FestivalAddArtistComponent],
-    providers: [FestivalService, ArtistService, AuthService,{
+    providers: [FestivalService, ArtistService, AuthService, MessageService,{
         provide: HTTP_INTERCEPTORS,
         useClass: TokenInterceptor,
         multi: true
