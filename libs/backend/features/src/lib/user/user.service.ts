@@ -67,11 +67,6 @@ export class UserService {
             .populate('tickets')
             .populate({
                 path: 'tickets',
-                populate: {
-                  path: 'festivalId',
-                  model: 'Festival',
-                  select: 'name'
-                },
               }).exec();
             if (!user) {
                 throw new NotFoundException('User could not be found');

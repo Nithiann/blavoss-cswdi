@@ -40,7 +40,7 @@ export class TicketPayComponent implements OnInit, OnDestroy {
 
       this.paymentForm?.patchValue({
         name: this.festival.name,
-        festivalId: this.festival.id,
+        festivalId: this.festival,
         userId: this.user!.sub
       });
 

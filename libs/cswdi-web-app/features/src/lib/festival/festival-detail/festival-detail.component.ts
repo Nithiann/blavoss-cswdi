@@ -29,7 +29,7 @@ export class FestivalDetailComponent implements OnInit, OnDestroy {
   }
 
   navigateToPay(festival: IFestival) {
-    this.router.navigate(['/ticket/pay'], {queryParams: { festival: JSON.stringify({ id: festival._id, name: festival.name, price: festival.ticketPrice })}});
+    this.router.navigate(['/ticket/pay'], {queryParams: { festival: JSON.stringify({ id: festival._id, name: festival.name, price: festival.ticketPrice, genre: festival.genre }) }});
   }
 
   selectFestival(artist: IArtist | null) {

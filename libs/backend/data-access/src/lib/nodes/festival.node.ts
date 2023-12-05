@@ -5,32 +5,12 @@ import { Field, ObjectType, ID } from '@nestjs/graphql';
 export class FestivalNode {
 
   @Field(() => ID)
-  id!: string;
+  _id!: string;
 
   @Field()
   name!: string;
 
-  @Field()
-  location!: string;
-
-  @Field()
-  startDate!: Date;
-
-  @Field()
-  endDate!: Date;
-
-  @Field()
-  description!: string;
-
-  @Field()
-  ticketPrice!: number;
-
   @Field(() => Genre)
   genre!: Genre;
 
-  @Field(() => [ID])
-  artists!: string[];
-
-  @Field(() => [ID])
-  tickets!: string[];
 }

@@ -4,7 +4,7 @@ import { IUser } from "./user.interface";
 export interface ITicket {
     _id?: string;
     userId: IUser;
-    festivalId: IFestival;
+    festivalId: Partial<IFestival>;
     ticketAmount: number;
     purchaseDate: Date;
     status: TicketStatus;
