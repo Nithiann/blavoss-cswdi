@@ -9,7 +9,7 @@ import * as jwt from 'jsonwebtoken';
 
 @Injectable()
 export class UserService {
-    constructor(@InjectModel('User') private readonly userModel: Model<UserDocument>, private neo4jService: Neo4jService) {}
+    constructor(@InjectModel('User') private readonly userModel: Model<UserDocument>, @InjectModel('Ticket') private readonly ticketModel: Model<ITicket>, private neo4jService: Neo4jService) {}
 
     TAG = 'UserService';
     salt = 10;
@@ -112,6 +112,9 @@ export class UserService {
             if (!user) {
                 throw new NotFoundException('User could not be found');
             }
+
+            await this.ticketModel.deleteMany({userId: id});
+            
             return user.toObject();
         } catch (err) {
             throw new NotFoundException(err);

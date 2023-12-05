@@ -1,4 +1,4 @@
-import { ArtistSchema, DataAccessModule, FestivalSchema, Neo4jService } from '@blavoss-cswdi/backend/data-access';
+import { ArtistSchema, DataAccessModule, FestivalSchema, Neo4jService, TicketSchema } from '@blavoss-cswdi/backend/data-access';
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { FestivalController } from './festival/festival.controller';
@@ -9,7 +9,7 @@ import { JwtStrategy } from './jwt.strategy';
 @Module({
     imports: [
         DataAccessModule, 
-        MongooseModule.forFeature([{name: 'Festival', schema: FestivalSchema}]), 
+        MongooseModule.forFeature([{name: 'Festival', schema: FestivalSchema}, { name: 'Ticket', schema: TicketSchema }]), 
         MongooseModule.forFeature([{ name: 'Artist', schema: ArtistSchema }]),
     ],
     controllers: [FestivalController],

@@ -1,14 +1,14 @@
 import { Injectable, Logger, NotFoundException } from "@nestjs/common";
 import { Model, Types } from "mongoose";
 import { InjectModel } from "@nestjs/mongoose";
-import { FestivalDocument } from "@blavoss-cswdi/backend/data-access";
+import { FestivalDocument, TicketDocument } from "@blavoss-cswdi/backend/data-access";
 import { BehaviorSubject } from "rxjs";
 import { IFestival, ITicket } from "@blavoss-cswdi/shared/api";
 
 @Injectable()
 export class FestivalService {
 
-    constructor(@InjectModel('Festival') private readonly festivalModel: Model<FestivalDocument>) {}
+    constructor(@InjectModel('Festival') private readonly festivalModel: Model<FestivalDocument>, @InjectModel('Ticket') private readonly ticketModel: Model<TicketDocument>) {}
 
     TAG = 'Backend FestivalService';
 
@@ -48,6 +48,8 @@ export class FestivalService {
                 throw new NotFoundException('Festival could not be found');
             }
 
+            // remove all tickets from festival 
+            await this.ticketModel.deleteMany({festivalId: id});
             return festival.toObject();
         } catch (err) {
             throw new NotFoundException(err);
