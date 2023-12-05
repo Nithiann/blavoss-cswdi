@@ -1,11 +1,13 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService, authModel } from '@blavoss-cswdi/common';
 import { ITicket } from '@blavoss-cswdi/shared/api';
 import { Subscription } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TicketService } from '../ticket.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'blavoss-cswdi-ticket-pay',
@@ -23,7 +25,9 @@ export class TicketPayComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private ticketService: TicketService,  
     private route: ActivatedRoute, 
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router,
+    private messageService: MessageService
   ) {
     this.paymentForm = this.fb.group({
       name: ['', Validators.required],
@@ -50,11 +54,16 @@ export class TicketPayComponent implements OnInit, OnDestroy {
   onSubmit(): void {
     console.log(this.paymentForm.value);
     this.ticketService.create(this.paymentForm.value).subscribe((resp: any) => {
-      console.log(`resp: ${resp}`);
+      this.showToast();
+      this.router.navigate(['/user', this.user!.sub]);
     })
   }
 
   ngOnDestroy(): void {
     if (this.subscription) this.subscription.unsubscribe();
+  }
+
+  private showToast() {
+    this.messageService.add({severity: 'success', summary: 'Success', detail: 'Tickets bought. Please Personalize in profile.'});
   }
 }

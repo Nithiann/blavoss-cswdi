@@ -57,10 +57,10 @@ export class Neo4jService {
             await session.run('MERGE (u:User {_id: $userId})', {userId})
 
             // create node for festival
-            await session.run('MERGE (f:Festival {_id: $festival.id, genre: $festival.genre})', {festival});
+            await session.run('MERGE (f:Festival {_id: $festival._id, genre: $festival.genre})', {festival});
 
             // create buy relationship between user and festival
-            await session.run('MATCH (u:User {_id: $userId}), (f:Festival {_id: $festival.id}) MERGE (u)-[r:PURCHASED]->(f)', {userId, festival});
+            await session.run('MATCH (u:User {_id: $userId}), (f:Festival {_id: $festival._id}) MERGE (u)-[r:PURCHASED]->(f)', {userId, festival});
         } catch (err: any) {
             throw new Error(err.message);
         } finally {
@@ -96,6 +96,8 @@ export class Neo4jService {
           }
 
           return recommendedFestivals;
+        } else {
+          return [];
         }        
       } catch (err: any) {
         throw new Error(err.message)
