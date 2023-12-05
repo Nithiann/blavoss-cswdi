@@ -1,8 +1,11 @@
 import { Gender } from '@blavoss-cswdi/shared/api';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, Types } from 'mongoose';
+import * as bcrypt from 'bcrypt';
 
 export type UserDocument = HydratedDocument<User>;
+
+const salt = 10;
 
 @Schema()
 export class User {
@@ -27,5 +30,12 @@ export class User {
     @Prop({ type: [Types.ObjectId], ref: 'Ticket', default: [] })
     tickets!: Types.ObjectId[];
 }
-
 export const UserSchema = SchemaFactory.createForClass(User);
+
+UserSchema.pre('save', async function (next) {
+    if (this.isModified('hash')) {
+        this.hash = await bcrypt.hash(this.hash, salt);
+    }
+
+    next();
+});

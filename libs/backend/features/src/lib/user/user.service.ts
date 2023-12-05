@@ -99,8 +99,6 @@ export class UserService {
         const newUser = new this.userModel({
             ...user,
         });
-
-        newUser.hash = await bcrypt.hash(newUser.hash, this.salt);
        
         await newUser.save();
 
