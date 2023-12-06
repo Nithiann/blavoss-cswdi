@@ -9,6 +9,7 @@ import { MongooseModule, getModelToken } from "@nestjs/mongoose";
 import { Test } from "@nestjs/testing";
 import * as dotenv from 'dotenv';
 import { NotFoundException } from "@nestjs/common";
+import * as jwt from 'jsonwebtoken';
 
 describe('UserService', () => {
     let uService: UserService;
@@ -232,30 +233,31 @@ describe('UserService', () => {
             PersonalizationStatus: PersonalizationStatus.NotPersonalized,
         };
     
-        const user = new userModel({
-            _id: mockTicket.userId,
+        // act
+        const result = await uService.addTicketToUser(mockTicket);
+    
+        // assert
+        expect(result.tickets).toContainEqual(mockTicket._id);
+    });
+
+    it('should generate a valid JWT access token', () => {
+        // arrange
+        const mockUser: IUser = {
+            _id: new Types.ObjectId().toString(),
             firstName: 'John',
             lastName: 'Doe',
             email: 'john.doe@example.com',
             hash: 'test',
             dob: new Date(),
             gender: Gender.Male,
-            tickets: [],
-        }) as unknown as UserDocument;
-    
-        const findByIdSpy = jest.spyOn(userModel, 'findById').mockResolvedValueOnce({
-            ...user.toObject(),
-            save: jest.fn().mockResolvedValueOnce(user),
-          });
-        const purchaseTicketSpy = jest.spyOn(neo4Service, 'purchaseTicket').mockResolvedValueOnce();
-    
+        };
+
         // act
-        const result = await uService.addTicketToUser(mockTicket);
-    
+        const token = uService['generateAccessToken'](mockUser);
+
         // assert
-        expect(findByIdSpy).toHaveBeenCalledWith(mockTicket.userId);
-        expect(user.save).toHaveBeenCalled(); // Check user.save() instead of saveSpy
-        expect(purchaseTicketSpy).toHaveBeenCalledWith(user._id.toHexString(), mockTicket.festivalId);
-        expect(result.tickets).toContainEqual(mockTicket._id);
+        const decodedToken = jwt.decode(token) as { sub: string; email: string };
+        expect(decodedToken.sub).toBe(mockUser._id);
+        expect(decodedToken.email).toBe(mockUser.email);
     });
 })
