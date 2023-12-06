@@ -5,6 +5,7 @@ import {
     IsNumber,
 } from 'class-validator';
 import { ICreateTicket, IUpdateTicket, IUpsertTicket, TicketStatus, PersonalizationStatus, IUser, IFestival } from '@blavoss-cswdi/shared/api';
+import { Types } from 'mongoose';
 
 
 export class CreateTicketDTO implements ICreateTicket{
@@ -36,7 +37,7 @@ export class CreateTicketDTO implements ICreateTicket{
 export class UpsertTicketDTO implements IUpsertTicket{
     @IsString()
     @IsNotEmpty()
-    _id!: string;
+    _id!: Types.ObjectId;
 
     @IsString()
     @IsNotEmpty()
@@ -66,7 +67,7 @@ export class UpsertTicketDTO implements IUpsertTicket{
 export class UpdateTicketDTO implements IUpdateTicket{
     @IsString()
     @IsNotEmpty()
-    _id!: string;
+    _id!: Types.ObjectId;
 
     @IsString()
     @IsNotEmpty()
