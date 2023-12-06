@@ -124,7 +124,7 @@ export class UserService {
     async addTicketToUser(ticket: ITicket): Promise<IUser> {
         Logger.log('addTicketToUser', this.TAG);
         try {
-            const user = await this.userModel.findById(ticket.userId).exec();
+            const user = await this.userModel.findById(ticket.userId);
 
             if (!user) {
                 throw new NotFoundException('User could not be found');
@@ -137,8 +137,11 @@ export class UserService {
                 user.tickets.push(ticketObjectId);
                 await user.save();
 
+                const userIdString = user._id instanceof Types.ObjectId
+                ? user._id.toHexString()
+                : String(user._id);
                 // store in neo
-                await this.neo4jService.purchaseTicket(user._id.toHexString(), ticket.festivalId);
+                await this.neo4jService.purchaseTicket(userIdString, ticket.festivalId);
             }
 
             return user.toObject();

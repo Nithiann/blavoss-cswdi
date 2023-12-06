@@ -30,7 +30,7 @@ export class User {
     @Prop({ type: [Types.ObjectId], ref: 'Ticket', default: [] })
     tickets!: Types.ObjectId[];
 }
-export const UserSchema = SchemaFactory.createForClass(User);
+export const UserSchema = SchemaFactory.createForClass(User).set('toObject', { getters: true, virtuals: true });
 
 UserSchema.pre('save', async function (next) {
     if (this.isModified('hash')) {

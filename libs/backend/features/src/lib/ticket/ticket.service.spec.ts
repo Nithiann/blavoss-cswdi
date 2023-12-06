@@ -11,14 +11,6 @@ import { MongoClient } from 'mongodb';
 import { FestivalService } from '../festival/festival.service';
 import { NotFoundException } from '@nestjs/common';
 
-const ticketModelMock: Partial<Model<ITicket>> = {
-  find: jest.fn(),
-  findById: jest.fn(),
-  findByIdAndDelete: jest.fn(),
-  create: jest.fn(),
-  findByIdAndUpdate: jest.fn(),
-};
-
 describe('TicketService', () => {
   let tService: TicketService;
   let mongod: MongoMemoryServer;
