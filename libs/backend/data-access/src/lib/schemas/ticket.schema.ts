@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { HydratedDocument, Types } from "mongoose";
+import { HydratedDocument, Types, model } from "mongoose";
 import { PersonalizationStatus, TicketStatus } from '@blavoss-cswdi/shared/api';
 
 export type TicketDocument = HydratedDocument<Ticket>;
@@ -26,4 +26,5 @@ export class Ticket {
     PersonalizationStatus!: PersonalizationStatus;
 }
 
-export const TicketSchema = SchemaFactory.createForClass(Ticket);
+export const TicketSchema = SchemaFactory.createForClass(Ticket).set('toObject', { getters: true, virtuals: true });
+export const TicketModel = model('Ticket', TicketSchema);
