@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { IFestival } from '@blavoss-cswdi/shared/api';
@@ -20,9 +21,9 @@ export class Neo4jService {
             ),
         );
 
-        console.log(`${process.env['NEO4J_SCHEME']}://${process.env['NEO4J_HOST'] } `)
-        console.log(`${process.env['NEO4J_USR']} ${process.env['NEO4J_PASS']}`) 
-        this.testConnection();
+        //console.log(`${process.env['NEO4J_SCHEME']}://${process.env['NEO4J_HOST'] } `)
+        //console.log(`${process.env['NEO4J_USR']} ${process.env['NEO4J_PASS']}`) 
+        //this.testConnection();
     }
 
     getSession(): neo4j.Session {

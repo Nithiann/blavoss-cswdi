@@ -2,7 +2,7 @@ import { Gender, ILogin, ITicket, IUser } from "@blavoss-cswdi/shared/api";
 import { Injectable, Logger, NotFoundException } from "@nestjs/common";
 import { BehaviorSubject } from "rxjs";
 import { InjectModel } from "@nestjs/mongoose";
-import { Model, Types } from 'mongoose';
+import { Model } from 'mongoose';
 import { Neo4jService, UserDocument } from "@blavoss-cswdi/backend/data-access";
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
@@ -130,18 +130,13 @@ export class UserService {
                 throw new NotFoundException('User could not be found');
             }
 
-            const ticketObjectId = new Types.ObjectId(ticket._id);
-
             // check if ticket already exists on user
-            if (!user.tickets.includes(ticketObjectId)) {
-                user.tickets.push(ticketObjectId);
+            if (!user.tickets.includes(ticket)) {
+                user.tickets.push(ticket);
                 await user.save();
 
-                const userIdString = user._id instanceof Types.ObjectId
-                ? user._id.toHexString()
-                : String(user._id);
                 // store in neo
-                await this.neo4jService.purchaseTicket(userIdString, ticket.festivalId);
+                await this.neo4jService.purchaseTicket(ticket.userId._id!.toString(), ticket.festivalId);
             }
 
             return user.toObject();

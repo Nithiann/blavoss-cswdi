@@ -68,9 +68,9 @@ export class FestivalController {
         Logger.log('getFestivalRecommendations', `${userId}`);
         const festivals = await this.neo4Jservice.getRecommendedFestivalForUser(userId);
 
+        const festivalIsArray = Object.values(festivals || {});
         const recommendations = [];
-
-        for (const festivalNode of festivals!) {
+        for (const festivalNode of festivalIsArray!) {
             const festival = await this.festivalService.getOne(festivalNode._id);
             recommendations.push(festival);
         }

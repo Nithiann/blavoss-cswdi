@@ -4,6 +4,9 @@ import { of } from 'rxjs';
 import { UserDetailComponent } from './user-detail.component';
 import { UserService } from '../user.service';
 import { Gender, IUser } from '@blavoss-cswdi/shared/api';
+import { TicketService } from '../../ticket/ticket.service';
+import { HttpClientModule } from '@angular/common/http';
+import { MessageService } from 'primeng/api';
 
 const mockUser: IUser = {
     email: 'john.doe@gmail.com',
@@ -29,9 +32,12 @@ describe('UserDetailComponent', () => {
   
       TestBed.configureTestingModule({
         declarations: [UserDetailComponent],
+        imports: [HttpClientModule],
         providers: [
           UserService,
           { provide: ActivatedRoute, useValue: activatedRouteMock },
+          TicketService,
+          MessageService
         ],
       }).compileComponents();
   
