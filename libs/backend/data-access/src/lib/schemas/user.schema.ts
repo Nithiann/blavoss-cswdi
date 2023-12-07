@@ -1,34 +1,38 @@
-import { Gender } from '@blavoss-cswdi/shared/api';
+import { Gender, ITicket, IUser } from '@blavoss-cswdi/shared/api';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, Types, model } from 'mongoose';
 import * as bcrypt from 'bcrypt';
+import { IsMongoId } from 'class-validator';
 
 export type UserDocument = HydratedDocument<User>;
 
 const salt = 10;
 
 @Schema()
-export class User {
-    @Prop()
+export class User implements IUser{
+    @IsMongoId()
+    _id!: string;
+
+    @Prop({required: true, unique: true})
     email!: string;
 
-    @Prop()
+    @Prop({ select: false, required: true })
     hash!: string;
 
-    @Prop()
+    @Prop({required: true})
     firstName!: string;
 
-    @Prop()
+    @Prop({required: true})
     lastName!: string;
 
-    @Prop()
+    @Prop({required: true})
     dob!: Date;
 
     @Prop({ type: String, enum: Object.values(Gender), default: Gender.None})
     gender!: Gender;
 
     @Prop({ type: [Types.ObjectId], ref: 'Ticket', default: [] })
-    tickets!: Types.ObjectId[];
+    tickets!: ITicket[];
 }
 export const UserSchema = SchemaFactory.createForClass(User).set('toObject', { getters: true, virtuals: true });
 export const UserModel = model('User', UserSchema);
