@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Genre } from '@blavoss-cswdi/shared/api';
+import { Logger } from '@nestjs/common';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, Types } from 'mongoose';
 
@@ -6,25 +8,25 @@ export type FestivalDocument = HydratedDocument<Festival>;
 
 @Schema()
 export class Festival {
-    @Prop()
+    @Prop({required: true})
     name!: string;
 
-    @Prop()
+    @Prop({required: true})
     location!: string;
 
-    @Prop()
+    @Prop({required: true, validate: {validator: startDateBeforeEndDate, message: 'End date must be after start date'}})
     startDate!: Date;
 
-    @Prop()
+    @Prop({required: true})
     endDate!: Date;
 
-    @Prop()
+    @Prop({required: true})
     description!: string;
 
-    @Prop()
+    @Prop({required: true})
     ticketPrice!: number;
 
-    @Prop()
+    @Prop({required: true})
     image!: string;
 
     @Prop({ type: String, enum: Object.values(Genre), default: Genre.EDM})
@@ -35,6 +37,10 @@ export class Festival {
 
     @Prop({ type: [Types.ObjectId], ref: 'Ticket', default: [] })
     tickets!: Types.ObjectId[];
+}
+
+function startDateBeforeEndDate(this: Festival, endDate: Date): boolean {
+    return this.startDate < this.endDate;
 }
 
 export const FestivalSchema = SchemaFactory.createForClass(Festival);
