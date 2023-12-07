@@ -6,16 +6,16 @@ export type ArtistDocument = HydratedDocument<Artist>;
 
 @Schema()
 export class Artist {
-    @Prop()
+    @Prop({required: true})
     name!: string;
 
     @Prop({ type: String, enum: Object.values(Genre), default: Genre.EDM})
     genre!: Genre;
 
-    @Prop()
+    @Prop({required: true})
     description!: string;
 
-    @Prop()
+    @Prop({required: true})
     image!: string;
 
     @Prop({ type: [Types.ObjectId], ref: 'Festival', default: [] })
