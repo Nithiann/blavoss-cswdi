@@ -33,16 +33,17 @@ export class UserService {
 
         try {
             const user = await this.userModel.findOne({ email: creds.email }).exec();
-
+            
             if (!user) {
                 throw new NotFoundException('User could not be found');
             }
-
+            
             const match = await bcrypt.compare(creds.password, user.hash);
             if (!match) {
                 throw new NotFoundException('Email or password might be incorrect');
             }
 
+            
             const accessToken = this.generateAccessToken(user.toObject());
 
             return { ...user.toObject(), token: accessToken }
@@ -130,16 +131,24 @@ export class UserService {
                 throw new NotFoundException('User could not be found');
             }
 
-            // check if ticket already exists on user
-            if (!user.tickets.includes(ticket)) {
-                user.tickets.push(ticket);
-                await user.save();
-
-                // store in neo
-                await this.neo4jService.purchaseTicket(ticket.userId._id!.toString(), ticket.festivalId);
+            const updateUser = await this.userModel.findByIdAndUpdate(ticket.userId, {
+                $push: {
+                    tickets: {
+                        $each: [ticket._id],
+                    }
+                }
+            });
+            
+            
+            if (updateUser?.isModified('tickets')) {
+                Logger.log('i am here', this.TAG);  
+                await updateUser.save();
             }
-
+            await this.neo4jService.purchaseTicket(ticket.userId.toString(), ticket.festivalId);
             return user.toObject();
+            // store in neo
+            
+
         } catch(err) {
             throw new NotFoundException(err);
         }

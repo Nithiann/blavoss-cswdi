@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -64,7 +65,7 @@ export class FestivalCreateComponent implements OnInit, OnDestroy {
         genre: this.createForm.value.genre,
       };
       this.subscription = this.festivalService.create(festival).subscribe((resp: any) => {
-        if (resp) console.log(resp);
+        this.router.navigate(['/ticket'])
       })
     })
   }

@@ -16,7 +16,7 @@ export class User implements IUser{
     @Prop({required: true, unique: true})
     email!: string;
 
-    @Prop({ select: false, required: true })
+    @Prop({ required: true })
     hash!: string;
 
     @Prop({required: true})

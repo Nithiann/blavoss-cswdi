@@ -53,7 +53,7 @@ export class ArtistCreateComponent implements OnInit, OnDestroy {
         image: base64,
       };
       this.subscription = this.artistService.create(artist).subscribe((resp: any) => {
-        if (resp) console.log(resp);
+        this.router.navigate(['/artist', resp._id]);
       })
     })
     .catch((err) => {
