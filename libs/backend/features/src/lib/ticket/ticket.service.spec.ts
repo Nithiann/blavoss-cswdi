@@ -176,7 +176,6 @@ describe('TicketService', () => {
 
     // assert
     expect(updatedTicket).toHaveProperty('ticketAmount', updateData.ticketAmount);
-    // Ensure other properties are not affected by the update, adjust as needed
     expect(updatedTicket.userId).toEqual(expect.objectContaining(mockTickets[0].userId));
     expect(updatedTicket.festivalId).toEqual(expect.objectContaining(mockTickets[0].festivalId));
   });
