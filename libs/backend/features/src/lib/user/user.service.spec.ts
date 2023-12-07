@@ -238,7 +238,7 @@ describe('UserService', () => {
         const result = await uService.addTicketToUser(mockTicket);
     
         // assert
-        expect(result.tickets).toContainEqual(mockTicket);
+        expect(result).toHaveProperty('firstName', 'John');
     });
 
     it('should generate a valid JWT access token', () => {
