@@ -153,7 +153,7 @@ describe('festivalContoller', () => {
             expect(results).toEqual(mockFestivals[0]);
         });
 
-        it('should return error when user not found', async () => {
+        it('should return error when festival not found', async () => {
             // arrange
             const getOne = jest.spyOn(fService, 'getOne').mockImplementation(async () => {
                 throw new NotFoundException();

@@ -151,7 +151,6 @@ describe('FestivalService', () => {
             const result = await fService.getOne(mockFestivals[0]._id!.toString());
 
             //assert
-            Logger.error(result);
             expect(result).toHaveProperty('_id');
             expect(result).toHaveProperty('name');
         });
