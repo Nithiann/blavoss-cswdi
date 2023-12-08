@@ -14,10 +14,10 @@ export class Neo4jService {
 
     constructor() {
         this.driver = neo4j.driver(
-            `${process.env['NEO4J_SCHEME']}://${process.env['NEO4J_HOST'] }` ?? `${environment.NEO4J_SCHEME}://${environment.NEO4J_HOST}`,
+            `${environment.NEO4J_SCHEME}://${environment.NEO4J_HOST}`,
             neo4j.auth.basic(
-                process.env['NEO4J_USR'] ?? environment.NEO4J_USR,
-                process.env['NEO4J_PASS'] ?? environment.NEO4J_PASS
+                environment.NEO4J_USR,
+                environment.NEO4J_PASS
             ),
         );
 

@@ -8,4 +8,9 @@ export const environment = {
     NEO4J_USR: 'neo4j',
     NEO4J_PASS: 'Im2x5xpmdd',
     NEO4J_DATABASE: 'neo4j',
+    // NEO4J_SCHEME:'bolt',
+    // NEO4J_HOST:'127.0.0.1:7687',
+    // NEO4J_USR:'neo4j',
+    // NEO4J_PASS:'Im2x5xpmdd',
+    // NEO4J_DATABASE:'neo4j'
 };
