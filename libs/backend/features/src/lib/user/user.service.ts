@@ -57,7 +57,7 @@ export class UserService {
     async getAll(): Promise<IUser[]> {
         Logger.log('getAll', this.TAG);
         
-        const users = await this.userModel.find().exec();
+        const users = await this.userModel.find().select('-hash').exec();
 
         return users.map(user => user.toObject());
     }
@@ -66,6 +66,7 @@ export class UserService {
         Logger.log(`getOne(${id})`, this.TAG);
         try {
             const user = await this.userModel.findById(id)
+            .select('-hash')
             .populate('tickets')
             .populate({
                 path: 'tickets',
