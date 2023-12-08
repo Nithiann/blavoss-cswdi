@@ -14,6 +14,7 @@ export const httpOptions = {
 @Injectable()
 export class FestivalService {
     endpoint = `${environment.apiUrl}/festival`;
+    recEndpoint = `${environment.recomApiUrl}/festival`
 
     constructor(private readonly http: HttpClient) {}
 
@@ -105,8 +106,8 @@ export class FestivalService {
     }
 
     public getRecommendations(userId: string, options?: any): Observable<IFestival[]> {
-        console.log(`getRecommendations ${this.endpoint}`);
-        return this.http.get<ApiResponse<IFestival[]>>(this.endpoint + '/' + userId + '/recommendations',
+        console.log(`getRecommendations ${this.recEndpoint}`);
+        return this.http.get<ApiResponse<IFestival[]>>(this.recEndpoint + '/' + userId + '/recommendations',
         {
             ...options,
             ...httpOptions,
