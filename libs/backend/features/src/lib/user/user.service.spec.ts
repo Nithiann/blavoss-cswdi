@@ -5,7 +5,7 @@ import { UserService } from "./user.service";
 import { MongoClient } from "mongodb";
 import { Model, Types, disconnect } from "mongoose";
 import { Neo4jService, Ticket, TicketSchema, User, UserDocument, UserSchema } from "@blavoss-cswdi/backend/data-access";
-import { Gender, Genre, ITicket, IUser, PersonalizationStatus, TicketStatus } from "@blavoss-cswdi/shared/api";
+import { Gender, Genre, ITicket, IUser, PersonalizationStatus, TicketStatus, userRole } from "@blavoss-cswdi/shared/api";
 import { MongooseModule, getModelToken } from "@nestjs/mongoose";
 import { Test } from "@nestjs/testing";
 import * as dotenv from 'dotenv';
@@ -28,6 +28,7 @@ describe('UserService', () => {
             email: 'John.doe@gmail.com',
             hash: 'test',
             dob: new Date(),
+            role: userRole.Admin,
             gender: Gender.Male
         },
         {
@@ -36,6 +37,7 @@ describe('UserService', () => {
             lastName: 'Doe',
             email: 'Jane.doe@gmail.com',
             hash: 'test',
+            role: userRole.Admin,
             dob: new Date(),
             gender: Gender.Female
         }
@@ -155,6 +157,7 @@ describe('UserService', () => {
             firstName: 'Joe',
             lastName: 'Doe',
             email: 'Joe.doe@gmail.com',
+            role: userRole.Admin,
             hash: 'test',
             dob: new Date(),
             gender: Gender.Other
@@ -175,6 +178,7 @@ describe('UserService', () => {
             firstName: 'Joe',
             lastName: 'Doe',
             email: 'Joe.doe@gmail.com',
+            role: userRole.Admin,
             hash: 'test',
             dob: new Date(),
             gender: Gender.Other
@@ -193,6 +197,7 @@ describe('UserService', () => {
             lastName: 'Doe',
             email: 'Joe.doe@gmail.com',
             hash: 'test',
+            role: userRole.Admin,
             dob: new Date(),
             gender: Gender.Other
         }
@@ -210,6 +215,7 @@ describe('UserService', () => {
         const newUser = {
             firstName: 'Joe',
             lastName: 'Doe',
+            role: userRole.Admin,
             email: '',
             hash: 'test',
             dob: new Date(),
@@ -248,6 +254,7 @@ describe('UserService', () => {
             firstName: 'John',
             lastName: 'Doe',
             email: 'john.doe@example.com',
+            role: userRole.Admin,
             hash: 'test',
             dob: new Date(),
             gender: Gender.Male,

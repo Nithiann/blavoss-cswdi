@@ -5,7 +5,6 @@ import {
     IsEmail,
     IsDate,
     IsEmpty,
-    IsNumber
 } from 'class-validator';
 import {
     ICreateUser,
@@ -72,7 +71,7 @@ export class UpsertUserDTO implements IUpsertUser {
     @IsNotEmpty()
     gender!: Gender;
 
-    @IsNumber()
+    @IsString()
     @IsNotEmpty()
     role!: userRole;
 

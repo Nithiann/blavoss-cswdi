@@ -2,9 +2,10 @@ import { Test, TestingModule } from '@nestjs/testing';
 
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
-import { Gender, IUser } from '@blavoss-cswdi/shared/api';
+import { Gender, IUser, userRole } from '@blavoss-cswdi/shared/api';
 import { Types } from 'mongoose';
 import { BadRequestException, ConflictException, NotFoundException } from '@nestjs/common';
+import { CreateUserDTO } from '@blavoss-cswdi/backend/dto';
 
 describe('UserController', () => {
     let app: TestingModule;
@@ -20,6 +21,7 @@ describe('UserController', () => {
             hash: 'test',
             dob: new Date(),
             gender: Gender.Male,
+            role: userRole.User,
             tickets: []
         },
         {
@@ -29,6 +31,7 @@ describe('UserController', () => {
             email: 'Jane.doe@gmail.com',
             hash: 'test',
             dob: new Date(),
+            role: userRole.User,
             gender: Gender.Female,
             tickets: []
         }
@@ -128,15 +131,13 @@ describe('UserController', () => {
     describe('create', () => {
         it('should create new user', async () => {
             //arrange
-            const createData: IUser = {
-                _id: new Types.ObjectId().toString(),
+            const createData: CreateUserDTO = {
                 firstName: 'John',
                 lastName: 'Doe',
                 email: 'John.doe@gmail.com',
-                hash: 'test',
+                hash: 'test'.toString(),
                 dob: new Date(),
                 gender: Gender.Male,
-                tickets: []
             };
             const createSpy = jest.spyOn(uService, 'create').mockImplementation(async () => createData);
 
@@ -145,21 +146,19 @@ describe('UserController', () => {
 
             //assert
             expect(createSpy).toHaveBeenCalledWith(createData);
-            expect(result).toHaveProperty('_id', createData._id);
+            expect(result).toHaveProperty('email', createData.email);
             expect(result).toHaveProperty('firstName', 'John');
         });
 
         it('should return error when user already exists', async () => {
             //arrange
-            const createData: IUser = {
-                _id: new Types.ObjectId().toString(),
+            const createData: CreateUserDTO = {
                 firstName: 'John',
                 lastName: 'Doe',
                 email: 'John.doe@gmail.com',
-                hash: 'test',
+                hash: 'test'.toString(),
                 dob: new Date(),
                 gender: Gender.Male,
-                tickets: []
             };
 
             const createSpy = jest.spyOn(uService, 'create').mockImplementation(async () => {
@@ -173,15 +172,13 @@ describe('UserController', () => {
 
         it('Should return error when data is incorrect', async () => {
             //arrange
-            const createData: IUser = {
-                _id: new Types.ObjectId().toString(),
+            const createData: CreateUserDTO = {
                 firstName: 'John',
                 lastName: 'Doe',
                 email: 'John.doe@gmail.com',
                 hash: 'test',
                 dob: new Date(),
                 gender: Gender.Male,
-                tickets: []
             };
             const createSpy = jest.spyOn(uService, 'create').mockImplementation(async () => {
                 throw new BadRequestException();

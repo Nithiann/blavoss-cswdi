@@ -13,8 +13,8 @@ export interface ILogin {
 }
 
 export enum userRole {
-    Admin = 2,
-    User = 0
+    Admin = 'King',
+    User = 'User',
 }
 
 export interface IUser {
@@ -31,7 +31,7 @@ export interface IUser {
 
 export type ICreateUser = Pick<
     IUser,
-    'email' | 'hash' | 'firstName' | 'lastName' | 'dob' | 'gender'
+    'email' | 'hash' | 'firstName' | 'lastName' | 'dob' | 'gender' | 'role'
 >;
 
 export type IUpdateUser = Partial<Omit<IUser, 'id'>>;

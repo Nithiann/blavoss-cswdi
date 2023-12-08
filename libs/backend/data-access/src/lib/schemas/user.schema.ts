@@ -9,7 +9,7 @@ export type UserDocument = HydratedDocument<User>;
 const salt = 10;
 
 @Schema()
-export class User implements IUser{
+export class User implements IUser {
     @IsMongoId()
     _id!: string;
 
@@ -31,7 +31,7 @@ export class User implements IUser{
     @Prop({ type: String, enum: Object.values(Gender), default: Gender.None})
     gender!: Gender;
 
-    @Prop({ type: Number, enum: Object.values(userRole), default: userRole.User})
+    @Prop({ type: String, enum: Object.values(userRole), default: userRole.User})
     role!: userRole;
 
     @Prop({ type: [Types.ObjectId], ref: 'Ticket', default: [] })
