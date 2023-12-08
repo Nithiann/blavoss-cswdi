@@ -7,6 +7,7 @@ import { Gender, IUser } from '@blavoss-cswdi/shared/api';
 import { TicketService } from '../../ticket/ticket.service';
 import { HttpClientModule } from '@angular/common/http';
 import { MessageService } from 'primeng/api';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const mockUser: IUser = {
     email: 'john.doe@gmail.com',
@@ -32,7 +33,7 @@ describe('UserDetailComponent', () => {
   
       TestBed.configureTestingModule({
         declarations: [UserDetailComponent],
-        imports: [HttpClientModule],
+        imports: [HttpClientModule, FormsModule, ReactiveFormsModule],
         providers: [
           UserService,
           { provide: ActivatedRoute, useValue: activatedRouteMock },
