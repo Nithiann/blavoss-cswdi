@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { ApiResponse, ILogin, IUser } from "@blavoss-cswdi/shared/api";
 import { BehaviorSubject, Observable, Subject, catchError, map, tap, throwError } from "rxjs";
 import * as jwtDecode from "jwt-decode";	
-import { environment } from "../environments/environments";
+import { environment } from "../../../../shared/environments/environments";
 import { Injectable } from "@angular/core";
 import { authModel } from "./auth.model";
 

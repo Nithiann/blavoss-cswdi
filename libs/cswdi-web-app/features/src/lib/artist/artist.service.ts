@@ -4,7 +4,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { map, catchError, tap } from 'rxjs/operators';
 import { ApiResponse, IArtist } from '@blavoss-cswdi/shared/api';
 import { Injectable } from '@angular/core';
-import { environment } from '@blavoss-cswdi/common';
+import { environment } from '@blavoss-cswdi/shared/api';
 
 export const httpOptions = {
     observable: 'body',

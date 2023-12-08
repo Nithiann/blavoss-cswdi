@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { IFestival } from '@blavoss-cswdi/shared/api';
+import { IFestival, environment } from '@blavoss-cswdi/shared/api';
 import { FestivalNode } from './festival.node';
 import { UserNode } from './user.node';
 import { Injectable, Logger } from '@nestjs/common';
@@ -14,10 +14,10 @@ export class Neo4jService {
 
     constructor() {
         this.driver = neo4j.driver(
-            `${process.env['NEO4J_SCHEME']}://${process.env['NEO4J_HOST'] }`,
+            `${process.env['NEO4J_SCHEME']}://${process.env['NEO4J_HOST'] }` ?? `${environment.NEO4J_SCHEME}://${environment.NEO4J_HOST}`,
             neo4j.auth.basic(
-                process.env['NEO4J_USR'] ?? 'neo4j',
-                process.env['NEO4J_PASS'] ?? 'password'
+                process.env['NEO4J_USR'] ?? environment.NEO4J_USR,
+                process.env['NEO4J_PASS'] ?? environment.NEO4J_PASS
             ),
         );
 

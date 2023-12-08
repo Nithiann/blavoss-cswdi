@@ -15,5 +15,5 @@
     "jest.config.ts",
     "src/**/*.test.ts"
   ],
-  "include": ["src/**/*.ts", "../common/src/environments/environments.prod.ts"]
+  "include": ["src/**/*.ts", "../../shared/environments/environments.prod.ts"]
 }
