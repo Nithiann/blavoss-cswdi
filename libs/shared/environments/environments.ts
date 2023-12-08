@@ -1,7 +1,7 @@
 export const environment = {
     production: false,
-    apiUrl: 'https://cswdi-blavoss-api.azurewebsites.net/api', // Your API URL for development
-    recomApiUrl: 'https://cswdi-blavoss-rcmd.azurewebsites.net/api',
+    apiUrl: 'http://localhost:3000/api', // Your API URL for development
+    recomApiUrl: 'http://localhost:3100/api',
     jwt_secret: 'ikbeneengoedgeheim',
     NEO4J_SCHEME: 'neo4j+s',
     NEO4J_HOST: '253ab915.databases.neo4j.io',
