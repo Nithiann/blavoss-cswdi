@@ -2,6 +2,7 @@
 import { CanActivate, ExecutionContext, Injectable, Logger } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
 import { JwtStrategy } from "./jwt.strategy";
+import { userRole } from "@blavoss-cswdi/shared/api";
 
 @Injectable()
 export class AdminAuthGuard extends AuthGuard('jwt') implements CanActivate {
@@ -19,7 +20,7 @@ export class AdminAuthGuard extends AuthGuard('jwt') implements CanActivate {
         try {
             const user = await this.jwtStrategy.validate(context.switchToHttp().getRequest())
 
-            const isAdmin = user.user.email === 'info@cswdi-web-app.com';
+            const isAdmin = user.user.role === userRole.Admin;
     
             return isAdmin;
         } catch (error: any) {
