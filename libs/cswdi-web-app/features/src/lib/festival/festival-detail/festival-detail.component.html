@@ -20,7 +20,7 @@
   </div>
 
   <h2 class="text-xl mb-6 mt-4">Line-up</h2>
-  <div class="flowbite p-4" *ngIf="festival!.artists">
+  <div class="flowbite p-4">
     <div *ngFor="let artist of festival?.artists" (click)="selectFestival(artist)">
       <blavoss-cswdi-festival-item [artist]="artist" class="w-full"></blavoss-cswdi-festival-item>
     </div>
