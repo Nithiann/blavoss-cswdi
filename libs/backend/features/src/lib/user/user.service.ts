@@ -1,4 +1,4 @@
-import { Gender, ILogin, ITicket, IUser, userRole } from "@blavoss-cswdi/shared/api";
+import { Gender, ILogin, ITicket, IUser, environment, userRole } from "@blavoss-cswdi/shared/api";
 import { Injectable, Logger, NotFoundException } from "@nestjs/common";
 import { BehaviorSubject } from "rxjs";
 import { InjectModel } from "@nestjs/mongoose";
@@ -163,7 +163,7 @@ export class UserService {
             role: user.role
         };
 
-        const secret = process.env['JWT_SECRET'];
+        const secret = environment.jwt_secret;
         const options = { expiresIn: '1h' };
 
         return jwt.sign(payload, secret!, options);
