@@ -12,14 +12,20 @@ export interface ILogin {
     password: string;
 }
 
+export enum userRole {
+    Admin = 2,
+    User = 0
+}
+
 export interface IUser {
     _id?: string;
     email: string;
-    hash: string;
+    hash?: string;
     firstName: string;
     lastName: string;
     dob: Date;
     gender: Gender;
+    role?: userRole;
     tickets?: ITicket[];
 }
 

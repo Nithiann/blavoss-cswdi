@@ -5,13 +5,13 @@ import { IFestival } from '@blavoss-cswdi/shared/api';
   name: 'searchFilter'
 })
 export class SearchFilterPipe implements PipeTransform {
-  transform(festivals: IFestival[] | null, searchTerm: string): IFestival[] | null {
-    if (!festivals || !searchTerm.trim()) {
-      return festivals;
+  transform(entity: IFestival[] | null, searchTerm: string): IFestival[] | null {
+    if (!entity || !searchTerm.trim()) {
+      return entity;
     }
 
-    return festivals.filter(festival =>
-      festival.name.toLowerCase().includes(searchTerm.toLowerCase())
+    return entity.filter(entit =>
+      entit.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
   }
 }

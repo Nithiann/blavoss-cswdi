@@ -3,6 +3,7 @@ import { ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot, Url
 import { Observable } from "rxjs";
 import { AuthService } from "./auth.service";
 import { inject } from "@angular/core";
+import { userRole } from "@blavoss-cswdi/shared/api";
 
 export const adminGuard: CanActivateFn = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) : Observable<boolean | UrlTree>
 | Promise<boolean | UrlTree>
@@ -13,5 +14,5 @@ export const adminGuard: CanActivateFn = (route: ActivatedRouteSnapshot, state: 
     const isAnon = !currentUser;
     if (isAnon) return inject(Router).navigate(["/user/login"]);
 
-    return currentUser.email === 'info@cswdi-web-app.com' ? true : inject(Router).createUrlTree(["/"]);
+    return currentUser.role === userRole.Admin ? true : inject(Router).createUrlTree(["/"]);
 }

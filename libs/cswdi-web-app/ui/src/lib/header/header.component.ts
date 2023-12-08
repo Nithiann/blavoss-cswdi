@@ -2,6 +2,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { AuthService } from '@blavoss-cswdi/common';
+import { userRole } from '@blavoss-cswdi/shared/api';
 import { MenuItem, PrimeIcons } from 'primeng/api';
 import { Subscription } from 'rxjs';
 
@@ -63,7 +64,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   private createMenu() {
-    if (this.currentUser?.email === 'info@cswdi-web-app.com') {
+    if (this.currentUser?.role === userRole.Admin) {
       return [
         {
           label: 'Profile',

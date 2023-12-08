@@ -4,7 +4,8 @@ import {
     IsOptional,
     IsEmail,
     IsDate,
-    IsEmpty
+    IsEmpty,
+    IsNumber
 } from 'class-validator';
 import {
     ICreateUser,
@@ -12,6 +13,7 @@ import {
     IUpsertUser,
     Gender,
     ITicket,
+    userRole,
 } from '@blavoss-cswdi/shared/api'
 
 export class CreateUserDTO implements ICreateUser {
@@ -69,6 +71,10 @@ export class UpsertUserDTO implements IUpsertUser {
     @IsString()
     @IsNotEmpty()
     gender!: Gender;
+
+    @IsNumber()
+    @IsNotEmpty()
+    role!: userRole;
 
     @IsString({each: true})
     @IsEmpty()

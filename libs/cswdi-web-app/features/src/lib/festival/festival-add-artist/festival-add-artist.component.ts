@@ -14,6 +14,7 @@ import { ActivatedRoute } from '@angular/router';
 export class FestivalAddArtistComponent implements OnInit, OnDestroy{
   artists: IArtist[] | null = null;
   festival: IFestival | null = null;
+  searchTerm: string = '';
   subscription: Subscription | undefined = undefined;
   festivalId: string = '';
 

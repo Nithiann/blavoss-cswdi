@@ -1,4 +1,4 @@
-import { Gender, ITicket, IUser } from '@blavoss-cswdi/shared/api';
+import { Gender, ITicket, IUser, userRole } from '@blavoss-cswdi/shared/api';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, Types, model } from 'mongoose';
 import * as bcrypt from 'bcrypt';
@@ -30,6 +30,9 @@ export class User implements IUser{
 
     @Prop({ type: String, enum: Object.values(Gender), default: Gender.None})
     gender!: Gender;
+
+    @Prop({ type: Number, enum: Object.values(userRole), default: userRole.User})
+    role!: userRole;
 
     @Prop({ type: [Types.ObjectId], ref: 'Ticket', default: [] })
     tickets!: ITicket[];

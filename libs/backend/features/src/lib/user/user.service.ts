@@ -1,4 +1,4 @@
-import { Gender, ILogin, ITicket, IUser } from "@blavoss-cswdi/shared/api";
+import { Gender, ILogin, ITicket, IUser, userRole } from "@blavoss-cswdi/shared/api";
 import { Injectable, Logger, NotFoundException } from "@nestjs/common";
 import { BehaviorSubject } from "rxjs";
 import { InjectModel } from "@nestjs/mongoose";
@@ -24,6 +24,7 @@ export class UserService {
             lastName: 'Bos',
             dob: new Date(),
             gender: Gender.Male,
+            role: userRole.User,
             tickets: [],
         }
     ]);
@@ -157,7 +158,8 @@ export class UserService {
     private generateAccessToken(user: IUser) : string {
         const payload = {
             sub: user._id,
-            email: user.email
+            email: user.email,
+            role: user.role
         };
 
         const secret = process.env['JWT_SECRET'];
