@@ -25,7 +25,7 @@ export class TicketListingComponent implements OnInit, OnDestroy{
 
   ngOnInit(): void {
     this.subscription = this.festivalService.list().subscribe((festivals) => {
-      this.festivals = festivals;
+      this.festivals = this.filterFestivals(festivals!);
     });
 
     this.subscription = this.authService.currentUserValue.subscribe((user) => {
@@ -36,6 +36,16 @@ export class TicketListingComponent implements OnInit, OnDestroy{
         });
       }
     })
+  }
+
+  filterFestivals(festivals: IFestival[]): IFestival[] {
+    const currentDate = new Date().getTime();
+    
+        return festivals.filter((festival: IFestival) => {
+          const endDate = new Date(festival.endDate).getTime();
+          
+           return endDate > currentDate;
+        });
   }
 
   ngOnDestroy(): void {

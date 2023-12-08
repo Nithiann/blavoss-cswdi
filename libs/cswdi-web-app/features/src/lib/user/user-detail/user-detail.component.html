@@ -13,6 +13,10 @@
     </div>
   </div>
   <h2 class="text-xl mb-4 mt-4">Tickets</h2>
+  <div class="mb-4">
+    <input type="checkbox" [formControl]="showPastEventsControl" id="showPastEvents" (change)="filterTickets()" />
+    <label for="showPastEvents"> Show Past Events</label>
+  </div>
   <div class="overflow-x-auto bg-white rounded-lg shadow overflow-y-auto relative">
     <table class="border-collapse table-auto w-full whitespace-no-wrap bg-white table-striped relative">
         <thead>
@@ -24,7 +28,7 @@
                 <th class="py-2 px-3 sticky top-0 border-b border-gray-300 bg-gray-100">Actions</th>
             </tr>
         </thead>
-        <tbody *ngFor="let ticket of user?.tickets">
+        <tbody *ngFor="let ticket of filteredTickets">
             <tr>
                 <td class="border-t px-3 py-2 cursor-pointer underline text-blue-500"><a [routerLink]="['/festival', ticket.festivalId._id]">{{ticket.festivalId.name}}</a></td>
                 <td class="border-t px-3 py-2 "><a>{{ticket.purchaseDate | date: 'dd-mm-YYYY'}}</a></td>

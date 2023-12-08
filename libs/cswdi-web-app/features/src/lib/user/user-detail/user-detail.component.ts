@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 import { UserService } from '../user.service';
 import { ActivatedRoute } from '@angular/router';
 import { TicketService } from '../../ticket/ticket.service';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'blavoss-cswdi-user-detail',
@@ -17,7 +18,9 @@ export class UserDetailComponent implements OnInit, OnDestroy {
 
     user: IUser | null = null;
     subscription: Subscription | undefined = undefined;
-
+    filteredTickets: ITicket[] | null = null;
+    showPastEventsControl: FormControl = new FormControl(false);
+    
     constructor(private userService: UserService, private route: ActivatedRoute, private ticketService: TicketService, private messageService: MessageService) {}
     
     ngOnInit(): void {
@@ -27,6 +30,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
         this.subscription = this.userService.read(userId).subscribe((results: any) => {
           console.log(`results: ${results}`);
           this.user = results;
+          this.filterTickets();
         })
       })
     }
@@ -40,6 +44,23 @@ export class UserDetailComponent implements OnInit, OnDestroy {
 
     ngOnDestroy(): void {
      if (this.subscription) this.subscription.unsubscribe();
+    }
+
+    filterTickets() {
+      if (this.user?.tickets) {
+        const currentDate = new Date().getTime();
+    
+        // Filter tickets based on showPastEvents and endDate
+        this.filteredTickets = this.user.tickets.filter((ticket: any) => {
+          const endDate = new Date(ticket.festivalId.endDate).getTime();
+          
+          if (this.showPastEventsControl.value) {
+            return true; // Show all events
+          } else {
+            return endDate >= currentDate; // Show only future events
+          }
+        });
+      }
     }
 
     private showToast(res: any) {
