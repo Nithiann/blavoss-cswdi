@@ -13,6 +13,6 @@ export class AboutComponent implements OnInit {
   imagepath?: string;
 
   ngOnInit(): void {
-    this.imagepath = 'assets/ERD-casus.jpg';
+    this.imagepath = 'assets/ERD-CSWDI-NOSQL.jpg';
   }
 }
