@@ -53,6 +53,7 @@ export class TicketPayComponent implements OnInit, OnDestroy {
 
   onSubmit(): void {
     console.log(this.paymentForm.value);
+    if (this.paymentForm.invalid) return;
     this.ticketService.create(this.paymentForm.value).subscribe((resp: any) => {
       this.showToast();
       this.router.navigate(['/user', this.user!.sub]);
