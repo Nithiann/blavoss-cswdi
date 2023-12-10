@@ -1,0 +1,8 @@
+.glow-on-hover {
+    transition: 0.3s;
+    box-shadow: 0 0 10px rgba(74, 29, 150, 0.5);
+  }
+
+  .glow-on-hover:hover {
+    box-shadow: 0 0 20px rgba(74, 29, 150, 0.7);
+  }

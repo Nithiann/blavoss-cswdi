@@ -8,3 +8,11 @@
 
 
 /* You can add global styles to this file, and also import other style files */
+.glow-on-hover-purple {
+    transition: 0.3s;
+    box-shadow: 0 0 10px rgba(74, 29, 150, 0.5);
+  }
+
+  .glow-on-hover-purple:hover {
+    box-shadow: 0 0 20px rgba(74, 29, 150, 0.7);
+  }

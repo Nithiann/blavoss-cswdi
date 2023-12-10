@@ -40,6 +40,7 @@
                 <li><strong>lastName: string</strong></li>
                 <li><strong>DateOfBirth: Date</strong></li>
                 <li><strong>Gender: enum(string)</strong></li>
+                <li><strong>role: enum(string)</strong></li>
                 <li><strong>tickets: [...Ticketsales]</strong></li>
             </div>
             <div class="mb-8">
@@ -90,19 +91,19 @@
         </p>
     </div>
     <div class="container">
-        <div class="overflow-x-auto bg-white rounded-lg shadow overflow-y-auto relative">
-            <table class="border-collapse table-auto w-full whitespace-no-wrap bg-white table-striped relative">
+        <div class="overflow-x-auto bg-slate-900 rounded-lg shadow overflow-y-auto relative">
+            <table class="border-collapse table-auto w-full whitespace-no-wrap bg-slate-900 table-striped relative">
                 <thead>
                     <tr class="text-left">
-                        <th class="py-2 px-8 sticky top-0 border-b border-gray-300 bg-gray-100">Id</th>
-                        <th class="py-2 px-3 sticky top-0 border-b border-gray-300 bg-gray-100">Beschrijving</th>
-                        <th class="py-2 px-3 sticky top-0 border-b border-gray-300 bg-gray-100">Acceptatiecriteria</th>
-                        <th class="py-2 px-3 sticky top-0 border-b border-gray-300 bg-gray-100">Prioriteit</th>
+                        <th class="py-2 px-8 sticky top-0 border-b border-gray-300 bg-slate-900">Id</th>
+                        <th class="py-2 px-3 sticky top-0 border-b border-gray-300 bg-slate-900">Beschrijving</th>
+                        <th class="py-2 px-3 sticky top-0 border-b border-gray-300 bg-slate-900">Acceptatiecriteria</th>
+                        <th class="py-2 px-3 sticky top-0 border-b border-gray-300 bg-slate-900">Prioriteit</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="border-t px-3 py-2 cursor-pointer underline text-blue-500">F-01</td>
+                        <td class="border-t px-3 py-2 underline text-blue-500">F-01</td>
                         <td class="border-t px-3 py-2">Als user wil ik een lijst van festivals zien, zodanig dat ik kan zien wat de opkomende festivals zijn en niet alleen de afgelopen.</td>
                         <td class="border-t px-3 py-2">
                             <ul class="list-disc">

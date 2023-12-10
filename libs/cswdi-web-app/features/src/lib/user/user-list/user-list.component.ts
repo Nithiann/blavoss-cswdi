@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { IUser } from '@blavoss-cswdi/shared/api';
 import { Subscription } from 'rxjs';
 import { UserService } from '../user.service';
-import { MessageService } from 'primeng/api';
+import { MessageService, PrimeIcons } from 'primeng/api';
 
 @Component({
   selector: 'blavoss-cswdi-user-list',
@@ -12,6 +12,9 @@ import { MessageService } from 'primeng/api';
 export class UserListComponent implements OnInit, OnDestroy {
     users: IUser[] | null = null;
     subscription: Subscription | undefined = undefined;
+    editIcon: PrimeIcons | undefined = PrimeIcons.USER_EDIT;
+    addIcon: PrimeIcons | undefined = PrimeIcons.USER_PLUS;
+    deleteIcon: PrimeIcons | undefined = PrimeIcons.USER_MINUS;
 
     constructor(private userService: UserService, private messageService: MessageService) {}
 
