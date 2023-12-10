@@ -1,6 +1,16 @@
 {
   "name": "api",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "configurations": {
+    "production": {
+      "fileReplacements": [
+        {
+          "replace": "libs/shared/environments/environments.ts",
+          "with": "libs/shared/environments/environments.prod.ts"
+        }
+      ]
+    }
+  },
   "sourceRoot": "libs/shared/api/src",
   "projectType": "library",
   "targets": {
