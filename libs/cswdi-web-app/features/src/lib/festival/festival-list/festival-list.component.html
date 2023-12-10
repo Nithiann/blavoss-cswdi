@@ -1,20 +1,20 @@
 <div class="container mx-auto mt-10 text-left">
     <div class="flex justify-between items-center mb-6">
         <h2 class="text-2xl font-semibold text-gray-800">Festival management</h2>
-        <button class="btn btn-primary bg-blue-500 rounded-sm p-1 hover:bg-blue-600 ease-in-out duration-300 text-white" routerLink="/festival/new">Add a festival</button>
+        <button class="btn btn-primary bg-blue-500 rounded-sm p-1 hover:bg-blue-600 ease-in-out duration-300 text-white" routerLink="/festival/new"><span class="pi pi-plus p-2"></span></button>
     </div>
 
-    <div class="overflow-x-auto bg-white rounded-lg shadow overflow-y-auto relative">
-        <table class="border-collapse table-auto w-full whitespace-no-wrap bg-white table-striped relative">
+    <div class="overflow-x-auto bg-slate-900 rounded-lg shadow overflow-y-auto relative">
+        <table class="border-collapse table-auto w-full whitespace-no-wrap bg-slate-900 table-striped relative">
             <thead>
                 <tr class="text-left">
-                    <th class="py-2 px-3 sticky top-0 border-b border-gray-300 bg-gray-100">Name</th>
-                    <th class="py-2 px-3 sticky top-0 border-b border-gray-300 bg-gray-100">Location</th>
-                    <th class="py-2 px-3 sticky top-0 border-b border-gray-300 bg-gray-100">Start date</th>
-                    <th class="py-2 px-3 sticky top-0 border-b border-gray-300 bg-gray-100">End date</th>
-                    <th class="py-2 px-3 sticky top-0 border-b border-gray-300 bg-gray-100">Ticket price</th>
-                    <th class="py-2 px-3 sticky top-0 border-b border-gray-300 bg-gray-100">Genre</th>
-                    <th class="py-2 px-3 sticky top-0 border-b border-gray-300 bg-gray-100">Actions</th>
+                    <th class="py-2 px-3 sticky top-0 border-b border-gray-300 bg-slate-900">Name</th>
+                    <th class="py-2 px-3 sticky top-0 border-b border-gray-300 bg-slate-900">Location</th>
+                    <th class="py-2 px-3 sticky top-0 border-b border-gray-300 bg-slate-900">Start date</th>
+                    <th class="py-2 px-3 sticky top-0 border-b border-gray-300 bg-slate-900">End date</th>
+                    <th class="py-2 px-3 sticky top-0 border-b border-gray-300 bg-slate-900">Ticket price</th>
+                    <th class="py-2 px-3 sticky top-0 border-b border-gray-300 bg-slate-900">Genre</th>
+                    <th class="py-2 px-3 sticky top-0 border-b border-gray-300 bg-slate-900">Actions</th>
                 </tr>
             </thead>
             <tbody *ngFor="let festival of festivals">
@@ -26,9 +26,9 @@
                     <td class="border-t px-3 py-2">€{{festival.ticketPrice}}</td>
                     <td class="border-t px-3 py-2">{{festival.genre}}</td>
                     <td class="border-t px-3 py-2">
-                        <button class="btn btn-sm btn-primary mr-2 rounded-sm p-1 bg-green-400 hover:bg-green-500 ease-in-out duration-300 text-white" [routerLink]="['/festival/artists', festival._id]">Add artists</button>
+                        <button class="btn btn-sm btn-primary mr-2 rounded-sm p-1 bg-green-400 hover:bg-green-500 ease-in-out duration-300 text-white" [routerLink]="['/festival/artists', festival._id]"><span class="pi pi-user-plus p-1"></span></button>
                         <p-toast></p-toast>
-                        <button class="btn btn-sm btn-danger bg-red-600 rounded-sm p-1 hover:bg-red-700 ease-in-out duration-300 text-white" (click)="delete(festival._id)">Delete</button>
+                        <button class="btn btn-sm btn-danger bg-red-600 rounded-sm p-1 hover:bg-red-700 ease-in-out duration-300 text-white" (click)="delete(festival._id)"><span class="pi pi-times p-1"></span></button>
                     </td>
                 </tr>                
             </tbody>
